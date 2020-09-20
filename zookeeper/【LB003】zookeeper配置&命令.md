@@ -64,7 +64,6 @@ set [-s] [-v version] path data<br>
 查看节点状态 -w 添加监听<br>
 **sync path**<br>
 强制同步节点<br>
-
 **node数据的增删改查**
 
 ```shell
