@@ -50,5 +50,7 @@ cp zoo_sample.cfg zoo.cfg
 ./{zookeeper_home}/bin/zkServer.sh start
 #指定启动执行的配置文件
 ./{zookeeper_home}/bin/zkServer.sh start ./conf/zoo_sample.cfg start
+#查看是否启动成功
+./zkServer.sh status
 ```
 

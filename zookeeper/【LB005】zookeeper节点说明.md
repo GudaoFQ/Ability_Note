@@ -7,7 +7,7 @@
 3. 节点属性说明(stat)
 4. 权限设置(acl)
 
-zookeeper 中节点叫znode存储结构上跟文件系统类似，以树级结构进行存储。不同之外在于znode没有目录的概念，不能执行类似cd之类的命令。znode结构包含如下：
+zookeeper中节点叫znode存储结构上跟文件系统类似，以树级结构进行存储。不同之处在于znode没有目录的概念，不能执行类似cd之类的命令。znode结构包含如下：
 
 * **path**:唯一路径 
 * **childNode**：子节点
@@ -60,14 +60,14 @@ create -e /temp
 与持久序号节点类似，不同之处在于EPHEMERAL_SEQUENTIAL是临时的会在会话断开后删除。创建时添加 -e -s 
 
 ```
-create -e -s /temp/seq
+create -e -s /gudao/test
 ```
 
 ### 节点属性
 
 ```
 # 查看节点属性
-stat /luban
+stat /gudao
 ```
 
 #### 其属性说明如下表：
@@ -109,7 +109,7 @@ numChildren = 0
 | printwatches on\|off | 触发监听后，是否打印监听事件(默认on) |
 
 
-### **acl权限设置**
+### acl权限设置
 
 ACL全称为Access Control List（访问控制列表），用于控制资源的访问权限。ZooKeeper使用ACL来控制对其znode的防问。基于scheme:id:permission的方式进行权限控制。scheme表示授权模式、id模式对应值、permission即具体的增删改权限位。
 
@@ -141,7 +141,8 @@ ACL全称为Access Control List（访问控制列表），用于控制资源的�
 | addauth | addauth <scheme> <auth> | 添加认证用户 |
 
 **world权限示例**
-**语法**： setAcl <path> world:anyone:<权限位>
+**语法**： <br>
+`setAcl <path> world:anyone:<权限位>`<br>
 注：world模式中anyone是唯一的值,表示所有人
 
 #### 查看默认节点权限：
@@ -171,19 +172,19 @@ Authentication is not valid : /testAcl/t
 **IP权限示例：**
 语法： 
 
-1. setAcl <path> ip:<ip地址|地址段>:<权限位>
+1. `setAcl <path> ip:<ip地址|地址段>:<权限位>`
 
 **auth模式示例:**
 语法： 
 
-1. setAcl <path> auth:<用户名>:<密码>:<权限位>
-2. addauth digest <用户名>:<密码>
+1. `setAcl <path> auth:<用户名>:<密码>:<权限位>`
+2. `addauth digest <用户名>:<密码>`
 
 **digest 权限示例：**
 语法： 
 
-1. setAcl <path> digest :<用户名>:<密钥>:<权限位>
-2. addauth digest <用户名>:<密码>
+1. `setAcl <path> digest :<用户名>:<密钥>:<权限位>`
+2. `addauth digest <用户名>:<密码>`
 
 注1：密钥 通过sha1与base64组合加密码生成，可通过以下命令生成
 
@@ -191,38 +192,38 @@ Authentication is not valid : /testAcl/t
 echo -n <用户名>:<密码> | openssl dgst -binary -sha1 | openssl base64
 ```
 
-注2：为节点设置digest 权限后，访问前必须执行addauth，当前会话才可以防问。
+注2：为节点设置digest 权限后，访问前必须执行addauth，当前会话才可以访问。
 
 1. 设置digest 权限
 
 ```
 #先 sha1 加密，然后base64加密
-echo -n luban:123456 | openssl dgst -binary -sha1 | openssl base64
+echo -n gudao:123456 | openssl dgst -binary -sha1 | openssl base64
 #返回密钥
 2Rz3ZtRZEs5RILjmwuXW/wT13Tk=
 #设置digest权限
-setAcl /luban digest:luban:2Rz3ZtRZEs5RILjmwuXW/wT13Tk=:cdrw
+setAcl /gudao digest:gudao:2Rz3ZtRZEs5RILjmwuXW/wT13Tk=:cdrw
 ```
 
 1. 查看节点将显示没有权限
 
 ```
 #查看节点
-get /luban
+get /gudao
 #显示没有权限访问
-org.apache.zookeeper.KeeperException$NoAuthException: KeeperErrorCode = NoAuth for /luban
+org.apache.zookeeper.KeeperException$NoAuthException: KeeperErrorCode = NoAuth for /gudao
 ```
 
 1. 给当前会话添加认证后在次查看
 
 ```
 #给当前会话添加权限帐户
-addauth digest luban:123456
+addauth digest gudao:123456
 #在次查看
-get /luban
+get /gudao
 #获得返回结果
-luban is good man
+gudao test
 ```
 
-ACL的特殊说明：
+#### ACL的特殊说明：
 权限仅对当前节点有效，不会让子节点继承。如限制了IP防问A节点，但不妨碍该IP防问A的子节点 /A/B。
