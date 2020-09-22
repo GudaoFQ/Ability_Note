@@ -14,12 +14,10 @@
 ### zookeeper概要：
 
 ZooKeeper是用于分布式应用程序的协调服务。它公开了一组简单的API，分布式应用程序可以基于这些API用于同步，节点状态、配置等信息、服务注册等信息。其由JAVA编写，支持JAVA 和C两种语言的客户端。
-![图片](https://uploader.shimo.im/f/Q3T3PRV6bLkeFIMf.png!thumbnail)
+![image-20200921171222180](../resource/zookeeper/image-20200921171222180.png)
 
 ### znode 节点：
 
 zookeeper 中数据基本单元叫节点，节点之下可包含子节点，最后以树级方式程现。每个节点拥有唯一的路径path。客户端基于PATH上传节点数据，zookeeper 收到后会实时通知对该路径进行监听的客户端。
 
-![图片](https://uploader.shimo.im/f/vmq8ZNmrsWk7v199.png!thumbnail)
-
-## 
+![image-20200921171418007](../resource/zookeeper/image-20200921171418007.png)
