@@ -26,7 +26,7 @@ autopurge.purgeInterval=1
 #### 基本命令列表
 
 `addauth scheme auth`<br>
-添加用户<br>
+添加用户【向会话中添加认证服务】<br>
 `close`<br>
 关闭当前会话<br>
 `config [-c] [-w] [-s]`<br>
