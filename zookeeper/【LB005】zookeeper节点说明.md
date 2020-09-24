@@ -77,20 +77,20 @@ stat /gudao
 cZxid = 0x385
 #创建时间
 ctime = Tue Sep 24 17:26:28 CST 2019
-#修改节点的事物ID
+#修改节点的事务ID
 mZxid = 0x385
 #最后修改时间
 mtime = Tue Sep 24 17:26:28 CST 2019
-# 子节点变更的事物ID
+#子节点变更的事务ID【子节点的数据修改，改值不会变更】
 pZxid = 0x385
 #这表示对此znode的子节点进行的更改次数（不包括子节点）
 cversion = 0
-# 数据版本，变更次数
+#数据版本，变更次数【节点中数据修改时会变更】
 dataVersion = 0
-#权限版本，变更次数
+#权限版本，变更次数【acess control list 只有当权限变更时才会变更】
 aclVersion = 0
 #临时节点所属会话ID
-ephemeralOwner = 0x0
+ephemeralOwner = 0x0【0x0表示当前属性为空，则这个节点就不是临时节点】
 #数据长度
 dataLength = 17
 #子节点数(不包括子子节点)
@@ -106,7 +106,7 @@ numChildren = 0
 | ls -w path           | 监听子节点的变化（增，删）           |
 | get -w path          | 监听节点数据的变化                   |
 | stat -w path         | 监听节点属性的变化                   |
-| printwatches on\|off | 触发监听后，是否打印监听事件(默认on) |
+| printwatches on\off | 触发监听后，是否打印监听事件(默认on) |
 
 
 ### acl权限设置
