@@ -32,7 +32,8 @@ public void countDown() { };
 #### 等待示例：
 
 ```JAVA
-public static void main(String[] args) {
+public class Main {
+    public static void main(String[] args) {
         final CountDownLatch latch = new CountDownLatch(2);
         System.out.println("主线程开始执行…… ……");
         //第一个子线程执行
@@ -77,6 +78,7 @@ public static void main(String[] args) {
         }
         System.out.println("两个子线程都执行完毕，继续执行主线程");
     }
+}
 ```
 
 #### 执行结果：
