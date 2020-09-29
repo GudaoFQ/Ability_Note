@@ -41,6 +41,7 @@ create /test
 create -s /test
 #返回创建的实际路径
 Created /test0000000001
+
 create -s /test
 #返回创建的实际路径2
 Created /test0000000002
@@ -75,24 +76,34 @@ stat /gudao
 ```
 #创建节点的事物ID
 cZxid = 0x385
+
 #创建时间
 ctime = Tue Sep 24 17:26:28 CST 2019
+
 #修改节点的事务ID
 mZxid = 0x385
+
 #最后修改时间
 mtime = Tue Sep 24 17:26:28 CST 2019
+
 #子节点变更的事务ID【子节点的数据修改，改值不会变更】
 pZxid = 0x385
+
 #这表示对此znode的子节点进行的更改次数（不包括子节点）
 cversion = 0
+
 #数据版本，变更次数【节点中数据修改时会变更】
 dataVersion = 0
+
 #权限版本，变更次数【acess control list 只有当权限变更时才会变更】
 aclVersion = 0
+
 #临时节点所属会话ID
 ephemeralOwner = 0x0【0x0表示当前属性为空，则这个节点就不是临时节点】
+
 #数据长度
 dataLength = 17
+
 #子节点数(不包括子子节点)
 numChildren = 0
 ```
@@ -150,8 +161,10 @@ ACL全称为Access Control List（访问控制列表），用于控制资源的�
 ```
 #创建一个节点
 create -e /testAcl
+
 #查看节点权限
 getAcl /testAcl
+
 #返回的默认权限表示 ，所有人拥有所有权限。
 'world,'anyone: cdrwa
 ```
@@ -161,10 +174,13 @@ getAcl /testAcl
 ```
 #设置为rw权限 
 setAcl /testAcl world:anyone:rw
+
 # 可以正常读
 get /testAcl
+
 # 无法正常创建子节点
 create -e /testAcl/t "hi"
+
 # 返回没有权限的异常
 Authentication is not valid : /testAcl/t
 ```
@@ -199,8 +215,10 @@ echo -n <用户名>:<密码> | openssl dgst -binary -sha1 | openssl base64
 ```
 #先 sha1 加密，然后base64加密
 echo -n gudao:123456 | openssl dgst -binary -sha1 | openssl base64
+
 #返回密钥
 2Rz3ZtRZEs5RILjmwuXW/wT13Tk=
+
 #设置digest权限
 setAcl /gudao digest:gudao:2Rz3ZtRZEs5RILjmwuXW/wT13Tk=:cdrw
 ```
@@ -210,6 +228,7 @@ setAcl /gudao digest:gudao:2Rz3ZtRZEs5RILjmwuXW/wT13Tk=:cdrw
 ```
 #查看节点
 get /gudao
+
 #显示没有权限访问
 org.apache.zookeeper.KeeperException$NoAuthException: KeeperErrorCode = NoAuth for /gudao
 ```
@@ -219,8 +238,10 @@ org.apache.zookeeper.KeeperException$NoAuthException: KeeperErrorCode = NoAuth f
 ```
 #给当前会话添加权限帐户
 addauth digest gudao:123456
+
 #在次查看
 get /gudao
+
 #获得返回结果
 gudao test
 ```
