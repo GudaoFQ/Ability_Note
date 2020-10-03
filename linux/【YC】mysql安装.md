@@ -94,8 +94,8 @@ http://downloads.mysql.com/archives/community/
     [root@localhost /]# cd /usr/local/mysql/bin
     [root@localhost bin]# ./mysqld --initialize --user=mysql --datadir=/usr/local/mysql/data --basedir=/usr/local/mysql
     ```
+    **运行初始化命令成功后，输出日志如下：**<br>
     ![mysql-1601474537.jpg](../resource/linux/mysql-1601474537.jpg)
-    **运行初始化命令成功后，输出日志如下：**
     记录日志最末尾位置root@localhost:后的字符串，此字符串为mysql管理员临时登录密码[#kyhr+?!_4sJ]
     
 - 6.编辑配置文件my.cnf，添加配置如下
@@ -141,7 +141,7 @@ http://downloads.mysql.com/archives/community/
     [root@localhost /]# ln -s /usr/local/mysql/bin/mysql /usr/bin/mysql
     [root@localhost /]# service mysql restart
     ```
-    **执行结果**
+    **执行结果**<br>
     ![mysql-1601475834.jpg](../resource/linux/mysql-1601475834.jpg)
     
     
@@ -151,7 +151,7 @@ http://downloads.mysql.com/archives/community/
     Enter password:
     mysql>set password for root@localhost = password('yourpass');
     ```
-    **执行结果**
+    **执行结果**<br>
     ![mysql-1601476029.jpg](../resource/linux/mysql-1601476029.jpg)
 
 - 10.开放远程连接
@@ -160,7 +160,7 @@ http://downloads.mysql.com/archives/community/
     msyql>update user set user.Host='%' where user.User='root';
     mysql>flush privileges;
     ```
-    **执行结果**
+    **执行结果**<br>
     ![mysql-1601476137.jpg](../resource/linux/mysql-1601476137.jpg)
 
 - 11.设置开机自动启动
