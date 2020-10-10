@@ -224,3 +224,5 @@ public class Main {
 ```
 
 ### 抽象工厂（Abstract Factory）
+
+![factory-1602236306.jpg](../resource/design/factory-1602236306.jpg)
