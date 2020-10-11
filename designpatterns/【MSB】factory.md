@@ -226,3 +226,186 @@ public class Main {
 ### 抽象工厂（Abstract Factory）
 
 ![factory-1602236306.jpg](../resource/design/factory-1602236306.jpg)
+#### 说明：
+**Transportion、Food、Gun为抽象工厂AbstractFactory中生产的抽象产品【可以看成一个抽象族】；而ak、car、strack这三个是USA族中的三个实体产品【他们分别继承自自己的抽象产品，由USA的实体工厂产出】，uzi、bus、noodles则是UK族中的实体产品【他们分别继承自自己的抽象产品，由Uk的实体工厂产出】，后期如果想要添加新的族，只需要新增实体工厂和工厂中产出的对象即可；main方法的测试也只需要修new出的具体工厂则能实现族中方法的替换**
+```java
+//抽象工厂与工厂中的抽象产品定义
+/**
+ * 抽象工厂类
+ * 抽象工厂中生产抽象产品
+ * Author : GuDao
+ * 2020-10-11
+ */
+public abstract class AbstractFactory {
+    public abstract Food createFood();
+    public abstract Gun createGun();
+    public abstract Transportion createTransportion();
+}
+
+/**
+ * 食物抽象类
+ * 抽象工厂中的抽象产品
+ * Author : GuDao
+ * 2020-10-11
+ */
+public abstract class Food {
+    public abstract void eating();
+}
+
+/**
+ * 枪的抽象类
+ * 抽象工厂中的抽象产品
+ * @author trail
+ * @date 2020/10/11
+ */
+public abstract class Gun {
+    public abstract void usering();
+}
+
+/**
+ * 交通工具抽象类
+ * 抽象工厂中的抽象产品
+ * Author : GuDao
+ * 2020-10-11
+ */
+public abstract class Transportion {
+    public abstract void moving();
+}
+
+//具体的工厂实现与产品实现[uk族]
+/**
+ * UK使用的交通工具实体类
+ * Author : GuDao
+ * 2020-10-11
+ */
+public class Bus extends Transportion {
+    @Override
+    public void moving() {
+        System.out.println("Bus moving slower");
+    }
+}
+/**
+ * UK食物实体类
+ * Author : GuDao
+ * 2020-10-11
+ */
+public class Noodles extends Food {
+    @Override
+    public void eating() {
+        System.out.println("UK吃面条");
+    }
+}
+/**
+ * UK使用的武器实体类
+ * Author : GuDao
+ * 2020-10-11
+ */
+public class Uzi extends Gun {
+    @Override
+    public void usering() {
+        System.out.println("UZI使用9mm子弹");
+    }
+}
+/**
+ * uk的同族工厂实体
+ * Author : GuDao
+ * 2020-10-11
+ */
+public class UkFactory extends AbstractFactory {
+
+    @Override
+    public Food createFood() {
+        return new Noodles();
+    }
+
+    @Override
+    public Gun createGun() {
+        return new Uzi();
+    }
+
+    @Override
+    public Transportion createTransportion() {
+        return new Bus();
+    }
+}
+
+//具体的工厂实现与产品实现[usa族]
+/**
+ * USA使用的武器实体类
+ * Author : GuDao
+ * 2020-10-11
+ */
+public class Ak extends Gun {
+    @Override
+    public void usering() {
+        System.out.println("AK使用7.62子弹");
+    }
+}
+/**
+ * USA使用的交通工具实体类
+ * Author : GuDao
+ * 2020-10-11
+ */
+public class Car extends Transportion {
+    @Override
+    public void moving() {
+        System.out.println("Car moving faster");
+    }
+}
+/**
+ * USA食物实体类
+ * Author : GuDao
+ * 2020-10-11
+ */
+public class Steak extends Food {
+    @Override
+    public void eating() {
+        System.out.println("USA吃牛排");
+    }
+}
+/**
+ * usa的同族工厂实体
+ * Author : GuDao
+ * 2020-10-11
+ */
+public class UsaFactory extends AbstractFactory {
+    @Override
+    public Food createFood() {
+        return new Steak();
+    }
+
+    @Override
+    public Gun createGun() {
+        return new Ak();
+    }
+
+    @Override
+    public Transportion createTransportion() {
+        return new Car();
+    }
+}
+
+//测试类
+/**
+ * Author : GuDao
+ * 2020-10-11
+ */
+public class Main {
+    public static void main(String[] args) {
+        //当前使用Uas的族类工厂
+        AbstractFactory factory = new UsaFactory();
+        //想变成Uk的只需要修改工厂实体就行
+        //AbstractFactory factory = new UkFactory();
+
+        //下面的代码不会修改
+        Food food = factory.createFood();
+        food.eating();
+        Transportion transportion = factory.createTransportion();
+        transportion.moving();
+        Gun gun = factory.createGun();
+        gun.usering();
+    }
+}
+``` 
+#### 注意：
+**这不使用接口是因为这些东西都是现实中的产品，接口只是一种功能的体现【动词用接口，名词用抽象类】**
