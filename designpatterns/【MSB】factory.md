@@ -407,5 +407,6 @@ public class Main {
     }
 }
 ``` 
+![factory-AbstractFactory.jpg](../resource/design/factory-AbstractFactory.jpg)
 #### 注意：
 **这不使用接口是因为这些东西都是现实中的产品，接口只是一种功能的体现【动词用接口，名词用抽象类】**
