@@ -1,5 +1,5 @@
 ## 介绍
-> 一般情况下，工厂模式分为三种更加细分的类型：简单工厂、工厂方法和抽象工厂。不过，在 GoF 的《设计模式》一书中，它将简单工厂模式看作是工厂方法模式的一种特例，所以工厂模式只被分成了工厂方法和抽象工厂两类。
+> 工厂模式：一般情况下，工厂模式分为三种更加细分的类型：简单工厂、工厂方法和抽象工厂。不过，在 GoF 的《设计模式》一书中，它将简单工厂模式看作是工厂方法模式的一种特例，所以工厂模式只被分成了工厂方法和抽象工厂两类。
 
 #### 使用细节
 
@@ -228,6 +228,8 @@ public class Main {
 ![factory-1602236306.jpg](../resource/design/factory-1602236306.jpg)
 #### 说明：
 **Transportion、Food、Gun为抽象工厂AbstractFactory中生产的抽象产品【可以看成一个抽象族】；而ak、car、strack这三个是USA族中的三个实体产品【他们分别继承自自己的抽象产品，由USA的实体工厂产出】，uzi、bus、noodles则是UK族中的实体产品【他们分别继承自自己的抽象产品，由Uk的实体工厂产出】，后期如果想要添加新的族，只需要新增实体工厂和工厂中产出的对象即可；main方法的测试也只需要修new出的具体工厂则能实现族中方法的替换**
+#### UML类图：
+![factory-abstractFactoryUML.jpg](../resource/design/factory-AbstractFactoryUML.jpg)
 ```java
 //抽象工厂与工厂中的抽象产品定义
 /**
@@ -407,6 +409,5 @@ public class Main {
     }
 }
 ``` 
-![factory-AbstractFactory.jpg](../resource/design/factory-AbstractFactory.jpg)
 #### 注意：
 **这不使用接口是因为这些东西都是现实中的产品，接口只是一种功能的体现【动词用接口，名词用抽象类】**
