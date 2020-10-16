@@ -6,6 +6,9 @@
 * 策略的创建
 * 策略的使用
 
+#### UML类图
+![strategy-strategyUML.jpg](../resource/design/strategy-strategyUML.jpg)
+
 > 此处的策略定义可以直接使用java.util下的Comparable接口；示例中使用的是自定义比较策略接口
 ### 需要比较的实体
 ```java
