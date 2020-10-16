@@ -4,7 +4,6 @@
 #### 使用细节
 
 ### 简单工厂一（Simple Factory）【可扩展性不好】
-
 > 简单工厂模式并不是23种常用的设计模式之一，它只算工厂模式的一个特殊实现。简单工厂模式在实际中的应用相对于其他2个工厂模式用的还是相对少得多，因为它只适应很多简单的情况。最重要的是它违背了我们在概述中说的 开放-封闭原则 （虽然可以通过反射的机制来避免，后面我们会介绍到） 。因为每次你要新添加一个功能，都需要在生switch-case 语句（或者if-else 语句）中去修改代码，添加分支条件。
 
 > 示例：根据配置文件的后缀（json、xml、yaml、properties），选择不同的解析器（JsonRuleConfigParser、XmlRuleConfigParser……），将存储在文件中的配置解析成内存对象 RuleConfig。
@@ -45,7 +44,6 @@ public class RuleConfigParserFactory {
 ```
 
 ### 简单工厂二（Simple Factory）
-
 > 使用接口实现
 ```java
 /*接口类*/
@@ -145,7 +143,6 @@ public class Main {
 ```
 
 ### 工厂方法（Factory Method）【一个实体一个工厂】
-
 > 工厂方法模式比起简单工厂模式更加符合开闭原则<br>
 > 开闭原则规定“软件中的对象（类，模块，函数等等）应该对于扩展是开放的，但是对于修改是封闭的”，这意味着一个实体是允许在不改变它的源代码的前提下变更它的行为。
 
@@ -224,11 +221,10 @@ public class Main {
 ```
 
 ### 抽象工厂（Abstract Factory）
-
 ![factory-1602236306.jpg](../resource/design/factory-1602236306.jpg)
-#### 说明：
+#### 说明
 **Transportion、Food、Gun为抽象工厂AbstractFactory中生产的抽象产品【可以看成一个抽象族】；而ak、car、strack这三个是USA族中的三个实体产品【他们分别继承自自己的抽象产品，由USA的实体工厂产出】，uzi、bus、noodles则是UK族中的实体产品【他们分别继承自自己的抽象产品，由Uk的实体工厂产出】，后期如果想要添加新的族，只需要新增实体工厂和工厂中产出的对象即可；main方法的测试也只需要修new出的具体工厂则能实现族中方法的替换**
-#### UML类图：
+#### UML类图
 ![factory-abstractFactoryUML.jpg](../resource/design/factory-AbstractFactoryUML.jpg)
 ```java
 //抽象工厂与工厂中的抽象产品定义
@@ -409,5 +405,5 @@ public class Main {
     }
 }
 ``` 
-#### 注意：
+#### 注意
 **这不使用接口是因为这些东西都是现实中的产品，接口只是一种功能的体现【动词用接口，名词用抽象类】**
