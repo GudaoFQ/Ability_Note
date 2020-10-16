@@ -17,6 +17,8 @@
 #### 责任链的生成方式：
 ![responsibilityChain-形成示意图.jpg](../resource/design/responsibilityChain-形成示意图.jpg)
 
+## 普通的责任链模式
+> 偏向于递归调用handlerMsg，如果想实现Filter中的逻辑，可以直接改造handler的业务逻辑即可【先处理request，然后再处理response】
 ### 抽象处理者
 ```java
 /**
@@ -171,9 +173,176 @@ public class Main {
         uriHandler.setHandler(commaHandler);
         //将periodHandler设置为commaHandler的下一个责任链成员
         commaHandler.setHandler(periodHandler);
-
         String s = textHandler.handlerMsg("Hello,I am gudao,my page is 'gudao.ink'");
         System.out.println(s);
     }
 }
+```
+### 执行结果
+```shell
+Hello, I am 孤岛, my page is 'http://gudao.ink'.
+```
+
+## java.servlet.Filter实现责任链模拟
+![responsibilityChain-Spring中的Filter.jpg](../resource/design/responsibilityChain-Spring中的Filter.jpg)
+> 实现了执行request顺序为：filter1->filter2->filter；执行response顺序为：filter3->filter2->filter1
+
+### 定义Filter接口【处理接口】
+```java
+/**
+ * 责任执行接口
+ * Author : GuDao
+ * 2020-10-16
+ */
+public interface Filter {
+    boolean doFilter(StringBuffer request, StringBuffer response, FilterChain chain);
+}
+```
+### 定义责任链条
+```java
+import java.util.ArrayList;
+import java.util.List;
+/**
+ * 责任链中的链条
+ * Author : GuDao
+ * 2020-10-16
+ */
+public class FilterChain implements Filter{
+    //Filter存储容器
+    private List<Filter> filters = new ArrayList<>();
+    //Filter执行标识，辨别当前的chain执行到了第几个Filter
+    int index = 0;
+    /**
+     * 向执行链中添加Filter
+     *
+     * @param filter 过滤器
+     * @return {@link FilterChain}
+     */
+    public FilterChain add(Filter filter){
+        this.filters.add(filter);
+        return this;
+    }
+    /**
+     * 做的过滤器
+     * 执行request顺序为：filter1->filter2->filter；执行response顺序为：filter3->filter2->filter1
+     *
+     * @param request  请求
+     * @param response 响应
+     * @param chain    链
+     * @return boolean
+     */
+    @Override
+    public boolean doFilter(StringBuffer request, StringBuffer response, FilterChain chain) {
+        //判断当前责任链中是否执行到了责任链末尾【后面没有执行的Filter就返回false】
+        if(index == filters.size()) return false;
+        //获取当前的执行器
+        Filter filter = filters.get(index);
+        //标识加一，告诉chain执行到哪儿了
+        index++;
+        //执行Filter中的逻辑
+        return filter.doFilter(request, response, chain);
+    }
+//    /**
+//     * 实现某个Filter校验为false这执行结束
+//     *
+//     * @param request  请求
+//     * @param response 响应
+//     * @param chain    链
+//     * @return boolean
+//     */
+//    @Override
+//    public boolean doFilter(StringBuffer request, StringBuffer response, FilterChain chain) {
+//        for (Filter filter:filters) {
+//            if(!filter.doFilter(request, response, chain))return false;
+//        }
+//        return true;
+//    }
+}
+```
+### 处理实体
+```java
+/**
+ * Author : GuDao
+ * 2020-10-16
+ */
+public class FirstFilter implements Filter {
+    @Override
+    public boolean doFilter(StringBuffer request, StringBuffer response, FilterChain chain) {
+        //处理request业务
+        request.append("FirstFilter ");
+        //调用chain，通过chain来执行下一个Filter中的request业务
+        //TODO 执行“实现某个Filter校验为false这执行结束”是要将下面一行注释
+        chain.doFilter(request, response, chain);
+        //处理Response
+        response.append("FirstFilter ");
+        return true;
+    }
+}
+
+/**
+ * Author : GuDao
+ * 2020-10-16
+ */
+public class TwiceFilter implements Filter {
+    @Override
+    public boolean doFilter(StringBuffer request, StringBuffer response, FilterChain chain) {
+        //处理request业务
+        request.append("TwiceFilter ");
+        //调用chain，通过chain来执行下一个Filter中的request业务
+        //TODO 执行“实现某个Filter校验为false这执行结束”是要将下面一行注释
+        chain.doFilter(request, response, chain);
+        //处理Response
+        response.append("TwiceFilter ");
+        return true;
+    }
+}
+
+/**
+ * Author : GuDao
+ * 2020-10-16
+ */
+public class ThreeFilter implements Filter {
+    @Override
+    public boolean doFilter(StringBuffer request, StringBuffer response, FilterChain chain) {
+        //处理request业务
+        request.append("ThreeFilter ");
+        //调用chain，通过chain来执行下一个Filter中的request业务
+        //TODO 执行“实现某个Filter校验为false这执行结束”是要将下面一行注释
+        chain.doFilter(request, response, chain);
+        //处理Response
+        response.append("ThreeFilter ");
+        return true;
+    }
+}
+```
+###测试类
+```java
+/**
+ * Author : GuDao
+ * 2020-10-16
+ */
+public class Main {
+    public static void main(String[] args) {
+        FilterChain chain = new FilterChain();
+        StringBuffer request = new StringBuffer();
+        StringBuffer response = new StringBuffer();
+        //向责任链中添加Filter
+        chain.add(new FirstFilter()).add(new TwiceFilter()).add(new ThreeFilter());
+        chain.doFilter(request, response, chain);
+        System.out.println(request);
+        System.out.println(response);
+    }
+}
+```
+### 执行结果
+> 实现某个Filter校验为false这执行结束
+```shell
+FirstFilter TwiceFilter
+FirstFilter TwiceFilter
+```
+### 执行结果
+> 执行request顺序为：filter1->filter2->filter；执行response顺序为：filter3->filter2->filter1
+```shell
+FirstFilter TwiceFilter ThreeFilter 
+ThreeFilter TwiceFilter FirstFilter  
 ```
