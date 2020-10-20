@@ -25,3 +25,107 @@
 > 它是一个抽象类或接口,它包含了一个更新自己的抽象方法,当接到具体主题的更改通知时被调用。
 * 具体观察者(ConcreteObserver)角色
 > 实现抽象观察者中定义的抽象方法,以便在得到目标的更改通知时更新自身的状态。
+
+### 抽象主题(Subject)角色
+```java
+/**
+ * Author : GuDao
+ * 2020-10-20
+ */
+public class Child {
+    //监听者集合
+    List<Listerner> listers = new ArrayList<>();
+    public Child add(Listerner lister){
+        listers.add(lister);
+        return this;
+    }
+    public void childProcess(ActionEvent actionEvent){
+        for(Listerner lister : listers){
+            lister.process(actionEvent);
+        }
+    }
+}
+```
+### 抽象观察者(Observer)角色
+```java
+/**
+ * 监听接口
+ * Author : GuDao
+ * 2020-10-20
+ */
+public interface Listerner {
+    public void process(ActionEvent event);
+}
+```
+### 事件
+```java
+/**
+ * Author : GuDao
+ * 2020-10-20
+ */
+public class ActionEvent {
+    /**
+     * 时段
+     */
+    private String timePeriod;
+
+    /**
+     * 监听源
+     */
+    private Object source;
+    public ActionEvent(String timePeriod, Object source) {
+        this.timePeriod = timePeriod;
+        this.source = source;
+    }
+    public String getTimePeriod() {
+        return timePeriod;
+    }
+    public Object getSource() {
+        return source;
+    }
+}
+```
+### 具体监听者
+```java
+/**
+ * Author : GuDao
+ * 2020-10-20
+ */
+public class FatherListener implements Listerner {
+    @Override
+    public void process(ActionEvent event) {
+        if("morning".equals(event.getTimePeriod())) System.out.println("父亲哄孩子");
+        else if("dinner".equals(event.getTimePeriod())) System.out.println("父亲带孩子散步");
+        else System.out.println("父亲换尿布");
+    }
+}
+/**
+ * Author : GuDao
+ * 2020-10-20
+ */
+public class MatherListener implements Listerner {
+    @Override
+    public void process(ActionEvent event) {
+        if("morning".equals(event.getTimePeriod())) System.out.println("母亲喂奶");
+        else if("dinner".equals(event.getTimePeriod())) System.out.println("母亲喂午饭");
+        else System.out.println("母亲哄孩子睡觉");
+    }
+}
+```
+### 测试
+```java
+/**
+ * Author : GuDao
+ * 2020-10-20
+ */
+public class Main {
+    public static void main(String[] args) {
+        Child child = new Child();
+        ActionEvent event = new ActionEvent("morning", child);
+        Listerner fatherLister = new FatherListener();
+        Listerner matherLister = new MatherListener();
+        child.add(fatherLister).add(matherLister);
+        child.childProcess(event);
+    }
+}
+```
