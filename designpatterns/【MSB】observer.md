@@ -26,6 +26,12 @@
 * 具体观察者(ConcreteObserver)角色
 > 实现抽象观察者中定义的抽象方法,以便在得到目标的更改通知时更新自身的状态。
 
+#### UML类图：
+![observer-childobserverUML.jpg](../resource/design/observer-childobserverUML.jpg)
+
+#### SimpleObserver 
+> child为监听事件源，fatherlisterner与matherListerner为监听者；通过event来执行监听者早中晚需要做的事情
+
 ### 抽象主题(Subject)角色
 ```java
 /**
