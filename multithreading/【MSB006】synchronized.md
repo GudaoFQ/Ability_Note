@@ -110,3 +110,71 @@ class Son extends Father {
 ![multithreading-锁的四种状态.jpg](../resource/multithreading/multithreading-锁的四种状态.jpg)
 **注：synchronized自旋锁默认会自旋10次**
 > 看：【MSB厕所所长】1-2.md
+
+#### 锁的优化
+##### 锁粗化&锁细化
+* 下面的代码反过来就是锁细化
+> 原则上，我们都知道在加同步锁的时候，尽可能的将同步块的作用范围限制在尽量小的范围，比如下面这两种情况：
+```java
+//未进行粗化
+public class SynchronizedTest {
+	
+	private int count;
+	
+	public void test() {
+		System.out.println("test");
+		int a = 0;
+		synchronized (this) {
+			count++;
+		}
+	}
+}
+//粗化后
+public class SynchronizedTest {
+	
+	private int count;
+	
+	public void test() {
+		synchronized (this) {
+			System.out.println("test");
+			int a = 0;
+			count++;
+		}
+	}
+}
+```
+1. 很明显，第一种实现方式好于第二种，它并不会将对非共享数据的操作划分到同步代码块中，使得同步需要的操作数量更少，在存在锁竞争的情况下，也可以使得等待锁的线程尽快的拿到锁。
+2. 对于大多数情况，这种思想是完全正确的，但是如果存在一连串的操作都对同一个对象进行反复的加锁和解锁，甚至加锁的操作出现在循环体中，那么即使没有线程竞争共享资源，频繁的进行加锁操作也会导致性能损耗。
+3. 锁粗化的思想就是扩大加锁范围，避免反复的加锁和解锁。
+
+##### 这里还是拿 StringBuffer 举例，如下所示
+```java
+class Test{
+    public String test(String str){
+           int i = 0;
+           StringBuffer sb = new StringBuffer();
+           while(i < 100){
+               sb.append(str);
+               i++;
+           }
+           return sb.toString();
+    }
+}
+```
+> 在这种情况下，JVM 会检测到这样一连串的操作都对同一个对象加锁（while 循环内 100 次执行 append，没有锁粗化的就要进行 100 次加锁/解锁），此时 JVM 就会将加锁的范围粗化到这一连串的操作的外部（比如 while 虚幻体外），使得这一连串操作只需要加一次锁即可。
+###### 总结
+> synchronized在不被挣抢很剧烈的情况下应该实行锁细化操作
+* 在需要加锁的方法中，当需要加锁的代码前后有很多的业务逻辑代码执行，此时的synchronized就应该加在需要加锁的代码那，而不是将整个方法锁住
+* 当很多的细琐被挣用的特别频繁的时候，此时可以将一些细琐进行粗化成一个大锁
+
+##### 锁消除
+> 锁消除是一种更为彻底的优化，在 JIT 编译时，对运行上下文进行扫描，去除不可能存在共享资源竞争的锁。
+```java
+class Test{
+    public void add(String str1,String str2){
+             StringBuffer sb = new StringBuffer();
+             sb.append(str1).append(str2);
+    }
+}
+```
+* 我们都知道 StringBuffer 是线程安全的，因为它的关键方法都是被 synchronized 修饰过的，但我们看上面这段代码，我们会发现，sb 这个引用只会在 add 方法中使用，不可能被其它线程引用（因为是局部变量，栈私有），因此 sb 是不可能共享的资源，JVM 会自动消除 StringBuffer 对象内部的锁。
