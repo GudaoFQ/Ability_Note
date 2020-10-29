@@ -30,7 +30,7 @@ volatile可以保证线程可见性且提供了一定的有序性，但是无法
 > 修饰引用类型的时候，不会对引用中的属性进行可见性操作【volatile修饰引用对象只是修饰了其引用值，而不是其引用的内容的可见性，但是有一个地方是被修饰的引用对象当其他线程需要获取的所有变量都会从主内存去获取】
 ```markdown
 具体示例请看【MSB007】volatile修饰引用类型示例.md
-代码示例：
+代码示例：https://github.com/GudaoFQ/Multithreading/blob/main/src/main/java/com/gudao/m007_volatile_visible/VolatileQuoteListVisible.java
 ```
 
 #### 禁止指令重排
