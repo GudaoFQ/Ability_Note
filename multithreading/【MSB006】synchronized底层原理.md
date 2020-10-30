@@ -105,10 +105,10 @@ public static synchronized void divide();
 2. 第二部分“Klass Pointer”: 对象指向它的类的元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。(数组，对象头中还须有一块用于记录数组长度的数据，因为虚拟机可以通过普通Java对象的元数据信息确定Java对象的大小，但是从数组的元数据中无法确定数组的大小。 )
 
 * 对象头默认存储结构
-![sync-对象头结构.jpg](../resource/multithreading/multithreading-sync对象头结构.jpg)
+![multithreading-sync对象头结构.jpg](../resource/multithreading/multithreading-sync对象头结构.jpg)
 
 * 在运行期间，Mark Word里存储的数据会随着锁标志位的变化而变化。Mark Word可能变化为存储以下4种数据（32位系统）
-![sync-markword参数.jpg](../resource/multithreading/multithreading-sync的markword参数.jpg)
+![multithreading/multithreading-sync的markword参数.jpg](../resource/multithreading/multithreading-sync的markword参数.jpg)
 
 ##### 对象头的数据结构C++源码可以查看 openjdk\hotspot\src\share\vm\oops.markOop.hpp
 ```shell
@@ -150,7 +150,7 @@ ObjectMonitor() {
   }
 ```
 每个线程都有两个ObjectMonitor对象列表，分别为free和used列表，如果当前free列表为空，线程将向全局global list请求分配ObjectMonitor。 ObjectMonitor对象中有两个队列：_WaitSet 和 _EntryList，用来保存ObjectWaiter对象列表； monitor
-![sync-ObjectMonitor.jpg](../resource/multithreading/multithreading-sync的ObjectMonitor.jpg)
+![multithreading-sync的ObjectMonitor.jpg](../resource/multithreading/multithreading-sync的ObjectMonitor.jpg)
 
 ### JVM中锁的优化
 #### 锁机制升级流程 偏向锁–》轻量级锁–》重量级锁
@@ -186,7 +186,7 @@ IRT_END
 > 大多数情况下，锁不仅不存在多线程竞争，而且总是由同一线程多次获得，为了让线程获得锁的代价更低而引入了偏向锁。当一个线程访问同步块并获取锁时，会在对象头和栈帧中的锁记录里存储锁偏向的线程ID，以后该线程在进入和退出同步块时不需要进行CAS操作来加锁和解锁，只需简单地测试一下对象头的Mark Word里是否存储着指向当前线程的偏向锁。如果测试成功，表示线程已经获得了锁。如果测试失败，则需要再测试一下Mark Word中偏向锁的标识是否设置成1（表示当前是偏向锁）：如果没有设置，则使用CAS竞争锁；如果设置了，则尝试使用CAS将对象头的偏向锁指向当前线程。 注意：当锁有竞争关系的时候，需要解除偏向锁，进入轻量级锁。 偏向锁执行流程，线程1演示了偏向锁初始化的流程，线程2演示了偏向锁撤销的流程
 偏向锁在Java 6和Java 7里是默认启用的，但是它在应用程序启动几秒钟之后才激活，如有必要可以使用JVM参数来关闭延迟：XX:BiasedLockingStartupDelay=0。如果确定应用的锁通常情况下处于竞争状态，可以通过JVM参数关闭偏向锁：-XX:-UseBiasedLocking=false，那么程序默认会进入轻量级锁状态。
 
-![sync-偏向锁.jpg](../resource/multithreading/multithreading-sync偏向锁.jpg)
+![multithreading-sync偏向锁.jpg](../resource/multithreading/multithreading-sync偏向锁.jpg)
 
 ##### 偏向锁获取的具体逻辑在openjdk\hotspot\src\share\vm\runtime\synchronizer.cpp的ObjectSynchronizer::fast_enter函数下，具体代码如下：
 ```shell
@@ -215,7 +215,7 @@ void ObjectSynchronizer::fast_enter(Handle obj, BasicLock* lock, bool attempt_re
 1. 加锁 线程在执行同步块之前，JVM会先在当前线程的栈桢中创建用于存储锁记录的空间，并将对象头中的Mark Word复制到锁记录中，官方称为Displaced Mark Word。然后线程尝试使用CAS将对象头中的Mark Word替换为指向锁记录的指针。如果成功，当前线程获得锁，如果失败，表示其他线程竞争锁，当前线程便尝试使用自旋来获取锁。 
 2. 解锁 轻量级解锁时，会使用原子的CAS操作将Displaced Mark Word替换回到对象头，如果成功，则表示没有竞争发生。如果失败，表示当前锁存在竞争，锁就会膨胀成重量级锁。 下图展示两个线程同时争夺锁，导致锁膨胀的流程图:
 
-![sync-轻量级锁.jpg](../resource/multithreading/multithreading-sync轻量级锁.jpg)
+![multithreading-sync轻量级锁.jpg](../resource/multithreading/multithreading-sync轻量级锁.jpg)
 
 3. 自旋的线程在自旋过程中，成功获得资源(即之前获的资源的线程执行完成并释放了共享资源)，则整个状态依然处于轻量级锁的状态，如果自旋失败进入重量级锁的状态，这个时候，自旋的线程进行阻塞，等待之前线程执行完成并唤醒自己。因为自旋会消耗CPU，为了避免无用的自旋（比如获得锁的线程被阻塞住了），一旦锁升级成重量级锁，就不会再恢复到轻量级锁状态。当锁处于这个状态下，其他线程试图获取锁时，都会被阻塞住，当持有锁的线程释放锁之后会唤醒这些线程，被唤醒的线程就会进行新一轮的夺锁之争。
 
@@ -262,7 +262,7 @@ void ObjectSynchronizer::slow_enter(Handle obj, BasicLock* lock, TRAPS) {
 ```
 
 ### 锁的优缺点对比 锁对比
-![sync-锁粗化与细化.jpg](../resource/multithreading/multithreading-sync锁粗化与细化.jpg)
+![multithreading-sync锁粗化与细化.jpg](../resource/multithreading/multithreading-sync锁粗化与细化.jpg)
 
 #### 锁粗化:就是将多次连接在一起的加锁、解锁操作合并为一次，将多个连续的锁扩展成一个范围更大的锁。举个例子:
 ```java
