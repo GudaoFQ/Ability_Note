@@ -26,6 +26,11 @@ volatile可以保证线程可见性且提供了一定的有序性，但是无法
 
 #### 可见性
 > MESI 使用了CPU中的缓存一致性协议
+
+##### 说明
+> 一个线程对一个多线程共享值的修改，不能实时的反应到另一个线程中去；加了volatile之后每次写都会被线程读取到
+![multithreading-volatile可见性.jpg](../resource/multithreading/multithreading-volatile可见性.jpg)<br>
+
 ##### volatile修饰引用类型
 > 修饰引用对象的时候，不会对引用中的属性进行可见性操作【volatile修饰引用对象只是修饰了其引用值，而不是其引用的内容的可见性，但是有一个地方是被修饰的引用对象当其他线程需要获取的所有变量都会从主内存去获取】
 ```markdown
@@ -43,6 +48,7 @@ volatile可以保证线程可见性且提供了一定的有序性，但是无法
 2. ctorInstanc(memory) //初始化对象
 3. instance = memory //设置instance指向刚分配的地址
 
+![multithreading-newObject_JVMcode.jpg](../resource/multithreading/multithreading-newObject_JVMcode.jpg)<br>
 上面的代码在编译运行时，可能会出现重排序从a-b-c排序为a-c-b。在多线程的情况下会出现以下问题。当线程A在执行第5行代码时，B线程进来执行到第2行代码。假设此时A执行的过程中发生了指令重排序，即先执行了a和c，没有执行b。那么由于A线程执行了c导致instance指向了一段地址，所以B线程判断instance不为null，会直接跳到第6行并返回一个未初始化的对象。
 
 #### volatile不适用的场景

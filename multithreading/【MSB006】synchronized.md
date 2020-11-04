@@ -2,6 +2,9 @@
 #### synchronized 总共有三种用法
 ![multithreading-synchromized.jpg](../resource/multithreading/multithreading-synchronized.jpg)
 > 这里的需要注意的是：如果锁的是类对象的话，尽管new多个实例对象，但他们仍然是属于同一个类依然会被锁住，即线程之间保证同步关系。
+
+> synchronized锁的是对象，并不是锁的方法；而且只锁定对象头中的两个数字
+
 <https://github.com/GudaoFQ/Multithreading/tree/main/src/main/java/com/gudao/m005_sync_methed>
 
 #### 加锁原则
@@ -110,6 +113,8 @@ class Son extends Father {
 ![multithreading-锁的四种状态.jpg](../resource/multithreading/multithreading-锁的四种状态.jpg)
 **注：synchronized自旋锁默认会自旋10次**
 > 看：【MSB厕所所长】1-2.md
+* 线程数量少，用自旋锁
+* 线程数量多，用重量级锁
 
 #### 锁的优化
 ##### 锁粗化&锁细化
