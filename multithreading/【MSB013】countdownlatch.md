@@ -1,14 +1,13 @@
-## CountDownLatch介绍与使用
-### 背景：
->countDownLatch是在java1.5被引入，跟它一起被引入的工具类还有CyclicBarrier、Semaphore、concurrentHashMap和BlockingQueue。
->存在于java.util.cucurrent包下。
-### 概念：
-
+## CountDownLatch
 >countDownLatch这个类使一个线程等待其他线程各自执行完毕后再执行。
 >是通过一个计数器来实现的，计数器的初始值是线程的数量。每当一个线程执行完毕后，计数器的值就-1，当计数器的值为0时，表示所有线程都执行完毕，然后在闭锁上等待的线程就可以恢复工作了。
 
-### 源码：
+#### 背景：
+>countDownLatch是在java1.5被引入，跟它一起被引入的工具类还有CyclicBarrier、Semaphore、concurrentHashMap和BlockingQueue。
+>存在于java.util.cucurrent包下。
 
+
+#### 源码：
 **countDownLatch类中只提供了一个构造器：**
 
 ```java
@@ -18,19 +17,18 @@ public CountDownLatch(int count) { };
 
 **类中有三个方法是最重要的：**
 
-```java
-//调用await()方法的线程会被挂起，它会等待直到count值为0才继续执行
-public void await() throws InterruptedException { };   
-//和await()类似，只不过等待一定的时间后count值还没变为0的话就会继续执行
+```shell
+# 调用await()方法的线程会被挂起，它会等待直到count值为0才继续执行
+public void await() throws InterruptedException { }; //相当于将门栓栓起，让线程不往下执行  
+# 和await()类似，只不过等待一定的时间后count值还没变为0的话就会继续执行
 public boolean await(long timeout, TimeUnit unit) throws InterruptedException { };  
-//将count值减1
+# 将count值减1
 public void countDown() { };  
 ```
 
-### 使用示例：
+#### 使用示例：
 
-#### 等待示例：
-
+##### 等待示例：
 ```JAVA
 public class Main {
     public static void main(String[] args) {
@@ -70,6 +68,7 @@ public class Main {
         });
         es2.shutdown();
         System.out.println("等待两个线程执行完毕…… ……");
+        
         try {
             //等待count值为0【此时就是等待两个线程执行完成】
             latch.await();
@@ -80,9 +79,7 @@ public class Main {
     }
 }
 ```
-
-#### 执行结果：
-
+##### 执行结果：
 ```shell
 主线程开始执行…… ……
 等待两个线程执行完毕…… ……
@@ -91,10 +88,7 @@ public class Main {
 两个子线程都执行完毕，继续执行主线程
 ```
 
-
-
-####　并发示例：
-
+#####　并发示例：
 ```java
 public class Main {
     public static void main(String[] args) {
@@ -132,9 +126,7 @@ class CountRunnable implements Runnable {
     }
 }
 ```
-
-#### 执行结果：
-
+##### 执行结果：
 ```shell
 #打印了100条[创建100个线程]
 thread counts = 99
@@ -149,8 +141,7 @@ concurrency counts = 100
 concurrency counts = 100
 ```
 
-### CountDownLatch和CyclicBarrier区别：
-
+#### CountDownLatch和CyclicBarrier区别：
 - CountDownLatch是一个计数器，线程完成一个记录一个，计数器递减，只能只用一次
 - CyclicBarrier的计数器更像一个阀门，需要所有线程都到达，然后继续执行，计数器递增，提供reset功能，可以多次使用
 
