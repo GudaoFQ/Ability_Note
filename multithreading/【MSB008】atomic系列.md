@@ -77,3 +77,23 @@ staticFieldOffset()和objectFieldOffset()两方法分别提供两静态、非静
 
 ##### 注意
 > 之所以命名为Unsafe，因为该对于大部分Java开发者来说是不安全的，它像C一样，拥有操作指针、分配和回收内存的能力，由该对象申请的内存是无法被JVM回收的，因此轻易别用。当然，如果对并发有非常浓厚的兴趣，就要好好研究下它，许多高性能的框架都使用它作为底层实现，如Netty、Kafka。
+
+#### 补充
+AtomicLong是在高并发下对单一变量进行CAS操作，从而保证其原子性。
+```java
+public final long getAndAdd(long delta) {
+    return unsafe.getAndAddLong(this, valueOffset, delta);
+}
+```
+
+在Unsafe类中，如果有多个线程进入，只有一个线程能成功CAS，其他线程都失败。失败的线程会重复进行下一轮的CAS，但是下一轮还是只有一个线程成功。
+```java
+public final long getAndAddLong(Object o, long offset, long delta) {
+    long v;
+    do {
+        v= this.getLongVolatile(o,offset);
+    } while(!this.compareAndSwapLong(o,offset, v, v+delta));
+    return v;
+}
+```
+即在高并发下，AtomicLong的性能会越来越差劲。

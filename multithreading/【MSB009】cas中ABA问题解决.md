@@ -118,6 +118,7 @@ public class AtomicStampedReferenceDemo {
 ```
 
 #### AtomicStampedReference 案例演示
+> AtomicStampedReference的compareAndSet方法作用是首先检查当前引用是否等于预期引用，并且当前标志是否等于预期标志，如果全部相等，则以原子方式将该引用和该标志的值设置为给定的更新值。
 ##### ABA如何产生
 > CAS 前面我们都知道，比较交换，要更新的变量和预期值相等，则修改为预期预期值，否则修改失败。所以 CAS 就产生了经典的 ABA 问题，什么是ABA 问题呢？比如一个值原来是A，变成了B，后来又变成了A，那么CAS检查时会发现它的值没有发生变化，但是实际上却是发生了变化的。
 
