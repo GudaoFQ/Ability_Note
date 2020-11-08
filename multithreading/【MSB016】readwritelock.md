@@ -4,7 +4,15 @@
 > 读写锁在同一时刻可以允许多个读线程访问，但是在写线程访问时，所有的读线程和其他写线程均被阻塞。读写锁维护了一对锁，一个读锁和一个写锁，通过分离读锁和写锁，使得并发性相比一般的排他锁有了很大提升。读写锁的访问约束：
 * 读-读不互斥：读读之间不阻塞
 * 读-写互斥：读堵塞写，写也阻塞读
-* 
+* 写-写互斥：写写阻塞
+
+#### 特性
+* 公平性选择
+> 支持非公平（默认）和公平的锁获取模式，吞吐量还是非公平优于公平
+* 重入性
+> 该锁支持重入锁，以读写线程为例：读线程在获取读锁之后，能够再次读取读锁，而写线程在获取写锁之后可以同时再次获取读锁和写锁
+* 锁降级
+> 遵循获取写锁，获取读锁再释放写锁的次序，写锁能够降级为读锁
 
 #### ReentrantReadWriteLock介绍
 > ReentrantReadWriteLock 为ReadWriteLock接口的实现，ReadWriteLock仅定义了获取读锁和写锁的两个方法，即readLock()方法和writeLock()方法。
@@ -24,6 +32,11 @@ public interface ReadWriteLock {
 * int getWriteHoldCount()
 > 返回当前写锁被获取的次数
 
+#### 读写状态的设计
+读写锁同样依赖自定义同步器来实现同步功能，而读写状态就是其同步器的同步状态。ReentrantLock 中自定义同步器的实现，同步状态表示锁被一个线程重复获取的次数，而读写锁的自定义同步器需要在同步状态（一个整型变量）上维护多个读线程和一个写线程的状态，使得该状态的设计成为读写锁实现的关键。
+
+如果在一个整型变量上维护多种状态，就一定需要“按位切割使用”这个变量，读写锁将变量切分成了两个部分，高16位表示读，低16位表示写。
+![multithreading-readwritelock读写原理.jpg](../resource/multithreading/multithreading-readwritelock读写原理.jpg)
 #### 通过ReentrantReadWriteLock实现一个简单的缓存
 ```java
 public class LockExample {

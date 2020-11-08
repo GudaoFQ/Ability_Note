@@ -145,3 +145,37 @@ concurrency counts = 100
 - CountDownLatch是一个计数器，线程完成一个记录一个，计数器递减，只能只用一次
 - CyclicBarrier的计数器更像一个阀门，需要所有线程都到达，然后继续执行，计数器递增，提供reset功能，可以多次使用
 
+#### 基础代码
+```java
+//创建时，就需要指定参与的parties个数  
+int parties = 12;  
+CountDownLatch latch = new CountDownLatch(parties);  
+//线程池中同步task  
+ExecutorService executor = Executors.newFixedThreadPool(parties);  
+for(int i = 0; i < parties; i++) {  
+    executor.execute(new Runnable() {  
+        @Override  
+        public void run() {  
+            try {  
+                //可以在任务执行开始时执行,表示所有的任务都启动后，主线程的await即可解除  
+                //latch.countDown();  
+                //run  
+                //..  
+                Thread.sleep(3000);  
+  
+            } catch (Exception e) {  
+  
+            }  
+            finally {  
+                //任务执行完毕后：到达  
+                //表示所有的任务都结束，主线程才能继续  
+                latch.countDown();  
+            }  
+        }  
+    });  
+}  
+latch.await();//主线程阻塞，直到所有的parties到达  
+//latch上所有的parties都达到后，再次执行await将不会有效，  
+//即barrier是不可重用的  
+executor.shutdown();  
+```
