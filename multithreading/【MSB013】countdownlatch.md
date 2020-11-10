@@ -1,22 +1,20 @@
 ## CountDownLatch
->countDownLatch这个类使一个线程等待其他线程各自执行完毕后再执行。
->是通过一个计数器来实现的，计数器的初始值是线程的数量。每当一个线程执行完毕后，计数器的值就-1，当计数器的值为0时，表示所有线程都执行完毕，然后在闭锁上等待的线程就可以恢复工作了。
+> countDownLatch这个类使一个线程等待其他线程各自执行完毕后再执行。
+> 是通过一个计数器来实现的，计数器的初始值是线程的数量。每当一个线程执行完毕后，计数器的值就-1，当计数器的值为0时，表示所有线程都执行完毕，然后在闭锁上等待的线程就可以恢复工作了。
 
 #### 背景：
->countDownLatch是在java1.5被引入，跟它一起被引入的工具类还有CyclicBarrier、Semaphore、concurrentHashMap和BlockingQueue。
->存在于java.util.cucurrent包下。
+> countDownLatch是在java1.5被引入，跟它一起被引入的工具类还有CyclicBarrier、Semaphore、concurrentHashMap和BlockingQueue。
+> 存在于java.util.cucurrent包下。
 
 
 #### 源码：
-**countDownLatch类中只提供了一个构造器：**
-
+countDownLatch类中只提供了一个构造器
 ```java
 //参数count为计数值
 public CountDownLatch(int count) { };
 ```
 
-**类中有三个方法是最重要的：**
-
+类中有三个方法是最重要的
 ```shell
 # 调用await()方法的线程会被挂起，它会等待直到count值为0才继续执行
 public void await() throws InterruptedException { }; //相当于将门栓栓起，让线程不往下执行  
