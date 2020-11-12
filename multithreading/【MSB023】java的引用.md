@@ -17,5 +17,6 @@
         tl.remove();
         ```
     * WeakHashMap
-* 虚引用 
+* 虚引用【一般给写JVM的人用的】
     * 管理堆外内存
+    ![multithreading-imaginary.jpg](../resource/multithreading/multithreading-imaginary.jpg)

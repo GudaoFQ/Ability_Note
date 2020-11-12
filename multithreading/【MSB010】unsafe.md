@@ -3,7 +3,7 @@
 #### 基本说明
 > 1.7版本
 ![multithreading-unsafe基本说明.jpg](../resource/multithreading/multithreading-unsafe基本说明.jpg)
-* 1.7能通过反射使用
+* 1.8能通过反射使用
 * 后期版本好像不能使用了
 * 底层使用CPU原语实现
 * 所有的atomic底层都是用这个类中的CampareAndSwap...来实现的
