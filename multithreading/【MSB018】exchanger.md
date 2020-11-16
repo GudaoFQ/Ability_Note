@@ -1,4 +1,5 @@
 ## Exchanger 交换器
+<https://github.com/GudaoFQ/Multithreading/blob/main/src/main/java/com/gudao/m011_otherlock_demo/ExchangerDemo.java>
 > Exchanger 是 JDK 1.5 开始提供的一个用于两个工作线程之间交换数据的封装工具类；Exchanger类源于java.util.concurrent包，它可以在两个线程之间传输数据，Exchanger中的public V exchange(V x)方法被调用后等待另一个线程到达交换点（如果当前线程没有被中断），然后将已知的对象传给它，返回接收的对象
 
 ####原理图

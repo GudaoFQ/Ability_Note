@@ -1,4 +1,5 @@
 ## Phaser 同音【facer】
+<https://github.com/GudaoFQ/Multithreading/blob/main/src/main/java/com/gudao/m011_otherlock_demo/PhaserDemo.java>
 > Java 7 引入了一个全新灵活的线程同步机制，名为 Phaser 。 如果你需要等待线程结束然后继续执行其他任务，那么 Phaser 是一个好的选择【像阶段锁，遗传算法中可能用到】
 
 #### Phaser与CountDownLatch区别

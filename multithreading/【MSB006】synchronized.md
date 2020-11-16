@@ -1,11 +1,11 @@
 ## Synchronized介绍
+<https://github.com/GudaoFQ/Multithreading/tree/main/src/main/java/com/gudao/m005_sync_methed>
+
 #### synchronized 总共有三种用法
 ![multithreading-synchromized.jpg](../resource/multithreading/multithreading-synchronized.jpg)
 > 这里的需要注意的是：如果锁的是类对象的话，尽管new多个实例对象，但他们仍然是属于同一个类依然会被锁住，即线程之间保证同步关系。
 
 > synchronized锁的是对象，并不是锁的方法；而且只锁定对象头中的两个数字
-
-<https://github.com/GudaoFQ/Multithreading/tree/main/src/main/java/com/gudao/m005_sync_methed>
 
 #### 加锁原则
 > 我们加锁代码有个原则：尽量少的锁代码，比如我的方法中只需要对count++进行synchronized，我们没必要把整个方法锁住，只锁count++就可以了。但是如果我们一个方法内有N多个地方需要加锁，我们就直接锁方法，就不要每次都让线程竞争了。

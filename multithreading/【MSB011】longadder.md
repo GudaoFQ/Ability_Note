@@ -1,4 +1,5 @@
 ## LongAdder
+<https://github.com/GudaoFQ/Multithreading/blob/main/src/main/java/com/gudao/m009_atomic_demo/LongAdderAtomicLongSynchromiezdCompare.java>
 > 适用于线程并发量特别大的情况使用【内部实用的是分段锁来实现的】
 
 > 【特别高的并发中】LongAdder是java8中新增的原子类，在多线程环境中，它比AtomicLong性能要高出不少，特别是写多的场景。

@@ -1,4 +1,5 @@
 ## ReadWriteLock 读写锁
+<https://github.com/GudaoFQ/Multithreading/blob/main/src/main/java/com/gudao/m011_otherlock_demo/ReadWriteLockDemo.java>
 > 共享锁read +排他锁write
 
 > 读写锁在同一时刻可以允许多个读线程访问，但是在写线程访问时，所有的读线程和其他写线程均被阻塞。读写锁维护了一对锁，一个读锁和一个写锁，通过分离读锁和写锁，使得并发性相比一般的排他锁有了很大提升。读写锁的访问约束：

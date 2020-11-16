@@ -1,4 +1,5 @@
 ## Condition
+<https://github.com/GudaoFQ/Multithreading/blob/main/src/main/java/com/gudao/m012_interface_question/put_get/WithReentractLock.java>
 > ConditionObject是同步器AbstractQueuedSynchronizer的内部类，因为Condition的操作需要获取相关联的锁，所以作为同步器的内部类也较为合理。每个Condition对象都包含着一个队列，该队列是Condition对象实现等待/通知功能的关键。下面将分析Condition的实现，主要包括：等待队列、等待和通知
 
 * Condition中的await()方法相当于Object的wait()方法

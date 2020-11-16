@@ -1,4 +1,5 @@
 ## 原子更新字段类AtomicStampedReference
+<https://github.com/GudaoFQ/Multithreading/tree/main/src/main/java/com/gudao/m008_cas_summary>
 
 > 如果需要原子地更新某个类里的某个字段时，就需要使用原子更新字段类，Atomic包提供了以下3个类进行原子字段更新。
 ![multithreading-casABA.jpg](../resource/multithreading/multithreading-casABA.jpg)

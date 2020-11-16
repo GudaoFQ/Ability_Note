@@ -1,4 +1,5 @@
 ## ReentrantLock
+<https://github.com/GudaoFQ/Multithreading/tree/main/src/main/java/com/gudao/m010_reentrantlock_demo>
 > 锁是用来控制多个线程访问共享资源的方式，通过锁可以防止多个线程同时访问共享资源。在 Java1.5之前实现锁只能使用 synchronized关键字实现，但是synchronized隐式获取释放锁，在 1.5之后官方新增了 lock 接口也是用来实现锁的功能，，它具备与synchronized关键字类似的同步功能，显式的获取和释放锁。lock拥有了锁获取与释放的可操作性、可中断的获取锁以及超时获取锁等多种synchronized关键字所不具备的同步特性。
 
 #### 特性

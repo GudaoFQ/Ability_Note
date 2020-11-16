@@ -1,4 +1,5 @@
 ## Semaphore 递增同步器
+<https://github.com/GudaoFQ/Multithreading/blob/main/src/main/java/com/gudao/m011_otherlock_demo/SemaphoreDemo.java>
 > 【限流作用】Semaphore（信号量）是用来控制同时访问特定资源的线程数量，它通过协调各个线程，以保证合理的使用公共资源。
 > Semaphore用于限制可以访问某些资源（物理或逻辑的）的线程数目，他维护了一个许可证集合，有多少资源需要限制就维护多少许可证集合，假如这里有N个资源，那就对应于N个许可证，同一时刻也只能有N个线程访问。一个线程获取许可证就调用acquire方法，用完了释放资源就调用release方法。
 ![multithreading-semaphore原理图.jpg](../resource/multithreading/multithreading-semaphore原理图.jpg)

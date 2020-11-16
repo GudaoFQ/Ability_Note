@@ -1,4 +1,5 @@
 ## Volatile介绍
+<https://github.com/GudaoFQ/Multithreading/tree/main/src/main/java/com/gudao/m007_volatile_visible>
 ```shell
 volatile可以保证线程可见性且提供了一定的有序性，但是无法保证原子性。在JVM底层volatile是采用“内存屏障”来实现的。观察加入volatile关键字和没有加入volatile关键字时所生成的汇编代码发现，加入volatile关键字时，会多出一个lock前缀指令，lock前缀指令实际上相当于一个内存屏障（也成内存栅栏），
 内存屏障会提供3个功能：
