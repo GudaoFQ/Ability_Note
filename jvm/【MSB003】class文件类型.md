@@ -26,3 +26,6 @@ ClassFile {
 #### 命令行直接查看class文件详情
 `javap -v class文件绝对路径`
 ![jvm-class文件通过命令行查看.jpg](../resource/jvm/jvm-class文件通过命令行查看.jpg)
+
+#### 通过JClassLib-IDEA插件查看参考文档
+![jvm-class文件解析.png](../resource/jvm/jvm-class文件解析.png)

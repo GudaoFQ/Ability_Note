@@ -46,11 +46,25 @@
 * 非公平锁 `ReentrantLock lock = new ReentrantLock(false)`
 > 如果构造函数不传递参数，则默认是非公平锁。
 
+#### Condition newCondition()
+```java
+Lock lock = new ReentrantLock();
+Condition conditionT1 = lock.newCondition();
+Condition conditionT2 = lock.newCondition();
 
+//使用Condition必须要在lock.lock()下使用
+lock.lock();
 
-
-方法中有tryLock()尝试获取锁
-可以 响应被别的线程打断
-可以实现公平锁 
+//唤醒conditionT2
+conditionT2.signal();
+//阻塞conditionT1
+conditionT1.await();
+```
 
 #### ReentrantLock与Synchronized的区别
+1. 锁的实现：synchronized是依赖于jvm实现的，ReentrantLock是依赖jdk实现的。
+2. 性能的区别：在sync优化以后，两者性能差不多，都可用时更建议使用sync，因为它的写法更容易。
+3. 功能的区别：锁的灵活性ReentrantLock优于sync。
+4. ReentrantLock可以指定是公平锁还是非公平锁，而sync只能是非公平锁。
+5. ReentrantLock提供了一个Condition类，可以分组唤醒需要的线程。sync只能随机唤醒一个线程或者唤醒全部线程。
+6. ReentrantLock提供了能够中断等待锁的线程的机制。
