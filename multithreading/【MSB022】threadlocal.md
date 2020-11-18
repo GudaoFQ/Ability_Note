@@ -1,4 +1,5 @@
 ## ThreadLocal
+<https://github.com/GudaoFQ/Multithreading/blob/main/src/main/java/com/gudao/m013_threadlocal_demo/ThreadLocalDemo.java>
 > 【ThreadLocal是一个关于创建线程局部变量的类。】ThreadLocal 提供了线程本地的实例。它与普通变量的区别在于，每个使用该变量的线程都会初始化一个完全独立的实例副本。ThreadLocal 变量通常被`private static`修饰。当一个线程结束时，它所使用的所有 ThreadLocal 相对的实例副本都可被回收。
 
 通常情况下，我们创建的变量是可以被任何一个线程访问并修改的。而使用ThreadLocal创建的变量**只能被当前线程访问**，其他线程则无法访问和修改。
@@ -70,6 +71,33 @@ static class ThreadLocalMap {
 #### 防止内存泄漏
 > 对于已经不再被使用且已被回收的 ThreadLocal 对象，它在每个线程内对应的实例由于被线程的 ThreadLocalMap 的 Entry 强引用，无法被回收，可能会造成内存泄漏。
 针对该问题，ThreadLocalMap 的 set 方法中，通过 replaceStaleEntry 方法将所有键为 null 的 Entry 的值设置为 null，从而使得该值可被回收。另外，会在 rehash 方法中通过 expungeStaleEntry 方法将键和值为 null 的 Entry 设置为 null 从而使得该 Entry 可被回收。通过这种方式，ThreadLocal 可防止内存泄漏。
+```java
+public void set(T value) {
+    Thread t = Thread.currentThread();
+    //获取当前线程的map值
+    ThreadLocalMap map = getMap(t);
+    if (map != null)
+        //将值设置到map中去
+        map.set(this, value);
+    else
+        createMap(t, value);
+}
+
+/**
+* 获取当前线程中的map中的getMap方法
+*/
+ThreadLocalMap getMap(Thread t) {
+    return t.threadLocals;
+}
+
+//参数传的Thread是当前线程的对象，而t.threadLocals是在Thread中的；所以，这个map相当于Thread,currentThread.map()
+public class Thread implements Runnable {
+    //方法省略
+    ThreadLocal.ThreadLocalMap threadLocals = null;
+}
+```
+#### ThreadLocalMap中的代码
+> threadlocalmap中的entity就相当于map中的key,value对
 ```java
 private void set(ThreadLocal<?> key, Object value) {
   Entry[] tab = table;

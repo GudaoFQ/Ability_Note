@@ -1,9 +1,11 @@
 ## Java引用
+https://github.com/GudaoFQ/Multithreading/tree/main/src/main/java/com/gudao/m015_java_reference
 
 #### 引用分类
 * 强引用【当没有对象引用指向就会被回收】
     * Object o = new Object()
 * 软引用【当内存不够的时候，GC将其回收】
+    ![multithreading-softreference运行内存设置.jpg](../resource/multithreading/multithreading-softreference运行内存设置.jpg)
     * 大对象的缓存
     * 常用对象的缓存
 * 弱引用【只要遭遇GC就被回收】
