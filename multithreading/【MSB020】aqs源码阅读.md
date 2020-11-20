@@ -1,10 +1,13 @@
 ##AQS源码
 
+#### AQS框架
+![multithreading-aqs架构框架.jpg](../resource/multithreading/multithreading-aqs架构框架.jpg)
+
 #### JDK8AQS第一次加锁成功代码
-![](../resource/multithreading/multithreading-JDK8AQS第一次加锁成功代码.png)
+![multithreading-JDK8AQS第一次加锁成功代码.png](../resource/multithreading/multithreading-JDK8AQS第一次加锁成功代码.png)
 
 #### JDK8AQS重入锁源码
-![](../resource/multithreading/multithreading-JDK8AQS重入锁源码.png)
+![multithreading-JDK8AQS重入锁源码.png](../resource/multithreading/multithreading-JDK8AQS重入锁源码.png)
 ```java
 //Sync继承了AQS下面是Sync中的nonfairTryAcquire
 final boolean nonfairTryAcquire(int acquires) {
@@ -26,3 +29,5 @@ final boolean nonfairTryAcquire(int acquires) {
     return false;
 }
 ```
+#### FairSync与NonfairSync区别
+`FairSync` 相比 `NonfairSync` 中 `tryAcquire` ，唯一多的就是一行判断 `!hasQueuedPredecessors()`
