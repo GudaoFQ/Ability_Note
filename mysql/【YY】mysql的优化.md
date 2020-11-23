@@ -12,7 +12,7 @@ CPU在饱和的时候一般发生在**数据装入内存或从磁盘上读取数
 
 **Mysql的优化，大体可以分为三部分：`索引的优化，sql语句的优化，表的优化`**
 
-![image-20200921165847951](../resource/mysql/image-20200921165847951.png)
+![mysql-索引优化方案.png](../resource/mysql/mysql-索引优化方案.png)
 
 ### 索引优化 
 
@@ -64,7 +64,7 @@ CPU在饱和的时候一般发生在**数据装入内存或从磁盘上读取数
 
 ### SQL慢查询的优化 
 
-![image-20200921170532788](../resource/mysql/image-20200921170532788.png)
+![mysql-慢sql优化步骤.png](../resource/mysql/mysql-慢sql优化步骤.png)
 
 **1.如何捕获低效sql**
 
