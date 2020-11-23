@@ -95,5 +95,9 @@ private volatile int state;
 | protected final boolean compareAndSetState(int expect, int update) | 使用CAS方式更新State |
 
 * 这几个方法都是Final修饰的，说明子类中无法重写它们。我们可以通过修改State字段表示的同步状态来实现多线程的独占模式和共享模式（加锁过程）
-![](../resource/multithreading/multithreading-aqs共享式修改state.jpg)
-![](../resource/multithreading/multithreading-aqs独占式修改state图.jpg)
+![multithreading-aqs共享式修改state.jpg](../resource/multithreading/multithreading-aqs共享式修改state.jpg)
+![multithreading-aqs独占式修改state图.jpg](../resource/multithreading/multithreading-aqs独占式修改state图.jpg)
+
+自定义的同步工具，需要自定义获取同步状态和释放状态的方式，也就是AQS架构图中的第一层：API层。
+
+**AQS重要方法与ReentrantLock的关联请看<ReentrantLock底层源码.md>**
