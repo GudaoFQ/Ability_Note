@@ -1,6 +1,6 @@
 ## configurationPropertiesRebinderAutoConfiguration报错问题
 
-#### 错误描述
+#### 问题描述
 > 项目无法启动，并抛出如下异常
 
 ![bug-springboot启动报错.jpg](../resource/bug/bug-springboot启动报错.jpg)
