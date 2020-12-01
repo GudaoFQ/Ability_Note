@@ -294,6 +294,178 @@ ReentrantReadWriteLock 的实现选择了“不允许插队”的策略，这就
 
 ## 并发容器
 
+> HashMap[ConcurrentHashMap中也适用]
+
+### HashMap默认初始化大小为什么是1 << 4（16）
+```java
+/**
+ * The default initial capacity - MUST be a power of two.
+ */
+static final int DEFAULT_INITIAL_CAPACITY = 1 << 4; 
+```
+* HashMap默认初始化大小为什么是16，这里分两个维度分析，为什么是2的幂，为什么是16而不是8或者32。
+
+### 默认初始化大小为什么定义为2的幂？
+```java
+ final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
+                   boolean evict) {
+        Node<K,V>[] tab; Node<K,V> p; int n, i;
+        if ((tab = table) == null || (n = tab.length) == 0)
+            n = (tab = resize()).length;
+        if ((p = tab[i = (n - 1) & hash]) == null)
+            tab[i] = newNode(hash, key, value, null);
+```
+* 我们知道HashMap的底层数据结构是数组+链表/数组+红黑树，由以上方法，可以发现数组下标索引的定位公式是：i = (n - 1) & hash，当初始化大小n是2的倍数时，(n - 1) & hash等价于n%hash。定位下标一般用取余法，为什么这里不用取余呢？
+    * 因为，与运算（&）比取余（%）运算效率高
+    * 求余运算： a % b就相当与a-(a / b)*b 的运算。
+    * 与运算： 一个指令就搞定
+> 因此，默认初始化大定义为2的幂，就是为了使用更高效的与运算
+
+### 默认初始化大小为什么是16而不是8或者32？
+* 如果太小，4或者8，扩容比较频繁；如果太大，32或者64甚至太大，又占用内存空间。
+> 打个比喻，假设你开了个情侣咖啡厅，平时一般都是7,8对情侣来喝咖啡，高峰也就10对。那么，你是不是设置8个桌子就好啦，如果人来得多再考虑加桌子。如果设置4桌，那么就经常座位不够要加桌子，如果设置10桌或者更多，那么肯定占地方嘛。
+
+### 默认加载因子为什么是0.75
+```java
+/**
+ * The load factor used when none specified in constructor.
+ */
+static final float DEFAULT_LOAD_FACTOR = 0.75f;
+```
+> 加载因子表示哈希表的填满程度，跟扩容息息相关。为什么不是0.5或者1呢？
+* 如果是0.5，就是说哈希表填到一半就开始扩容了，这样会导致扩容频繁，并且空间利用率比较低。
+* 如果是1，就是说哈希表完全填满才开始扩容，这样虽然空间利用提高了，但是哈希冲突机会却大了。可以看一下源码文档的解释：
+```markdown
+ * <p>As a general rule, the default load factor (.75) offers a good
+ * tradeoff between time and space costs.  Higher values decrease the
+ * space overhead but increase the lookup cost (reflected in most of
+ * the operations of the <tt>HashMap</tt> class, including
+ * <tt>get</tt> and <tt>put</tt>).  The expected number of entries in
+ * the map and its load factor should be taken into account when
+ * setting its initial capacity, so as to minimize the number of
+ * rehash operations.  If the initial capacity is greater than the
+ * maximum number of entries divided by the load factor, no rehash
+ * operations will ever occur.
+```
+* 翻译大概意思是：
+    * 作为一般规则，默认负载因子（0.75）在时间和空间成本上提供了良好的权衡。负载因子数值越大，空间开销越低，但是会提高查找成本（体现在大多数的HashMap类的操作，包括get和put）。设置初始大小时，应该考虑预计的entry数在map及其负载系数，并且尽量减少rehash操作的次数。如果初始容量大于最大条目数除以负载因子，rehash操作将不会发生。简言之， 负载因子0.75 就是冲突的机会 与空间利用率权衡的最后体现，也是一个程序员实验的经验值。
+* StackOverFlow另一种回答：`lim (log(2)/log(s/(s -1)))/s as s -> infinity = log(2) ~8.693...`
+    * 一个bucket空和非空的概率为0.5，通过牛顿二项式等数学计算，得到这个loadfactor的值为log（2），约等于0.693。最后选择选择0.75，可能0.75是接近0.693的四舍五入数中，比较好理解的一个，并且默认容量大小16*0.75=12，为一个整数。
+
+### 链表转换红黑树的阀值为什么是8     
+```java
+/**
+ * The bin count threshold for using a tree rather than list for a
+ * bin.  Bins are converted to trees when adding an element to a
+ * bin with at least this many nodes. The value must be greater
+ * than 2 and should be at least 8 to mesh with assumptions in
+ * tree removal about conversion back to plain bins upon
+ * shrinkage.
+ */
+static final int TREEIFY_THRESHOLD = 8;
+```
+JDK8及以后的版本中，HashMap底层数据结构引入了红黑树。当添加元素的时候，如果桶中链表元素超过8，会自动转为红黑树。那么阀值为什么是8呢？请看HashMap的源码这段注释
+```markdown
+* Ideally, under random hashCodes, the frequency of
+* nodes in bins follows a Poisson distribution
+* (http://en.wikipedia.org/wiki/Poisson_distribution) with a
+* parameter of about 0.5 on average for the default resizing
+* threshold of 0.75, although with a large variance because of
+* resizing granularity. Ignoring variance, the expected
+* occurrences of list size k are (exp(-0.5) * pow(0.5, k) /
+* factorial(k)). The first values are:
+*
+* 0:    0.60653066
+* 1:    0.30326533
+* 2:    0.07581633
+* 3:    0.01263606
+* 4:    0.00157952
+* 5:    0.00015795
+* 6:    0.00001316
+* 7:    0.00000094
+* 8:    0.00000006
+* more: less than 1 in ten million
+```
+* 理想状态中，在随机哈希码情况下，对于默认0.75的加载因子，桶中节点的分布频率服从参数为0.5的泊松分布，即使粒度调整会产生较大方差。
+* 由对照表，可以看到链表中元素个数为8时的概率非常非常小了，所以链表转换红黑树的阀值选择了8。
+
+### 一个树的链表还原阈值为什么是6
+```java
+/**
+ * The bin count threshold for untreeifying a (split) bin during a
+ * resize operation. Should be less than TREEIFY_THRESHOLD, and at
+ * most 6 to mesh with shrinkage detection under removal.
+ */
+static final int UNTREEIFY_THRESHOLD = 6;
+```
+* 上一小节分析，可以知道，链表树化阀值是8，那么树还原为链表为什么是6而不是7呢？这是为了防止链表和树之间频繁的转换。如果是7的话，假设一个HashMap不停的插入、删除元素，链表个数一直在8左右徘徊，就会频繁树转链表、链表转树，效率非常低下。
+
+### 最大容量为什么是1 << 30    
+```java
+/**
+ * The maximum capacity, used if a higher value is implicitly specified
+ * by either of the constructors with arguments.
+ * MUST be a power of two <= 1<<30.
+ */
+static final int MAXIMUM_CAPACITY = 1 << 30;
+```
+#### HashMap为什么要满足2的n次方？
+* 由第一小节（HashMap默认初始化大小为什么是1 << 4）分析可知，HashMap容量需要满足2的幂，与运算比取余运算效率高。只有容量是2的n次方时，与运算才等于取余运算。
+```java 
+tab[i = (n - 1) & hash]
+```
+#### 为什么不是2的31次方呢？
+* 我们知道，int占四个字节，一个字节占8位，所以是32位整型，也就是说最多32位。那按理说，最大数可以向左移动31位即2的31次幂，在这里为什么不是2的31次方呢？
+* 实际上，二进制数的最左边那一位是符号位，用来表示正负的，我们来看一下demo代码：
+```java
+System.out.println(1<<30);
+System.out.println(1<<31);
+System.out.println(1<<32);
+System.out.println(1<<33);
+System.out.println(1<<34);
+
+// 输出
+1073741824
+-2147483648
+1
+2
+4
+```
+> 所以，HashMap最大容量是1 << 30。
+
+### 哈希表的最小树形化容量为什么是64
+```java
+/**
+ * The smallest table capacity for which bins may be treeified.
+ * (Otherwise the table is resized if too many nodes in a bin.)
+ * Should be at least 4 * TREEIFY_THRESHOLD to avoid conflicts
+ * between resizing and treeification thresholds.
+ */
+static final int MIN_TREEIFY_CAPACITY = 64;
+```
+* 这是因为容量低于64时，哈希碰撞的机率比较大，而这个时候出现长链表的可能性会稍微大一些，这种原因下产生的长链表，我们应该优先选择扩容而避免不必要的树化。
+
+### HashMap中Node中的hash什么时候为负数
+* hash为key通过hash算法计算出来的`"420112199111183939".hashCode(); -->结果是：-61`，但是在HashMap中会通过hash>>>16，将32的key的hash值高16位都变为0，变为正数，然后再与数组长度(n-1)进行&运算得出当前key的索引下标
+```java
+public int hashCode() {
+    int h = hash;
+    if (h == 0 && value.length > 0) {
+        char val[] = value;
+
+        for (int i = 0; i < value.length; i++) {
+            h = 31 * h + val[i];
+        }
+        hash = h;
+    }
+    return h;
+}
+```
+* 可以看出，String中计算hashcode是先将字符串拆分程字符数组，然后for循环累加h的值，因为h是int类型，当其值超过其最大范围`-2147483648～2147483647`中的2147483647的时候就会变为负数，这时候代码执行结束，返回去的值则也就成了负值
+
+### ConcurrentHashMap中Node中的hash什么时候为负数
+* 当ConcurrentHashMap正在进行扩容的时候，node中的hash为-1
+
 ### 为什么 ConcurrentHashMap 比 HashTable 效率要高？
 #### HashTable 
 * 使用一把锁（锁住整个链表结构）处理并发问题，多个线程竞争一把锁，容易阻塞；
@@ -331,6 +503,12 @@ ReentrantReadWriteLock 的实现选择了“不允许插队”的策略，这就
 5. 如果是 Node （链表结构）则执行链表的添加操作
 6. 如果是 TreeNode （树形结构）则执行树添加操作。
 7. 判断链表长度已经达到临界值 8 ，当然这个 8 是默认值，大家也可以去做调整，当节点数超过这个值就需要把链表转换为树结构。
+
+#### 扩容的过程中其他竞争线程空转吗,还是怎么样
+![multithreading-question问hashmap其他线程帮助扩容线程.jpg](../resource/multithreading/multithreading-question问hashmap其他线程帮助扩容线程.jpg)
+1. 根据双哈希之后的 hash 值找到数组对应的下标位置，如果该位置未存放节点，也就是说不存在 hash 冲突，则使用 CAS 无锁的方式将数据添加到容器中，并且结束循环。
+2. 如果并未满足上一步，则会判断容器是否正在被其他线程进行扩容操作，如果正在被其他线程扩容，则放弃添加操作，加入到扩容大军中（ConcurrentHashMap 扩容操作采用的是多线程的方式，后面我们会讲到），扩容时并未跳出死循环，这一点就保证了容器在扩容时并不会有其他线程进行数据添加操作，这也保证了容器的安全性。
+3. 如果 hash 冲突，则进行链表操作或者红黑树操作（如果链表树超过8，则修改链表为红黑树），在进行链表或者红黑树操作时，会使用 synchronized 锁把头节点被锁住了，保证了同时只有一个线程修改链表，防止出现链表成环。
 
 ### 什么是阻塞队列?
 > 阻塞队列（BlockingQueue）是一个支持两个附加操作的队列。这两个附加的操作支持阻塞的插入和移除方法。
@@ -461,3 +639,4 @@ handler
     CallerRunsPolicy：只用调用者所在线程来运行任务。
     DiscardOldestPolicy：丢弃队列里最近的一个任务，并执行当前任务。
     DiscardPolicy：不处理，丢弃掉
+    

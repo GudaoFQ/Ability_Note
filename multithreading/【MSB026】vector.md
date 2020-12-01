@@ -16,3 +16,88 @@
 * Vector属于线程安全级别的，但是大多数情况下不使用Vector，因为线程安全需要更大的系统开销  
 
 #### Vector使用
+```java
+/**
+ * Author : GuDao
+ * 2020-11-20
+ */
+public class VectorDemo {
+    public static void main(String[] args) {
+        // 默认容器大小为10
+        Vector<String> vector = new Vector<>();
+
+        // 指定容器大小，此时的默认扩展因子为0
+        //Vector<String> vector = new Vector<>(15);
+
+        // 指定容器大小与扩展因子
+        //Vector<String> vector = new Vector<>(15, 5);
+
+        vector.add("1");
+        vector.add("2");
+        vector.add("3");
+        vector.add("4");
+        vector.add("5");
+
+        // 设置索引为9的值
+        vector.set(1, "gudao");
+        // 索引越界，通过索引进行设值得时候只能设置当前vector的size内的值
+        //System.out.println(vector.size());
+        //vector.set(6, "gudao");
+        System.out.println(vector);
+
+        // 插入索引为2的值[后面的值回向后进行移动一位索引]
+        vector.add(3, "test");
+        // 这边也同上
+        //vector.add(9,"test");
+        System.out.println(vector);
+
+        // (顺序查找)获取 gudao 的索引
+        System.out.println("顺序查找gudao：" + vector.indexOf("gudao"));
+        // (倒序查找)获取100的索引
+        System.out.println("倒序查找gudao：" + vector.lastIndexOf("gudao"));
+        // 获取第一个元素
+        System.out.println("获取第一个元素：" + vector.firstElement());
+        // 获取第三个元素
+        System.out.println("获取第3个元素：" + vector.elementAt(2));
+        // 获取最后一个元素
+        System.out.println("获取最后一个元素：" + vector.lastElement());
+
+        // 获取Vector的大小
+        System.out.println("size：" + vector.size());
+        // 获取Vector的总的容量
+        System.out.println("获取Vector的总的容量：" + vector.capacity());
+
+        // 获取vector的“第2”到“第4”个元素
+        System.out.println("Vector 2 to 4:" + vector.subList(2, 5));
+
+        // 通过Enumeration遍历Vector
+        Enumeration<String> elements = vector.elements();
+        while (elements.hasMoreElements()) {
+            System.out.print(elements.nextElement() + "\t");
+        }
+
+        System.out.println("");
+
+        Vector retainVector = new Vector();
+        retainVector.add("test");
+        retainVector.add("300");
+        // 获取“vector”中包含在“retainVector中的元素”的集合
+        System.out.println("vector.retain():" + vector.retainAll(retainVector));
+        System.out.println("vector:" + vector);
+
+        // 获取vector对应的String数组
+        String[] array = (String[]) vector.toArray(new String[0]);
+        for (String str : array) {
+            System.out.println("str:"+str);
+        }
+
+        // 清空Vector.clear()和removeAllElements()一样！
+        //vector.clear();
+        vector.removeAllElements();
+        System.out.println(vector);
+
+        // 判断Vector是否为空
+        System.out.println(vector.isEmpty());
+    }
+}
+```

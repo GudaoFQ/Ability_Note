@@ -1,7 +1,6 @@
 ## Spring中的单例实现
 
 ### 注解方式
-
 ```java
 //向spring容器中注册实体类【默认为单例】
 @Component

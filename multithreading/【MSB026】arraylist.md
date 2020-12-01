@@ -10,6 +10,32 @@
 * 迭代器：listIterator();
 * 获取列表中的小列表：subList(int fromIndex, int toIndex);
 
+#### 总结
+1. ArrayList是基于数组实现的，它的内存储元素的数组为 elementData;elementData的声明为：transient Object[] elementData;
+2. ArrayList中EMPTY_ELEMENTDATA和DEFAULTCAPACITY_EMPTY_ELEMENTDATA的使用；这两个常量，使用场景不同。前者是用在用户通过ArrayList(int initialCapacity)该构造方法直接指定初始容量为0时，后者是用户直接使用无参构造创建ArrayList时。
+3. ArrayList默认容量为10。调用无参构造新建一个ArrayList时，它的elementData = DEFAULTop CAPACITY_EMPTY_ELEMENTDATA, 当第一次使用 add() 添加元素时，ArrayList的容量会为 10。
+4. ArrayList的扩容计算为 newCapacity = oldCapacity + (oldCapacity >> 1);且扩容并非是无限制的，有内存限制，虚拟机限制。
+5. ArrayList的toArray()方法和subList()方法，在源数据和子数据之间的区别；
+    1. toArray():对该方法返回的数组，进行操作（增删改查）都不会影响源数据（ArrayList中elementData）。二者之间是不会相互影响的。
+    2. subList():对返回的子集合，进行操作（增删改查）都会影响父集合。而且若是对父集合中进行删除操作（仅仅在删除子集合的首个元素）时，会抛出异常java.util.ConcurrentModificationException。
+    
+#### ArrayList和Vector区别以及其扩容机制
+> 相同点
+1. ArrayList和Vector都是继承了相同的父类和实现了相同的接口
+    （extends AbstractList implements List, Cloneable, Serializable, RandomAccess）
+2. 底层都是数组（Object[]）实现的
+3. 初始默认长度都为10。
+
+> 不同点
+1. 同步性（Synchronization）：
+    Vector中的public方法多数添加了synchronized关键字、以确保方法同步、也即是Vector线程安全、ArrayList线程不安全。
+2. 扩容（Resize）：
+    ArrayList以1.5倍的方式在扩容、Vector 当扩容容量增量大于0时、新数组长度为原数组长度+扩容容量增量、否则新数组长度为原数组长度的2倍。
+3. 性能（Performance）：
+    由于第一点的原因、在性能方便通常情况下ArrayList的性能更好、而Vector存在synchronized 的锁等待情况、需要等待释放锁这个过程、所以性能相对较差。
+4. 快速失败（fail-fast）：
+    Vector 的 elements 方法返回的 Enumeration 不是 快速失败（fail-fast）的。而ArrayList是快速失败（fail-fast）
+
 #### 源码解析
 ```java
 public class ArrayList<E> extends AbstractList<E>
@@ -606,12 +632,3 @@ public class ArrayList<E> extends AbstractList<E>
     }
 }
 ```
-
-#### 总结
-1. ArrayList是基于数组实现的，它的内存储元素的数组为 elementData;elementData的声明为：transient Object[] elementData;
-2. ArrayList中EMPTY_ELEMENTDATA和DEFAULTCAPACITY_EMPTY_ELEMENTDATA的使用；这两个常量，使用场景不同。前者是用在用户通过ArrayList(int initialCapacity)该构造方法直接指定初始容量为0时，后者是用户直接使用无参构造创建ArrayList时。
-3. ArrayList默认容量为10。调用无参构造新建一个ArrayList时，它的elementData = DEFAULTop CAPACITY_EMPTY_ELEMENTDATA, 当第一次使用 add() 添加元素时，ArrayList的容量会为 10。
-4. ArrayList的扩容计算为 newCapacity = oldCapacity + (oldCapacity >> 1);且扩容并非是无限制的，有内存限制，虚拟机限制。
-5. ArrayList的toArray()方法和subList()方法，在源数据和子数据之间的区别；
-    1. toArray():对该方法返回的数组，进行操作（增删改查）都不会影响源数据（ArrayList中elementData）。二者之间是不会相互影响的。
-    2. subList():对返回的子集合，进行操作（增删改查）都会影响父集合。而且若是对父集合中进行删除操作（仅仅在删除子集合的首个元素）时，会抛出异常java.util.ConcurrentModificationException。
