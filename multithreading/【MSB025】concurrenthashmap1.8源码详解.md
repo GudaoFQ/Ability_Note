@@ -444,94 +444,37 @@ private final Node<K,V>[] initTable() {
     return tab;
 }
 ```
-#### 链表转红黑树treeifyBin源码
-> treeifyBin 不一定就会进行红黑树转换，也可能是仅仅做数组扩容[当数组的长度小于64，即是链表长度超过了8，也不会进行树化，只会进行数组扩容]
+#### 帮助数据迁移helpTransfer源码
 ```java
-private final void treeifyBin(Node<K,V>[] tab, int index) {
-    Node<K,V> b; int n, sc;
-    if (tab != null) {
-        // MIN_TREEIFY_CAPACITY 为 64
-        // 所以，如果数组长度小于 64 的时候，其实也就是 32 或者 16 或者更小的时候，会进行数组扩容
-        if ((n = tab.length) < MIN_TREEIFY_CAPACITY)
-            // 后面我们再详细分析这个方法
-            tryPresize(n << 1);
-        // b 是头结点
-        else if ((b = tabAt(tab, index)) != null && b.hash >= 0) {
-            // 加锁
-            synchronized (b) {
-                if (tabAt(tab, index) == b) {
-                    // 下面就是遍历链表，建立一颗红黑树
-                    TreeNode<K,V> hd = null, tl = null;
-                    for (Node<K,V> e = b; e != null; e = e.next) {
-                        TreeNode<K,V> p =
-                            new TreeNode<K,V>(e.hash, e.key, e.val,
-                                              null, null);
-                        if ((p.prev = tl) == null)
-                            hd = p;
-                        else
-                            tl.next = p;
-                        tl = p;
-                    }
-                    // 将红黑树设置到数组相应位置中
-                    setTabAt(tab, index, new TreeBin<K,V>(hd));
-                }
+final Node<K,V>[] helpTransfer(Node<K,V>[] tab, Node<K,V> f) {
+    Node<K,V>[] nextTab; int sc;
+    if (tab != null && (f instanceof ForwardingNode) &&
+        (nextTab = ((ForwardingNode<K,V>)f).nextTable) != null) {
+        //返回一个 16 位长度的扩容校验标识
+        int rs = resizeStamp(tab.length);
+        while (nextTab == nextTable && table == tab &&
+               (sc = sizeCtl) < 0) {
+            //sizeCtl 如果处于扩容状态的话
+            //前 16 位是数据校验标识，后 16 位是当前正在扩容的线程总数
+            //这里判断校验标识是否相等，如果校验符不等或者扩容操作已经完成了，直接退出循环，不用协助它们扩容了
+            // 如果 sizeCtl 无符号右移  16 不等于 rs （ sc前 16 位如果不等于标识符，则标识符变化了）
+            // 或者 sizeCtl == rs + 1  （扩容结束了，不再有线程进行扩容）（默认第一个线程设置 sc ==rs 左移 16 位 + 2，当第一个线程结束扩容了，就会将 sc 减一。这个时候，sc 就等于 rs + 1）
+            // 或者 sizeCtl == rs + 65535  （如果达到最大帮助线程的数量，即 65535）
+            // 或者转移下标正在调整 （扩容结束）
+            // 结束循环，返回 table
+            if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||
+                sc == rs + MAX_RESIZERS || transferIndex <= 0)
+                break;
+            //否则调用 transfer 帮助它们进行扩容
+            //sc + 1 标识增加了一个线程进行扩容
+            if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1)) {
+                transfer(tab, nextTab);
+                break;
             }
         }
+        return nextTab;
     }
-}
-```
-#### 扩容tryPresize源码
-> 扩容也是做翻倍扩容的，扩容后数组容量为原来的 2 倍
-```java
-// 首先要说明的是，方法参数 size 传进来的时候就已经翻了倍了
-private final void tryPresize(int size) {
-    // c：size 的 1.5 倍，再加 1，再往上取最近的 2 的 n 次方。
-    int c = (size >= (MAXIMUM_CAPACITY >>> 1)) ? MAXIMUM_CAPACITY :
-        tableSizeFor(size + (size >>> 1) + 1);
-    int sc;
-    while ((sc = sizeCtl) >= 0) {
-        Node<K,V>[] tab = table; int n;
-
-        // 这个 if 分支和之前说的初始化数组的代码基本上是一样的，在这里，我们可以不用管这块代码
-        if (tab == null || (n = tab.length) == 0) {
-            n = (sc > c) ? sc : c;
-            if (U.compareAndSwapInt(this, SIZECTL, sc, -1)) {
-                try {
-                    if (table == tab) {
-                        @SuppressWarnings("unchecked")
-                        Node<K,V>[] nt = (Node<K,V>[])new Node<?,?>[n];
-                        table = nt;
-                        sc = n - (n >>> 2); // 0.75 * n
-                    }
-                } finally {
-                    sizeCtl = sc;
-                }
-            }
-        }
-        else if (c <= sc || n >= MAXIMUM_CAPACITY)
-            break;
-        else if (tab == table) {
-            int rs = resizeStamp(n);
-            if (sc < 0) {
-                Node<K,V>[] nt;
-                //RESIZE_STAMP_SHIFT=16,MAX_RESIZERS=2^15-1
-                if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||
-                    sc == rs + MAX_RESIZERS || (nt = nextTable) == null ||
-                    transferIndex <= 0)
-                    break;
-                // 2. 用 CAS 将 sizeCtl 加 1，然后执行 transfer 方法
-                //    此时 nextTab 不为 null
-                if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1))
-                    transfer(tab, nt);
-            }
-            // 1. 将 sizeCtl 设置为 (rs << RESIZE_STAMP_SHIFT) + 2)
-            //   计算出来结果是一个比较大的负数
-            //  调用 transfer 方法，此时 nextTab 参数为 null
-            else if (U.compareAndSwapInt(this, SIZECTL, sc,
-                                         (rs << RESIZE_STAMP_SHIFT) + 2))
-                transfer(tab, null);
-        }
-    }
+    return table;
 }
 ```
 #### 数据迁移transfer源码
@@ -657,6 +600,96 @@ private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
                     }
                 }
             }
+        }
+    }
+}
+```
+#### 链表转红黑树treeifyBin源码
+> treeifyBin 不一定就会进行红黑树转换，也可能是仅仅做数组扩容[当数组的长度小于64，即是链表长度超过了8，也不会进行树化，只会进行数组扩容]
+```java
+private final void treeifyBin(Node<K,V>[] tab, int index) {
+    Node<K,V> b; int n, sc;
+    if (tab != null) {
+        // MIN_TREEIFY_CAPACITY 为 64
+        // 所以，如果数组长度小于 64 的时候，其实也就是 32 或者 16 或者更小的时候，会进行数组扩容
+        if ((n = tab.length) < MIN_TREEIFY_CAPACITY)
+            // 后面我们再详细分析这个方法
+            tryPresize(n << 1);
+        // b 是头结点
+        else if ((b = tabAt(tab, index)) != null && b.hash >= 0) {
+            // 加锁
+            synchronized (b) {
+                if (tabAt(tab, index) == b) {
+                    // 下面就是遍历链表，建立一颗红黑树
+                    TreeNode<K,V> hd = null, tl = null;
+                    for (Node<K,V> e = b; e != null; e = e.next) {
+                        TreeNode<K,V> p =
+                            new TreeNode<K,V>(e.hash, e.key, e.val,
+                                              null, null);
+                        if ((p.prev = tl) == null)
+                            hd = p;
+                        else
+                            tl.next = p;
+                        tl = p;
+                    }
+                    // 将红黑树设置到数组相应位置中
+                    setTabAt(tab, index, new TreeBin<K,V>(hd));
+                }
+            }
+        }
+    }
+}
+```
+#### 扩容tryPresize源码
+> 扩容也是做翻倍扩容的，扩容后数组容量为原来的 2 倍
+```java
+// 首先要说明的是，方法参数 size 传进来的时候就已经翻了倍了
+private final void tryPresize(int size) {
+    // c：size 的 1.5 倍，再加 1，再往上取最近的 2 的 n 次方。
+    int c = (size >= (MAXIMUM_CAPACITY >>> 1)) ? MAXIMUM_CAPACITY :
+        tableSizeFor(size + (size >>> 1) + 1);
+    int sc;
+    while ((sc = sizeCtl) >= 0) {
+        Node<K,V>[] tab = table; int n;
+
+        // 这个 if 分支和之前说的初始化数组的代码基本上是一样的，在这里，我们可以不用管这块代码
+        if (tab == null || (n = tab.length) == 0) {
+            n = (sc > c) ? sc : c;
+            if (U.compareAndSwapInt(this, SIZECTL, sc, -1)) {
+                try {
+                    if (table == tab) {
+                        @SuppressWarnings("unchecked")
+                        Node<K,V>[] nt = (Node<K,V>[])new Node<?,?>[n];
+                        table = nt;
+                        sc = n - (n >>> 2); // 0.75 * n
+                    }
+                } finally {
+                    sizeCtl = sc;
+                }
+            }
+        }
+        else if (c <= sc || n >= MAXIMUM_CAPACITY)
+            break;
+        else if (tab == table) {
+            int rs = resizeStamp(n);
+            if (sc < 0) {
+                Node<K,V>[] nt;
+                //RESIZE_STAMP_SHIFT=16,MAX_RESIZERS=2^15-1
+                if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||
+                    sc == rs + MAX_RESIZERS || (nt = nextTable) == null ||
+                    transferIndex <= 0)
+                    break;
+                // 2. 用 CAS 将 sizeCtl 加 1，然后执行 transfer 方法
+                //    此时 nextTab 不为 null
+                if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1))
+                    transfer(tab, nt);
+            }
+            // 1. 将 sizeCtl 设置为 (rs << RESIZE_STAMP_SHIFT) + 2)
+            //   计算出来结果是一个比较大的负数
+            //  调用 transfer 方法，此时 nextTab 参数为 null
+            else if (U.compareAndSwapInt(this, SIZECTL, sc,
+                                         (rs << RESIZE_STAMP_SHIFT) + 2))
+                transfer(tab, null);
         }
     }
 }

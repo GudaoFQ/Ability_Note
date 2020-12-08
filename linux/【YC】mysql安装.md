@@ -62,7 +62,7 @@ http://downloads.mysql.com/archives/community/
     ```shell
     [root@localhost /]# cat /etc/group | grep mysql
     [root@localhost /]# cat /etc/passwd |grep mysql
-    [root@localhost /]#useradd -r -s /sbin/nologin mysql
+    [root@localhost /]# useradd -r -s /sbin/nologin mysql
     查询用户信息
     [root@localhost /]#id mysql 
     ```
