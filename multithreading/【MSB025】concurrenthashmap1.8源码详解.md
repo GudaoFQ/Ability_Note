@@ -604,7 +604,7 @@ private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
     }
 }
 ```
-#### 链表转红黑树treeifyBin源码
+#### 链表转红黑树treeifyBin源码 
 > treeifyBin 不一定就会进行红黑树转换，也可能是仅仅做数组扩容[当数组的长度小于64，即是链表长度超过了8，也不会进行树化，只会进行数组扩容]
 ```java
 private final void treeifyBin(Node<K,V>[] tab, int index) {
