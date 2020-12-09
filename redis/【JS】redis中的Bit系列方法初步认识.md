@@ -20,3 +20,21 @@
 ![redis-getKey方法.jpg](../resource/redis/redis-getKey方法.jpg)
 * 此时发现原先的值'a' 通过setBit修改后变成了值 'b'
 
+### bitcount案例
+> 使用bit来进行用户登录统计，每个用户一年的数据就只有46字节
+```shell
+# 用户哪一天登陆就在那一天代表的bit索引下（天数-1=bit代表的索引位）设置为1
+127.0.0.1:6379> setbit gudao 0 1
+(integer) 0
+127.0.0.1:6379> setbit gudao 1 1
+(integer) 0
+127.0.0.1:6379> setbit gudao 2 1
+(integer) 0
+127.0.0.1:6379> setbit gudao 364 1
+(integer) 0
+127.0.0.1:6379> bitcount gudao 0 -1
+(integer) 4
+```
+![redis-bit统计用户登陆.jpg](../resource/redis/redis-bit统计用户登陆.jpg)
+
+### bitop案例

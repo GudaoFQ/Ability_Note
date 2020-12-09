@@ -32,7 +32,7 @@
     # 编译失败，必须将先前编译的内容清除，然后再编译
     make distclean
     ```
-6. 修改config配置
+6. 修改config配置【重要，不配置其它服务器连接不到当前服务器的redis】
     ```shell
     # 进入redis解压文件夹
    
