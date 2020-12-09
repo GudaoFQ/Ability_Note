@@ -100,23 +100,10 @@
         ```
         ![redis-install_server问题解决.jpg](../resource/redis/redis-install_server问题解决.jpg)
 10. 退出客户端
-    quit
+    1. quit
 11. 退出redis服务： 
     1. pkill redis-server 
     2. kill 进程号                       
     3. src/redis-cli shutdown
-12. 
-    ```shell
-    
-    ```
-13. AUTH 认证密码
-    ```shell
-    $ ./redis-cli -h 127.0.0.1 -p 6379
-    127.0.0.1:6379> auth myPassword    #认证密码
-    OK
-    127.0.0.1:6379> config get requirepass    #查看认证密码
-    1) "requirepass"
-    2) "myPassword"
-    ```
     
     
