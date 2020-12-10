@@ -69,13 +69,13 @@
     <fileSets>
         <fileSet>
             <!-- 设置需要打包的文件路径 -->
-            <directory>agent</directory>
+            <directory>../sbin/server</directory>
             <!-- 打包后的输出路径 -->
             <outputDirectory></outputDirectory>
         </fileSet>
         <fileSet>
             <!-- 设置需要打包的文件路径 -->
-            <directory>agent</directory>
+            <directory>${project.basedir}/src/main/resources</directory>
             <!-- 打包后的输出路径 -->
             <outputDirectory></outputDirectory>
             <!-- 需要打包的文件 -->
