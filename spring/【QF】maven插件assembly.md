@@ -74,7 +74,10 @@
             <outputDirectory></outputDirectory>
         </fileSet>
         <fileSet>
-            <!-- 设置需要打包的文件路径 -->
+            <!-- 
+            设置需要打包的文件路径 
+            project.basedir	当前项目所在的目录
+            -->
             <directory>${project.basedir}/src/main/resources</directory>
             <!-- 打包后的输出路径 -->
             <outputDirectory></outputDirectory>
