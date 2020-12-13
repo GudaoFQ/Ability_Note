@@ -25,8 +25,8 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     </properties>
     ```
+    
 #### POM属性(使用pom属性可以引用到pom.xml文件对应元素的值)
-
 * ${project.build.directory}
     > 表示主源码路径;
 * ${project.build.sourceEncoding}
@@ -58,8 +58,6 @@
     > 可得到所有的Java属性;
 * ${user.home}
     > 表示用户目录;
-
- 
 
 #### 环境变量属性(所有的环境变量都可以用以env.开头的Maven属性引用)
 > 使用mvn help:system命令可查看所有环境变量;
