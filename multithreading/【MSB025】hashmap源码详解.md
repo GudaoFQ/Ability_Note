@@ -46,7 +46,8 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     static final int UNTREEIFY_THRESHOLD = 6;
     
     /**
-     * 用于快速失败，由于HashMap非线程安全，在对HashMap进行迭代时，如果期间其他线程的参与导致HashMap      * 的结构发生变化了（比如put，remove等操作），需要抛出异常ConcurrentModificationException
+     * 用于快速失败，由于HashMap非线程安全，在对HashMap进行迭代时，如果期间其他线程的参与导致HashMap
+     * 结构发生变化了（比如put，remove等操作），需要抛出异常ConcurrentModificationException
      */
     transient int modCount;
 }

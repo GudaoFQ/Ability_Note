@@ -25,7 +25,6 @@
 6. 如果bucket满了(超过load factor*current capacity)，就要resize。
 
 #### get大致思路如下
-
 1. bucket里的第一个节点，直接命中；
 2. 如果有冲突，则通过key.equals(k)去查找对应的entry
     1. 若为树，则在树中通过key.equals(k)查找，O(logn)；
