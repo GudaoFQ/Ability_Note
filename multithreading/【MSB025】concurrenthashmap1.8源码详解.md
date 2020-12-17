@@ -323,7 +323,7 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
         // tabAt方法：从对象的指定偏移量处获取变量的引用，使用volatile的加载语义【获取tab下执行索引的元素】
         // 如果为空，直接通过cas操作进行设值
         // 用一次 CAS 操作将这个新值放入其中即可，这个 put 操作差不多就结束了，可以拉到最后面了
-        // 如果 CAS 失败，那就是有并发操作，进到下一个循环就好了
+        // 如果 CAS 失败，那就是有并发操作，直接跳出当前循环
         else if ((f = tabAt(tab, i = (n - 1) & hash)) == null) {
             if (casTabAt(tab, i, null,new Node<K,V>(hash, key, value, null)))
                 break;                   // no lock when adding to empty bin
@@ -391,6 +391,7 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
                 // 判断该值得长度是否达到了转换树的阈值8
                 if (binCount >= TREEIFY_THRESHOLD)
                     // 执行树化操作
+                    // 树化操作中会通过setTabAt(tab, index, new TreeBin<K,V>(hd))将Node变换为TreeBin，TreeBin中会将Node中的hash变为-2【super(TREEBIN, null, null, null)】
                     treeifyBin(tab, i);
                 if (oldVal != null)
                     // 如果是put方法调用的本方法，就是将被覆盖的值返回
@@ -401,6 +402,7 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
         }
     }
     // 内部通过cas判断是否要对当前数组进行扩容操作【数组长度超过0.75f，进行扩容】
+    // 扩容操作中会通过transfer(tab, nt)将Node变为ForwardingNode，ForwardingNode中会将Node中的hash变为-1【super(MOVED, null, null, null)】
     addCount(1L, binCount);
     return null;
 }
@@ -692,5 +694,33 @@ private final void tryPresize(int size) {
                 transfer(tab, null);
         }
     }
+}
+```
+
+#### get源码
+```java
+public V get(Object key) {
+    Node<K,V>[] tab; Node<K,V> e, p; int n, eh; K ek;
+    int h = spread(key.hashCode());
+    if ((tab = table) != null && (n = tab.length) > 0 &&
+        (e = tabAt(tab, (n - 1) & h)) != null) {
+        // 判断头结点是否就是我们需要的节点
+        if ((eh = e.hash) == h) {
+            if ((ek = e.key) == key || (ek != null && key.equals(ek)))
+                return e.val;
+        }
+        // 如果头结点的 hash 小于 0，说明 正在扩容，或者该位置是红黑树
+        else if (eh < 0)
+            // 参考 ForwardingNode.find(int h, Object k) 和 TreeBin.find(int h, Object k)
+            return (p = e.find(h, key)) != null ? p.val : null;
+
+        // 遍历链表
+        while ((e = e.next) != null) {
+            if (e.hash == h &&
+                ((ek = e.key) == key || (ek != null && key.equals(ek))))
+                return e.val;
+        }
+    }
+    return null;
 }
 ```
