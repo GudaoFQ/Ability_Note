@@ -36,7 +36,7 @@ static final class FairSync extends Sync {
 }
 ```
 #### AQS架构
-![multithreading-aqs架构框架.jpg](../resource/multithreading/multithreading-aqs架构框架.jpg)
+![multithreading-aqs架构框架](../resource/multithreading/multithreading-aqs架构框架.jpg)
 * 上图中有颜色的为Method，无颜色的为Attribution。
 * 总的来说，AQS框架共分为五层，自上而下由浅入深，从AQS对外暴露的API到底层基础数据。
 * 当有自定义同步器接入时，只需重写第一层所需要的部分方法即可，不需要关注底层具体的实现流程。当自定义同步器进行加锁或者解锁操作时，先经过第一层的API进入AQS内部方法，然后经过第二层进行锁的获取，接着对于获取锁失败的流程，进入第三层和第四层的等待队列处理，而这些处理方式均依赖于第五层的基础数据提供层
@@ -46,12 +46,12 @@ static final class FairSync extends Sync {
 
 CLH：Craig、Landin and Hagersten队列，是单向链表，AQS中的队列是CLH变体的虚拟双向队列（FIFO），AQS是通过将每条请求共享资源的线程封装成一个节点来实现锁的分配。
 主要原理图如下：
-![multithreading-aqs核心原理图.jpg](../resource/multithreading/multithreading-aqs核心原理图.jpg)
+![multithreading-aqs核心原理图](../resource/multithreading/multithreading-aqs核心原理图.jpg)
 > AQS使用一个`Volatile`的int类型的成员变量来表示同步状态，通过内置的FIFO队列来完成资源获取的排队工作，通过CAS完成对State值的修改
 
 #### AQS数据结构
 > AQS中最基本的数据结构——Node，Node即为上面CLH变体队列中的节点
-![multithreading-aqs数据结构.jpg](../resource/multithreading/multithreading-aqs数据结构.jpg)
+![multithreading-aqs数据结构](../resource/multithreading/multithreading-aqs数据结构.jpg)
 * 方法和属性值的含义
 
 | 方法和属性值 | 含义                              |
@@ -95,8 +95,8 @@ private volatile int state;
 | protected final boolean compareAndSetState(int expect, int update) | 使用CAS方式更新State |
 
 * 这几个方法都是Final修饰的，说明子类中无法重写它们。我们可以通过修改State字段表示的同步状态来实现多线程的独占模式和共享模式（加锁过程）
-![multithreading-aqs共享式修改state.jpg](../resource/multithreading/multithreading-aqs共享式修改state.jpg)
-![multithreading-aqs独占式修改state图.jpg](../resource/multithreading/multithreading-aqs独占式修改state图.jpg)
+![multithreading-aqs共享式修改state](../resource/multithreading/multithreading-aqs共享式修改state.jpg)
+![multithreading-aqs独占式修改state图](../resource/multithreading/multithreading-aqs独占式修改state图.jpg)
 
 自定义的同步工具，需要自定义获取同步状态和释放状态的方式，也就是AQS架构图中的第一层：API层。
 

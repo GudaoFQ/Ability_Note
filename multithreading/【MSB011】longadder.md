@@ -6,7 +6,7 @@
 
 #### 原理
 > LongAdder的原理是，在最初无竞争时，只更新base的值，当有多线程竞争时通过分段的思想，让不同的线程更新不同的段，最后把这些段相加就得到了完整的LongAdder存储的值。
-![multithreading-longadder原理图.jpg](../resource/multithreading/multithreading-longadder原理图.jpg)
+![multithreading-longadder原理图](../resource/multithreading/multithreading-longadder原理图.jpg)
 
 #### LongAdder/AtomicLong/Synchronized在一万并发量的情况下的对一个数字的自增
 > 例子请看个人的github

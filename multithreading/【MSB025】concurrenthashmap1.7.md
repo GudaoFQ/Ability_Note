@@ -3,12 +3,12 @@
 
 #### JDK7
 JDK7的ConcurrentHashMap中，加入了分段锁的逻辑，在分段锁的设计中，数据会被按照一定的规则分段（一般是对数据的hashcode，进行二次哈希计算），每个段使用一个锁，这样如果访问的数据不在一个分段中，则不会产生锁冲突，从而提高并发性能。<br>
-![multithreading-1.7concurrenthashmap数据结构.jpg](../resource/multithreading/multithreading-1.7concurrenthashmap数据结构.jpg)
+![multithreading-1.7concurrenthashmap数据结构](../resource/multithreading/multithreading-1.7concurrenthashmap数据结构.jpg)
 主要区别在于ConcurrentHashMap多了一层Segment分段锁，每个Segment下面是一个数组+链表的HashMap结构。
 
 #### 数据结构
 ConcurrentHashMap实现线程安全的关键就在于Segment分段锁，当需要修改元素时，要先获得Segment锁，从而保障在并发场景下的数据安全。`Segment是继承自ReentrantLock`，一个**基于AQS的重入锁**。在 Segment 对象中通过 HashEntry 数组来维护其内部的 hash 表。每个 HashEntry 就代表了 map 中的一个 K-V，如果发生 hash 冲突时，在该位置就会形成链表。
-![multithreading-concurrenthashmap1.7完整结构图.jpg](../resource/multithreading/multithreading-concurrenthashmap1.7完整结构图.jpg)
+![multithreading-concurrenthashmap1.7完整结构图](../resource/multithreading/multithreading-concurrenthashmap1.7完整结构图.jpg)
 ```java
 public class ConcurrentHashMap<K, V> extends AbstractMap<K, V>
         implements ConcurrentMap<K, V>, Serializable {

@@ -75,7 +75,7 @@ public class NettyBioServer {
 }
 ```
 #### windows下的selnet命令打开
-![windows-telnet-开启关闭.gif](../resource/windows/windows-telnet-开启关闭.gif)
+![windows-telnet-开启关闭](../resource/windows/windows-telnet-开启关闭.gif)
 
 #### 代码调试步骤
 1. 运行代码

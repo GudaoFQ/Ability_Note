@@ -2,9 +2,9 @@
 <https://github.com/GudaoFQ/Multithreading/tree/main/src/main/java/com/gudao/m009_atomic_demo>
 
 #### Atomic分类
-![multithreading-atomic分类.jpg](../resource/multithreading/multithreading-atomic分类.jpg)
+![multithreading-atomic分类](../resource/multithreading/multithreading-atomic分类.jpg)
 ##### 详细说明
-![multithreading-atomic脑图.jpg](../resource/multithreading/multithreading-atomic脑图.jpg)
+![multithreading-atomic脑图](../resource/multithreading/multithreading-atomic脑图.jpg)
 
 #### 特点
 * 使用java.util.concurrent.atomic提供的原子操作可以简化多线程编程：

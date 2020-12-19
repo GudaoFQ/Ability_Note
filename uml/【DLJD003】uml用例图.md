@@ -7,12 +7,12 @@
 
 #### 操作说明：
 1. **创建包**<br>
-![uml-1602660130.png](../resource/uml/uml-1602660130.png)
+![uml-1602660130](../resource/uml/uml-1602660130.png)
 2. **创建角色**<br>
-![uml-1602660242.png](../resource/uml/uml-1602660242.png)
+![uml-1602660242](../resource/uml/uml-1602660242.png)
 3. **创建用用例图包**<br>
-![uml-1602660277.png](../resource/uml/uml-1602660277.png)
+![uml-1602660277](../resource/uml/uml-1602660277.png)
 4. **创建用例图画布**<br>
-![uml-1602660317.png](../resource/uml/uml-1602660317.png)
+![uml-1602660317](../resource/uml/uml-1602660317.png)
 5. **创建用例**<br>
-![uml-1602660350.png](../resource/uml/uml-1602660350.png)
+![uml-1602660350](../resource/uml/uml-1602660350.png)

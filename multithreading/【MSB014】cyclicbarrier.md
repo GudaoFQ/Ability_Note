@@ -8,7 +8,7 @@
 
 #### 原理
 > 利用CyclicBarrier类可以实现一组线程相互等待，当所有线程都到达某个屏障点后再进行后续的操作
-![multithreading-cyclicbarrier内部实现原理.gif](../resource/multithreading/multithreading-cyclicbarrier内部实现原理.gif)
+![multithreading-cyclicbarrier内部实现原理](../resource/multithreading/multithreading-cyclicbarrier内部实现原理.gif)
 
 #### 构造方法
 ```shell

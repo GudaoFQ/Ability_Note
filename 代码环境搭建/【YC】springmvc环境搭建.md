@@ -3,37 +3,37 @@
 #### 创建Maven项目
 > 选择 File -> New -> Project
 
-![idea-项目新建.jpg](../resource/代码环境搭建/idea-项目新建.jpg)
+![idea-项目新建](../resource/代码环境搭建/idea-项目新建.jpg)
 
 #### 项目选择
 > 左边栏中选择 Maven，选择 Create From archetype，然后选中 org.apache.maven.archetypes:maven-archetype-webapp，然后点击下一步
 
-![idea-maven项目选择.jpg](../resource/代码环境搭建/idea-maven项目选择.jpg)
+![idea-maven项目选择](../resource/代码环境搭建/idea-maven项目选择.jpg)
 
 #### 填写信息
 > 然后填写 GroupId 和 ArtifactId。GroupId 一般分为多个段，这里我只说两段，第一段为域，第二段为公司名称。域又分为 org, com, cn 等等许多，其中 org 为非营利组织，com 为商业组织。比如我创建一个项目，我一般会将 GroupId 设置 为 com.gudao，com 表示域为公司，gudao 是我个人姓名缩写，artifactId 设置为 JavaUtils，表示你这个项目的名称是 JavaUtils
 
-![idea-maven项目信息填写.jpg](../resource/代码环境搭建/idea-maven项目信息填写.jpg)
+![idea-maven项目信息填写](../resource/代码环境搭建/idea-maven项目信息填写.jpg)
 
 #### 配置当前项目的maven
-![idea-maven环境配置.jpg](../resource/代码环境搭建/idea-maven环境配置.jpg)
+![idea-maven环境配置](../resource/代码环境搭建/idea-maven环境配置.jpg)
 
 #### 项目中添加 Web 工程【如果idea没有帮忙创建】
 > 现在我们只有 Spring 的框架，但 Spring MVC 必需的 Web 工程框架还没有搭建，所以需要向项目中添加 Web 工程。
 > 点击菜单 File -> Project Structure，选中左侧栏 Project Settings 的 Facets，在顶部的 “+” 中选择 Web，并在弹出的 Choose Modules 窗口中选择当前 Module，确认。此外，将 Web Resource Directory 的 “…/web” 改为 “…/webapp”，笔者这样的操作是为了与 Tomcat 的 webapp 路径名称对应。
 
-![idea-maven创建springmvc中的webapp创建.jpg](../resource/代码环境搭建/idea-maven创建springmvc中的webapp创建.jpg)
+![idea-maven创建springmvc中的webapp创建](../resource/代码环境搭建/idea-maven创建springmvc中的webapp创建.jpg)
 
 ##### 在项目中的webapp没有被创建出现的问题
-![idea-maven创建springmvc中的webapp问题.jpg](../resource/代码环境搭建/idea-maven创建springmvc中的webapp问题.jpg)
+![idea-maven创建springmvc中的webapp问题](../resource/代码环境搭建/idea-maven创建springmvc中的webapp问题.jpg)
 
 ##### Project Structure -> Facets 
 > 此外在右下角有一个 Create Artifact 的按钮，点击后进入 Artifacts 标签栏中，将右边区域的所有内容添加到左区域，然后点击 Ok 完成 Web 工程的添加。
 
-![idea-tomcat中的war包创建使用.gif](../resource/代码环境搭建/idea-tomcat中的war包创建使用.gif)
+![idea-tomcat中的war包创建使用](../resource/代码环境搭建/idea-tomcat中的war包创建使用.gif)
 
 #### Tomcat配置
-![idea-tomcat配置.gif](../resource/代码环境搭建/idea-tomcat配置.gif)
+![idea-tomcat配置](../resource/代码环境搭建/idea-tomcat配置.gif)
 
 #### web.xml文件配置
 ```xml

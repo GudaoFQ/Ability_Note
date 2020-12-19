@@ -9,7 +9,7 @@
     * javap
     * JBE-可以直接修改
     * JClassLib-IDEA插件
-    ![jvm-class-jclasslib使用.gif](../resource/jvm/jvm-class-jclasslib使用.gif)
+    ![jvm-class-jclasslib使用](../resource/jvm/jvm-class-jclasslib使用.gif)
 * classFile构成
 ```shell
 ClassFile { 
