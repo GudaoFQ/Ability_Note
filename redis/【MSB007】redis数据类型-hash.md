@@ -1,5 +1,5 @@
 ## Hash类型【redis-6】
-redis文档地址：<http://redisdoc.com/string/index.html#> 
+redis文档地址：<http://redisdoc.com/hash/index.html> 
 命令查看：help @hash
 
 #### hset key field value [field value ...]

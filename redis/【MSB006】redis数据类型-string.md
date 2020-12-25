@@ -1,5 +1,5 @@
 ## String类型【redis-6】
-redis文档地址：<http://redisdoc.com/string/index.html#> 
+redis文档地址：<http://redisdoc.com/string/index.html> 
 命令查看：help @string
 
 ### 字符
