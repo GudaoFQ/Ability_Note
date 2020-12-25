@@ -23,6 +23,9 @@
 * 模块作为Eureka客户端；依赖选择Spring Web和Eureka Discovery Client
 ![eureka-client创建](../resource/springcloud/springcloud-eureka-client创建.jpg)
 
+#### host文件添加域名ip
+![eureka测试改host文件](../resource/springcloud/springcloud-eureka测试改host文件.jpg)
+
 #### 代码修改部分
 > Server配置
 * 在server的启动类上添加注解：@EnableEurekaServer
