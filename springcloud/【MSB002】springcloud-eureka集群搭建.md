@@ -55,11 +55,12 @@ eureka:
     # 设置服务注册中心的URL，用于client和server端交流
     # 此节点应向其他节点发起请求
     service-url:
-      # 此节点应向其他节点发起请求
+      # 此节点应向其他节点发起请求，互相注册，eureka 第二个实例所在域名
       defaultZone: http://eureka2.com:8002/eureka/
       #主机名，必填
   instance:
     hostname: eureka1.com
+# 在 application.yml 再建一个配置文件，语法是 --- 
 ---
 server:
   port: 8002
@@ -71,12 +72,12 @@ eureka:
   client:
     # 是否将自己注册到其他Eureka Server,默认为true
     register-with-eureka: true
-    # 是否从eureka server获取注册信息
+    # 是否从eureka server获取注册信息，集群时必须设置为 true 才能配合 ribbon 负载均衡
     fetch-registry: true
     # 设置服务注册中心的URL，用于client和server端交流
     # 此节点应向其他节点发起请求
     service-url:
-      # 此节点应向其他节点发起请求
+      # 此节点应向其他节点发起请求，互相注册，eureka 第一个实例所在域名
       defaultZone: http://eureka1.com:8001/eureka/
       #主机名，必填
   instance:
@@ -122,7 +123,7 @@ eureka:
     # 设置服务注册中心的URL
     service-url:
       defaultZone: http://eureka2.com:8002/eureka/
-
+# 在 application.yml 再建一个配置文件，语法是 --- 
 ---
 spring:
   profiles: 8012
@@ -154,3 +155,8 @@ eureka:
     <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 </dependency>
 ```
+
+#### 实现效果
+![server1实现效果](../resource/springcloud/springcloud-eureka-server1实现效果.jpg)
+
+![server2实现效果](../resource/springcloud/springcloud-eureka-server2实现效果.jpg)

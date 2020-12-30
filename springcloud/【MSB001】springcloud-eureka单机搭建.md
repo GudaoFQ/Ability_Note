@@ -134,7 +134,7 @@ eureka:
     # 设置服务注册中心的URL
     service-url:
       defaultZone: http://localhost:8000/eureka/
-
+# 在 application.yml 再建一个配置文件，语法是 --- 
 ---
 spring:
   profiles: 8003
@@ -155,7 +155,7 @@ eureka:
     lease-renewal-interval-in-seconds: 30
     # 发呆时间，即服务续约到期时间（缺省为90s）
     lease-expiration-duration-in-seconds: 90
-
+# 在 application.yml 再建一个配置文件，语法是 --- 
 ---
 spring:
   profiles: 8004
