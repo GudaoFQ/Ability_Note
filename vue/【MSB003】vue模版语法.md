@@ -201,13 +201,44 @@
             })
         </script>
         ```
-* v-model
+* v-model[数据互相绑定]
     > 只能给表单元素使用【给非表单元素使用也可以，但是没有任何效果】;指令在表单控件元素上创建双向数据绑定,所谓双向绑定，指的就是我们在js中的vue实例中的data与其渲染的dom元素上的内容保持一致，两者无论谁被改变，另一方也会相应的更新为相同的数据最基础的就是实现一个联动的效果
     * 案例：
         ```html
-        
+        <body>
+            <div id="app">
+                <h3>{{msg}}</h3>
+                <input type="text" v-model="msg">
+            </div>
+        </body>
+        </html>
+        <script>
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    msg: ''
+                }
+            })
+        </script>
         ```
 
-* v-bind
+* v-bind[属性值绑定]
     > 它可以往元素的属性中绑定数据，也可以动态地根据数据为元素绑定不同的样式
     * 案例：
+        ```html
+        <body>
+            <div id="app">
+                <p v-bind:title="test">测试使用</p>
+            </div>
+        </body>
+        </html>
+        <script>
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    test: 'bing测试'
+                }
+            })
+        </script>
+        ```
+        ![v-bind使用案例](../resource/vue/vue-v-bind使用案例.jpg)
