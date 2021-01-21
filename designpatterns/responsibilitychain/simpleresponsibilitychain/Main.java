@@ -11,11 +11,11 @@ public class Main {
         Handler uriHandler = new UriHandler();
         Handler commaHandler = new CommaHandler();
         Handler periodHandler = new PeriodHandler();
-        //将uriHandler设置为textHandler的下一个执行器
+        //将uriHandler设置为textHandler的下一个责任链成员
         textHandler.setHandler(uriHandler);
-        //将commaHandler设置为uriHandler的下一个执行链
+        //将commaHandler设置为uriHandler的下一个责任链成员
         uriHandler.setHandler(commaHandler);
-        //将periodHandler设置为commaHandler的下一个执行链
+        //将periodHandler设置为commaHandler的下一个责任链成员
         commaHandler.setHandler(periodHandler);
 
         String s = textHandler.handlerMsg("Hello,I am gudao,my page is 'gudao.ink'");

@@ -1,0 +1,1 @@
+ChainFilter中没有实现Filter接口，最接近java.servlet.Filter中的责任链模式

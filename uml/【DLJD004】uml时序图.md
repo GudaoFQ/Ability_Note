@@ -5,14 +5,14 @@
 
 #### 操作说明：
 1. **创建时序图包**<br>
-![uml-1602660504.png](../resource/uml/uml-1602660504.png)
+![uml-1602660504.](../resource/uml/uml-1602660504.png)
 2. **创建用例图对应的包**<br>
-![uml-1602660536.png](../resource/uml/uml-1602660536.png)
+![uml-1602660536](../resource/uml/uml-1602660536.png)
 3. **创建用例图对应的时序画布**<br>
-![uml-1602660565.png](../resource/uml/uml-1602660565.png)
+![uml-1602660565](../resource/uml/uml-1602660565.png)
 4. **完善时序图需要的内容**<br>
-![uml-1602660600.png](../resource/uml/uml-1602660600.png)
-![uml-1602660632.png](../resource/uml/uml-1602660632.png)
+![uml-1602660600](../resource/uml/uml-1602660600.png)
+![uml-1602660632](../resource/uml/uml-1602660632.png)
 **注解：**
 ```shell
 小人:动作的发起人
@@ -23,5 +23,5 @@
 回折线:当前对象中的方法执行过程中调用自己当前类中的方法。
 ```
 
-![uml-1602660708.png](../resource/uml/uml-1602660708.png)
-![uml-1602660746.png](../resource/uml/uml-1602660746.png)
+![uml-1602660708](../resource/uml/uml-1602660708.png)
+![uml-1602660746](../resource/uml/uml-1602660746.png)

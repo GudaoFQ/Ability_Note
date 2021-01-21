@@ -62,7 +62,7 @@ http://downloads.mysql.com/archives/community/
     ```shell
     [root@localhost /]# cat /etc/group | grep mysql
     [root@localhost /]# cat /etc/passwd |grep mysql
-    [root@localhost /]#useradd -r -s /sbin/nologin mysql
+    [root@localhost /]# useradd -r -s /sbin/nologin mysql
     查询用户信息
     [root@localhost /]#id mysql 
     ```
@@ -84,8 +84,8 @@ http://downloads.mysql.com/archives/community/
 - 4.解压mysql压缩包，解压到/usr/local/mysql目录
     > 此处的路径一定要设置为/usr/local/mysql，这里面全部是bin...mysql中的文件夹；不能是mysql文件加下还包含一个mysql-5.7.31...文件夹【会影响后续操作】
     ```shell
-    [root@localhost /]#tar-zxf mysql-5.6.44-linux-glibc2.12-×86_64.tar.gz
-    [root@localhost /]#mv mysql-5.6.44-linux-glibc2.12-x8664 /usr/local/mysql
+    [root@localhost /]# tar -zxf mysql-5.6.44-linux-glibc2.12-×86_64.tar.gz
+    [root@localhost /]# mv mysql-5.6.44-linux-glibc2.12-x8664 /usr/local/mysql
     ```
     ![mysql-1601473659.jpg](../resource/linux/mysql-1601473659.jpg)
 

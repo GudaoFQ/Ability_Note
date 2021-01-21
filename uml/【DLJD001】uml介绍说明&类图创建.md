@@ -15,16 +15,16 @@
 
 #### 操作说明：
 1. **创建业务包**<br>
-![uml-1602655964.png](../resource/uml/uml-1602655964.png)
+![uml-1602655964](../resource/uml/uml-1602655964.png)
 2. **创建画布**<br>
-![uml-1602656073.png](../resource/uml/uml-1602656073.png)
+![uml-1602656073](../resource/uml/uml-1602656073.png)
 3. **创建类图**<br>
-![uml-1602656106.png](../resource/uml/uml-1602656106.png)
+![uml-1602656106](../resource/uml/uml-1602656106.png)
 4. **给类图起名、备注**<br>
-![uml-1602656154.png](../resource/uml/uml-1602656154.png)
+![uml-1602656154](../resource/uml/uml-1602656154.png)
 5. **创建属性与变量**<br>
-![uml-1602656198.png](../resource/uml/uml-1602656198.png)
-![uml-1602656239.png](../resource/uml/uml-1602656239.png)
+![uml-1602656198](../resource/uml/uml-1602656198.png)
+![uml-1602656239](../resource/uml/uml-1602656239.png)
 6. **设置属性的内容**<br>
-![uml-1602656285.png](../resource/uml/uml-1602656285.png)
+![uml-1602656285](../resource/uml/uml-1602656285.png)
 

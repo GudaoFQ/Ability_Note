@@ -1,0 +1,1 @@
+ChainFilter实现了Filter接口，java.servlet.Filter中的Chain并没有实现自己的Filter；所以这个方法并不是最接近的
