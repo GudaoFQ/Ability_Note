@@ -160,3 +160,33 @@ eureka:
 ![server1实现效果](../resource/springcloud/springcloud-eureka-server1实现效果.jpg)
 
 ![server2实现效果](../resource/springcloud/springcloud-eureka-server2实现效果.jpg)
+
+#### 三台server集群
+* 配置文件修改
+    ```yaml
+    eureka:
+      client:
+        serviceUrl:
+          defaultZone: https://peer1/eureka/,http://peer2/eureka/,http://peer3/eureka/
+    
+    ---
+    spring:
+    profiles: peer1
+    eureka:
+    instance:
+    hostname: peer1
+    
+    ---
+    spring:
+    profiles: peer2
+    eureka:
+    instance:
+    hostname: peer2
+    
+    ---
+    spring:
+    profiles: peer3
+    eureka:
+    instance:
+    hostname: peer3
+    ```
