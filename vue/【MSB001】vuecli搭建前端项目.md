@@ -4,6 +4,11 @@
 ### node.js版本确认
 > 在使用vue-cli之前，请确认你的电脑已经安装了 node，Vue CLI 需要 Node.js 8.9 或更高版本 (推荐 8.11.0+)，根据使用的的Vue的版本下载对应的Node版本【Node配置参考：node.js安装说明】
 
+### 下载vue
+```shell
+npm install vue
+```
+
 ### 下载全局的Vue Cli
 * 下载命令
     > Vue CLI 的包名称由 vue-cli 改成了 @vue/cli。 如果你已经全局安装了旧版本的 vue-cli (1.x 或 2.x)，你需要先通过 npm uninstall vue-cli -g 或 yarn global remove vue-cli 卸载它。
