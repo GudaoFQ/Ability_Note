@@ -1,5 +1,11 @@
 ## ActiveMQ介绍及安装启动
 
+### ActiveMQ
+> ActiveMQ是一种开源的基于JMS（Java Message Servie）规范的一种消息中间件的实现，ActiveMQ的设计目标是提供标准的，面向消息的，能够跨越多语言和多系统的应用集成消息通信中间件。
+
+### 使用环境
+> ActiveMQ常被应用与系统业务的解耦，异步消息的推送，增加系统并发量，提高用户体验。例如以我在工作中的使用，在比较耗时且异步的远程开锁操作时
+
 ### 下载地址
 [ActiveMQ](http://archive.apache.org/dist/activemq)
 
