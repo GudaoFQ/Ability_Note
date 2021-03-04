@@ -36,3 +36,6 @@ flush privileges;
 
 ### 测试连接
 ![mysql远程连接](../resource/docker/docker-mysql远程连接.png)
+
+### 测试使用
+![mysql远程交互测试](../resource/docker/docker-mysql远程交互测试.png)
