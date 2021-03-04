@@ -1,7 +1,7 @@
 ## Mysql配置
 
 ### 去docker远程仓库下载image模版
-#### 去 [Docker仓库](https://hub.docker.com/_/mysql?tab=tags&page=1&ordering=last_updated) 找指定的mysql版本拉去命令
+#### 在 [Docker仓库](https://hub.docker.com/_/mysql?tab=tags&page=1&ordering=last_updated) 找指定的mysql版本拉去命令
 ![docker仓库中找到mysql的pull命令](../resource/docker/docker-docker仓库中找到mysql的pull命令.png)
 ```shell
 # 本次使用的事mysql5.7
