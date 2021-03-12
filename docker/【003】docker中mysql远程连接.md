@@ -10,7 +10,7 @@ docker pull mysql:5.7.33
 
 ### 创建mysql对应的Container
 ```shell
-docker run -d --name my-mysql -p 3301:3306 -e MYSQL_ROOT_PASSWORD=密码 --privileged mysql
+docker run -d --name my-mysql -p 3301:3306 -e MYSQL_ROOT_PASSWORD=密码 --privileged mysql:版本号
 ```
 
 ### 进入mysql的Container
