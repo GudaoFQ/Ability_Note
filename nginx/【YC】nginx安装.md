@@ -17,7 +17,7 @@ yum install gcc openssl openssl-devel pcre pcre-devel zlib zlib-devel -y
 cd /usr/local/ 
 wget http://nginx.org/download/nginx-1.5.9.tar.gz
 tar -zxvf nginx-1.5.9.tar.gz
-cd nginx-1.5.9.tar.gz
+cd nginx-1.5.9
 # --prefix是指定nginx安装路径
 ./configure --prefix=/usr/local/nginx 
 make && make install
