@@ -22,7 +22,7 @@ docker push trailgudao/gudaoimage
 ```
 
 #### 登陆
-![contos中登陆hub](../resource/docker/docker-contos中登陆hub.png)
+![centos中登陆hub](../resource/docker/docker-centos中登陆hub.png)
 
 #### 提交
 ![image上传到远程](../resource/docker/docker-image上传到远程.png)

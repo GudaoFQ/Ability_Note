@@ -32,7 +32,7 @@
 > RabbitMQ官网提供了新版的rpm包（http://www.rabbitmq.com/download.html），但是安装的时候会提示需要erlang版本>=19.3，然而默认yum仓库中的版本较低。（不推荐）
 
 * [RabbitMQ在github上有提供新的erlang包](https://github.com/rabbitmq/erlang-rpm) ，可以直接加到yum源中
-    * ContOS8安装配置
+    * CentOS8安装配置
         ```shell
         # 在yum中添加github中指定的erlang配置源
         vim /etc/yum.repos.d/rabbitmq_erlang.repo

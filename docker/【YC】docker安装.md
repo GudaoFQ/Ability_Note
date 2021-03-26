@@ -1,12 +1,12 @@
-## Docker安装-ContOS-8
+## Docker安装-CentOS-8
 [Docker官方安装地址](https://docs.docker.com/engine/install/centos/)
 
 ### 官网rpm包下载安装
 
-#### 进入官方网址下载对应ContOS版本的Docker安装包
+#### 进入官方网址下载对应CentOS版本的Docker安装包
 > `https://download.docker.com/linux/centos/` 并选择您的CentOS版本。然后浏览`x86_64/stable/Packages/` 并下载`.rpm`要安装的Docker版本的文件。
 
-#### 查看对应的ContOS版本信息
+#### 查看对应的CentOS版本信息
 ```shell
 cat /etc/redhat-release
 ```

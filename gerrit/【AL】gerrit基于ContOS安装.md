@@ -1,23 +1,23 @@
 ## 安装
 
 #### 安装准备
-* ContOS系统
+* CentOS系统
 * JDK环境
 * git工具
 * httpd反向代理工具
 
 #### 安装对应的插件
-1. ContOS没有wget安装wget
+1. CentOS没有wget安装wget
     ```shell
     yum install wget
     ```
 
-2. ContOS没有git安装git
+2. CentOS没有git安装git
     ```shell
     yum install git
     ```
 
-3. ContOS没有httpd安装httpd
+3. CentOS没有httpd安装httpd
     ```shell
     yum install httpd
     ```

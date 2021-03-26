@@ -75,7 +75,7 @@
     ![redis-redis环境变量配置.jpg](../resource/redis/redis-redis环境变量配置.jpg)
     
     ![redis-重新加载配置文件.jpg](../resource/redis/redis-重新加载配置文件.jpg)
-    * 【看系统，有的系统需要这么修改，ContOS则不需要】如果配置中有其它的PATH配置，直接将自己的配置加在后面也行【不然其它的配置可能会不执行】
+    * 【看系统，有的系统需要这么修改，CentOS则不需要】如果配置中有其它的PATH配置，直接将自己的配置加在后面也行【不然其它的配置可能会不执行】
     ![redis-配置文件问题修改.jpg](../resource/redis/redis-配置文件问题修改.jpg)
 9. 安装server端【此时不安装server，redis也能使用，安装能方便许多】
     ```shell
