@@ -17,6 +17,7 @@
 
 #### 安装npm阿里镜像
 ```shell
+# 通过cnpm使用
 npm install -g cnpm --registry=https://registry.npm.taobao.org
 ```
 ![npm淘宝镜像验证](../resource/node/node-npm淘宝镜像验证.png)

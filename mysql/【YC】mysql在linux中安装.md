@@ -44,18 +44,15 @@
     ```
 
 - 如果环境干净，则如图：
-![mysql-1601451990.jpg](../resource/linux/mysql-1601451990.jpg)
+![mysql-1601451990.jpg](../resource/mysql/mysql-1601451990.jpg)
 
 ### Mysql官网下载需要的安装包：
 **下载地址：**
 ```shell 
-#5.7版本下载地址
-https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
-
 #历史版本下载地址
 http://downloads.mysql.com/archives/community/
 ```
-![mysql-1601451990.jpg](../resource/linux/mysql-2020090003.gif)
+![mysql-2020090003.gif](../resource/mysql/mysql-2020090003.gif)
 
 ### 安装：
 - 1.检查mysql用户组和用户是否存在，如果没有，则创建特殊的账号，叫做mysql（所属组mysql）
@@ -66,20 +63,20 @@ http://downloads.mysql.com/archives/community/
     查询用户信息
     [root@localhost /]#id mysql 
     ```
-    ![mysql-1601473340.jpg](../resource/linux/mysql-1601473340.jpg)
+    ![mysql-1601473340.jpg](../resource/mysql/mysql-1601473340.jpg)
 
 - 2.更改/usr/local/mysql目录权限，更改文件拥有者与所属组都必须为mysql
     ```shell
     [root@localhost /]# chown -R mysql:mysql /usr/local/mysql
     [root@localhost /]# chmod -R 755 /usr/local/mysql
     ```
-    ![mysql-1601474293.jpg](../resource/linux/mysql-1601474293.jpg)
+    ![mysql-1601474293.jpg](../resource/mysql/mysql-1601474293.jpg)
     
 - 3.在/usr/local/mysql目录下创建data目录
     ```shell
     [root@localhost /]# mkdir /usr/local/mysql/data
     ```
-    ![mysql-1601473865.jpg](../resource/linux/mysql-1601473865.jpg)
+    ![mysql-1601473865.jpg](../resource/mysql/mysql-1601473865.jpg)
 
 - 4.解压mysql压缩包，解压到/usr/local/mysql目录
     > 此处的路径一定要设置为/usr/local/mysql，这里面全部是bin...mysql中的文件夹；不能是mysql文件加下还包含一个mysql-5.7.31...文件夹【会影响后续操作】
@@ -87,7 +84,7 @@ http://downloads.mysql.com/archives/community/
     [root@localhost /]# tar -zxf mysql-5.6.44-linux-glibc2.12-×86_64.tar.gz
     [root@localhost /]# mv mysql-5.6.44-linux-glibc2.12-x8664 /usr/local/mysql
     ```
-    ![mysql-1601473659.jpg](../resource/linux/mysql-1601473659.jpg)
+    ![mysql-1601473659.jpg](../resource/mysql/mysql-1601473659.jpg)
 
 - 5.编译安装并初始化mysql,务必记住初始化输出日志末尾的密码（数据库管理员临时密码）
     ```shell
@@ -95,7 +92,7 @@ http://downloads.mysql.com/archives/community/
     [root@localhost bin]# ./mysqld --initialize --user=mysql --datadir=/usr/local/mysql/data --basedir=/usr/local/mysql
     ```
     **运行初始化命令成功后，输出日志如下：**<br>
-    ![mysql-1601474537.jpg](../resource/linux/mysql-1601474537.jpg)
+    ![mysql-1601474537.jpg](../resource/mysql/mysql-1601474537.jpg)
     记录日志最末尾位置root@localhost:后的字符串，此字符串为mysql管理员临时登录密码[#kyhr+?!_4sJ]
     
 - 6.编辑配置文件my.cnf，添加配置如下
@@ -112,14 +109,14 @@ http://downloads.mysql.com/archives/community/
     #表名大小写不明感，敏感为
     lower_case_table_names=1
     ```
-    ![mysql-1601474884.jpg](../resource/linux/mysql-1601474884.jpg)
+    ![mysql-1601474884.jpg](../resource/mysql/mysql-1601474884.jpg)
 
 - 7.启动mysql服务器
     ```shell
     [root@localhost /]# /usr/local/mysql/support-files/mysql.server start
     ```
     - 启动完成
-    ![mysql-1601475511.jpg](../resource/linux/mysql-1601475511.jpg)
+    ![mysql-1601475511.jpg](../resource/mysql/mysql-1601475511.jpg)
 
     - 如果出现如下提示信息：`Starting MySQL... ERROR! The server quit without updating PID file`
       查看是否存在mysql和mysqld的服务，如果存在，则结束进程，再重新执行启动命令
@@ -142,7 +139,7 @@ http://downloads.mysql.com/archives/community/
     [root@localhost /]# service mysql restart
     ```
     **执行结果**<br>
-    ![mysql-1601475834.jpg](../resource/linux/mysql-1601475834.jpg)
+    ![mysql-1601475834.jpg](../resource/mysql/mysql-1601475834.jpg)
     
     
 - 9.登录mysql，修改密码(密码为步骤5生成的临时密码)
@@ -152,7 +149,7 @@ http://downloads.mysql.com/archives/community/
     mysql>set password for root@localhost = password('yourpass');
     ```
     **执行结果**<br>
-    ![mysql-1601476029.jpg](../resource/linux/mysql-1601476029.jpg)
+    ![mysql-1601476029.jpg](../resource/mysql/mysql-1601476029.jpg)
 
 - 10.开放远程连接
     ```shell
@@ -161,7 +158,7 @@ http://downloads.mysql.com/archives/community/
     mysql>flush privileges;
     ```
     **执行结果**<br>
-    ![mysql-1601476137.jpg](../resource/linux/mysql-1601476137.jpg)
+    ![mysql-1601476137.jpg](../resource/mysql/mysql-1601476137.jpg)
 
 - 11.设置开机自动启动
     ```shell
@@ -177,7 +174,7 @@ http://downloads.mysql.com/archives/community/
     #显示服务列表
     [root@localhost /]# chkconfig --list
     ```
-    ![mysql-1601476297.jpg](../resource/linux/mysql-1601476297.jpg)
+    ![mysql-1601476297.jpg](../resource/mysql/mysql-1601476297.jpg)
 
 - 注意
     补充说明：
