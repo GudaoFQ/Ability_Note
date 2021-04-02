@@ -14,3 +14,9 @@
 #### 配置完成验证
 > 通过命令`node --version`<br>
 ![版本验证](../resource/node/node-版本验证.jpg)
+
+#### 安装npm阿里镜像
+```shell
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+```
+![npm淘宝镜像验证](../resource/node/node-npm淘宝镜像验证.png)
