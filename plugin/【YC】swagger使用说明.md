@@ -168,3 +168,22 @@ public boolean delete(@PathVariable("id") int id)
 | hidden          | boolean  | 是否在文档中隐藏该字段。                                     |
 | allowEmptyValue | boolean  | 是否允许为空。                                               |
 | allowableValues | String   | 该字段允许的值，当我们 API 的某个参数为枚举类型时，使用这个属性就可以清楚地告诉 API 使用者该参数所能允许传入的值。 |
+
+## Swagger集成github中的Bootstrap项目【com.github.xiaoymin】
+### 引入maven坐标
+```xml
+<!-- BootStrap集成的Swagger 网址：ip:port/doc.html -->
+<dependency>
+    <groupId>com.github.xiaoymin</groupId>
+    <artifactId>swagger-bootstrap-ui</artifactId>
+    <version>1.9.6</version>
+</dependency>
+<!-- Swagger核心 -->
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger2</artifactId>
+    <version>2.9.2</version>
+</dependency>
+```
+### 配置和前文中的`Java 配置`一样，然后访问
+* 访问地址：ip:port/swagger-ui.html
