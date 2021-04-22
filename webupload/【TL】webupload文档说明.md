@@ -1,4 +1,5 @@
 ## WebUpload文档说明
+[官网](https://fex.baidu.com/webuploader)
 
 ### 接口说明  
 > Web Uploader的所有代码都在一个内部闭包中，对外暴露了唯一的一个变量WebUploader，所以完全不用担心此框架会与其他框架冲突。

@@ -1,4 +1,5 @@
 ## WebUpload参数配置说明
+[官网](https://fex.baidu.com/webuploader)
 
 ### Mediator
 > 中介者，它本身是个单例，但可以通过installTo方法，使任何对象具备事件行为。 主要目的是负责模块与模块之间的合作，降低耦合度。

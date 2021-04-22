@@ -1,4 +1,5 @@
 ## WebUpload参数配置说明
+[官网](https://fex.baidu.com/webuploader)
 
 ### Queue
 > 文件队列, 用来存储各个状态中的文件。

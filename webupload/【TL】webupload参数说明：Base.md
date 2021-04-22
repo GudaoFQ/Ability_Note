@@ -1,4 +1,5 @@
 ## WebUpload参数配置说明
+[官网](https://fex.baidu.com/webuploader)
 
 ### Base
 > 基础类，提供一些简单常用的方法

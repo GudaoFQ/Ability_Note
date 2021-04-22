@@ -1,4 +1,5 @@
 ## WebUpload方法说明[文件上传]
+[官网](https://fex.baidu.com/webuploader)
 
 ### 引入资源
 > 使用Web Uploader文件上传需要引入三种资源：JS, CSS

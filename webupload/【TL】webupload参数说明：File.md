@@ -1,4 +1,5 @@
 ## WebUpload参数配置说明
+[官网](https://fex.baidu.com/webuploader)
 
 ### File
   * new File( source ) ⇒ File
