@@ -12,7 +12,7 @@
 <!-- 注意：一定要引用jquery，不然前端控制台会报错；如图 -->
 <script type="text/javascript" src="jquery.js"></script>
 ```
-![缺少jquery异常](..../resource/webupload/webupload-缺少jquery异常.png)
+![缺少jquery异常](../resource/webupload/webupload-缺少jquery异常.png)
 
 ### html部分
 ```html
