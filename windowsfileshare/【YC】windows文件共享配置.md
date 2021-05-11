@@ -37,16 +37,16 @@
 
 #### 其它电脑访问共享文件
 * 找到服务<br>
-![其它电脑访问共享文件](../resource/windowsfileshare/windowsfileshare-其它电脑访问共享文件.png)
+  ![其它电脑访问共享文件](../resource/windowsfileshare/windowsfileshare-其它电脑访问共享文件.png)
 * 密码连接<br>
-![密码连接](../resource/windowsfileshare/windowsfileshare-密码连接.png)
+  ![密码连接](../resource/windowsfileshare/windowsfileshare-密码连接.png)
+* 访问共享文件命令`\\ip地址<br>
+  ![命令行访问共享](../resource/windowsfileshare/windowsfileshare-命令行访问共享.png)
 
 #### 命令行删除windows凭据【当在`凭据管理`中找不到自己正在使用的windows凭据时用】
-* 访问共享文件命令`\\ip地址
-  ![命令行访问共享](../resource/windowsfileshare/windowsfileshare-命令行访问共享.png)
 * 命令：`net use * /del`<br>
   ![删除windows凭据](../resource/windowsfileshare/windowsfileshare-删除windows凭据.png)
-* 凭据管理中移除windows凭据
+* 凭据管理中移除windows凭据<br>
   ![windows凭据移除](../resource/windowsfileshare/windowsfileshare-windows凭据移除.png)
 
 
