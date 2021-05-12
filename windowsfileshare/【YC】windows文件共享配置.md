@@ -12,6 +12,10 @@
   ![windows文件共享配置图片说明](../resource/windowsfileshare/windowsfileshare-windows文件共享配置图片说明.png)
 * 设置密码错误次数及重新计数时间<br>
   ![设置密码错误次数及重新计数时间](../resource/windowsfileshare/windowsfileshare-设置密码错误次数及重新计数时间.png)
+* 其他电脑访问访问共享 `\\ip地址<br>
+  ![命令行访问共享](../resource/windowsfileshare/windowsfileshare-命令行访问共享.png)
+* 输入认证【guest用户不需要密码】
+  ![访问guest权限开启的电脑共享文件](../resource/windowsfileshare/windowsfileshare-访问guest权限开启的电脑共享文件.png)
   
 ### 自定义用户操作说明
 #### 开启windows中的smb协议【开启后需要重启项目】
