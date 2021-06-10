@@ -62,7 +62,7 @@ public class SwaggerConfig {
 
 #### 验证
 > 启动项目后，通过在浏览器中访问：http://localhost:8080/v2/api-docs 来验证，您会发现返回的结果是一段 JSON 串，可读性非常差。幸运的是 Swagger2 为我们提供了可视化的交互界面 SwaggerUI；直接访问： http://localhost:8080/swagger-ui.html 就可以看到如下的效果了
-![api界面图](../resource/plug/swagger-api界面图.png)
+![api界面图](../resource/plugin/swagger-api界面图.png)
 
 ### 配置说明
 #### 通过在控制器类上增加 `@Api` 注解，可以给控制器增加描述和标签信息：通过在控制器类上增加 @Api 注解，可以给控制器增加描述和标签信息
@@ -92,7 +92,7 @@ public class User {
 public boolean delete(@PathVariable("id") int id)
 ```
 #### 补全信息后的 Swagger 文档界面
-![添加配置信息api](../resource/plug/swagger-添加配置信息api.png)
+![添加配置信息api](../resource/plugin/swagger-添加配置信息api.png)
 
 ### 自定义响应消息
 > Swagger 允许通过 Docket 的 globalResponseMessage() 方法全局覆盖 HTTP 方法的响应消息，但是首先得通过 Docket 的 useDefaultResponseMessages 方法告诉 Swagger 不使用默认的 HTTP 响应消息，假设我们现在需要覆盖所有 GET 方法的 500 和 403 错误的响应消息，只需要在 SwaggerConfig.java 类中的 Docket Bean 下添加如下
@@ -110,21 +110,21 @@ public boolean delete(@PathVariable("id") int id)
         .build()
         ));
 ```
-![自定义返回值界面](../resource/plug/swagger-自定义返回值界面.png)
+![自定义返回值界面](../resource/plugin/swagger-自定义返回值界面.png)
 
 ## Swagger UI 的使用
 ### 接口查看
 > SwaggerUI 会以列表的方式展示所有扫描到的接口，初始状态是收缩的，我们只需要点击展开就好，而且会在左边标识接口的请求方式（GET、POST、PUT、DELETE 等等）
-![接口查看](../resource/plug/swagger-接口查看.png)
+![接口查看](../resource/plugin/swagger-接口查看.png)
 
 ### 接口调用
 > 点击接口展开后页面右上角的 Try it out 按钮后，页面会变成如图所示
-![接口详情](../resource/plug/swagger-接口详情.png)
+![接口详情](../resource/plugin/swagger-接口详情.png)
 > SwaggerUI 会给我们自动填充请求参数的数据结构，我们需要做的只是点击 Execute 即可发起调用
 
 ### Model
 > SwaggerUI 会通过我们在实体上使用的 @ApiModel 注解以及 @ApiModelProperty 注解来自动补充实体以及其属性的描述和备注
-![接口参数详情](../resource/plug/swagger-接口参数详情.png)
+![接口参数详情](../resource/plugin/swagger-接口参数详情.png)
 
 ## 注解说明
 ### Controller 相关注解
