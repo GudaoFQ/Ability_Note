@@ -377,4 +377,4 @@ SELECT event_id,event_name,source,timer_wait,object_name,index_name,operation,ne
 
 ### 方法三：通过show processlist查看连接线程个数，来查看是否有大量线程处于不正常状态或其他不正常特征
 ![show processlist属性](../resource/mysql/mysql-show processlist属性.png)
-
+ 
