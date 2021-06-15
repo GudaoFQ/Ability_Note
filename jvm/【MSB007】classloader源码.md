@@ -159,7 +159,42 @@ protected Class findClass(String var1) throws ClassNotFoundException {
 
 
 ### ClassLoader中的parent（父类加载器）的指派
-#### 在`MyClassLoader myClassLoader = new MyClassLoader();`中调用了MyClassLoader的构造函数
+#### 在`MyClassLoader myClassLoader = new MyClassLoader();`中调用了MyClassLoader的构造函数，然后MyClassLoader就会调用它的父类（ClassLoader）的无参构造
 ```java
+protected ClassLoader() {
+    this(checkCreateClassLoader(), getSystemClassLoader());
+}
 
+/**
+ * getSystemClassLoader()
+ * 没有指定ClassLoader，系统默认加载getSystemClassLoader()来加载AppClassLoader
+ */
+
+// ClassLoader中的无参构造函数回调用自己内部的有参构造函数来对parent进行赋值
+private ClassLoader(Void unused, ClassLoader parent) {
+    this.parent = parent;
+    if (ParallelLoaders.isRegistered(this.getClass())) {
+        parallelLockMap = new ConcurrentHashMap<>();
+        package2certs = new ConcurrentHashMap<>();
+        domains = Collections.synchronizedSet(new HashSet<ProtectionDomain>());
+        assertionLock = new Object();
+    } else {
+        // no finer-grained lock; lock on the classloader instance
+        parallelLockMap = null;
+        package2certs = new Hashtable<>();
+        domains = new HashSet<>();
+        assertionLock = this;
+    }
+}
+```
+
+### 自定义父类加载器
+```java
+private static MyClassLoader myClassLoader = new MyClassLoader();
+
+private static class MyLoader extends ClassLoader {
+    public MyLoader() {
+        super(parent);
+    }
+}
 ```
