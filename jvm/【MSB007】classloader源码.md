@@ -156,3 +156,10 @@ protected Class findClass(String var1) throws ClassNotFoundException {
 1. 如果子类委派父类去内存中查询需要加载的类：每当执行到c = parent.loadClass(name, false);的时候，就会调用父加载器的同样的方法，如果父加载器还不是顶级加载器，还会继续调用父加载器的父加载器，形成递归
 2. 此时，所有的加载器都没有在自己指定的内存中查询到需要加载的类，那么每个加载器都会执行findClass方法，最顶级的加载器指派下一层加载器去指定路口下查找class文件加载（此时已经不是在内存中寻找了）
 3. 如果找到就返回，最后到最小的（自定义加载器）还没有找到，就会返回ClassNotFoundException异常了
+
+
+### ClassLoader中的parent（父类加载器）的指派
+#### 在`MyClassLoader myClassLoader = new MyClassLoader();`中调用了MyClassLoader的构造函数
+```java
+
+```
