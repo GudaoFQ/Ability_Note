@@ -1,7 +1,7 @@
 package desgindemo.singleton;
 
 /**
- * 懒汉模式的完美单例
+ * 懒汉模式的完美单例 DCL
  * 通过双重检查与双重锁来实现代码的优化
  * Author : GuDao
  * 2020/8/13
