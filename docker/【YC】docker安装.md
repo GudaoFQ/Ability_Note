@@ -42,7 +42,7 @@ sudo systemctl start docker
 
 #### 测试容器是否能正常运行
 ```shell
-udo docker run hello-world
+sudo docker run hello-world
 ```
 ![运行测试](../resource/docker/docker-运行测试.jpg)
 
