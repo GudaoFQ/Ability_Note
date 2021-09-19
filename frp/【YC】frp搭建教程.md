@@ -1,20 +1,25 @@
 ## VMware + CentOS7 + 腾讯云
 
 ### 配置说明
+
 ![安装机器说明](../resource/frp/frp-安装机器说明.png)
 
 ### FRP地址
+
 [GitHub-FRP](https://github.com/fatedier/frp/releases)
 
 ### 安装包选择
+
 ![安装包选择](../resource/frp/frp-安装包选择.png)
 
 ### 安装包下载
 > `wget https://github.com/fatedier/frp/releases/download/v0.36.2/frp_0.36.2_linux_amd64.tar.gz`
+
 ![安装包下载](../resource/frp/frp-安装包下载.png)
 
 ### 解压
 > `tar -zxvf frp_0.36.2_linux_amd64.tar.gz`
+
 ![解压](../resource/frp/frp-解压.png)
 
 ### 重命名
@@ -27,6 +32,7 @@ cd frp_tool
 
 ### 配置server端；server端必须要有公网ip
 > `vi frps.ini`
+
 ![修改frps配置](../resource/frp/frp-修改frps配置.png)
 
 ### 目录介绍
@@ -72,4 +78,5 @@ log_max_days = 3
 
 ### 运行server端
 > `./frps -c ./frps.ini`或者后台启动`nohup ./frpc -c ./frpc.ini &`
-![启动](../resource/frp/frp-启动.png))
+
+![启动](../resource/frp/frp-启动.png)
