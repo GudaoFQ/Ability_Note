@@ -53,13 +53,13 @@ https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
 ![jdk-202009300012252603](../resource/linux/jdk-202009300012252603.gif)<br>
 
 ### 终端进入解压：
-- 进入/usr路径下创建java文件【用于存储JDK包】：`mkdir java`
-![jdk-20200901601446589](../resource/linux/jdk-20200901601446589.png)<br>
+- 进入/usr路径下创建java文件【用于存储JDK包】：`mkdir java`<br>
+![jdk-20200901601446589](../resource/linux/jdk-20200901601446589.png)
 
-- 将创建的java文件赋权777：`chmod 777 java`
-![jdk-20200901601447139](../resource/linux/jdk-20200901601447139.png)<br>
+- 将创建的java文件赋权777：`chmod 777 java`<br>
+![jdk-20200901601447139](../resource/linux/jdk-20200901601447139.png)
 
-- 将下载的`jdk-8u261-linux-x64.tar.gz`文件传到服务器中：
+- 将下载的`jdk-8u261-linux-x64.tar.gz`文件传到服务器中：<br>
     ![jdk-20200901601448500](../resource/linux/jdk-20200901601448500.png)<br>
     **命令**
     ```shell
@@ -69,8 +69,8 @@ https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
     rz
     ```
 
-- 将JDK解压到指定文件夹：`tar -zxvf jdk-8u261-linux-x64.tar.gz -C /usr/java`
-    ![jdk-20200901601449214](../resource/linux/jdk-20200901601449214.png)<br>
+- 将JDK解压到指定文件夹：`tar -zxvf jdk-8u261-linux-x64.tar.gz -C /usr/java`<br>
+    ![jdk-20200901601449214](../resource/linux/jdk-20200901601449214.png)
     ```shell
     命令介绍：
     tar　　　　　　备份文件
@@ -90,8 +90,8 @@ https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
     ```
 
 ### 配置环境：
-- 修改全局变量：`vim /etc/profile`
-![jdk-20200901601449728](../resource/linux/jdk-20200901601449728.png)<br>
+- 修改全局变量：`vim /etc/profile`<br>
+![jdk-20200901601449728](../resource/linux/jdk-20200901601449728.png)
 
 - 在文本的最后一行粘贴如下：
     **/usr/java/jdk1.8.0_261改为自己的文件路径**
@@ -105,8 +105,8 @@ https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
 
 - 重新加载配置文件：`source /etc/profile`
 
-- 执行`java -version`查看环境是否配置成功
-![jdk-20200921601449979](../resource/linux/jdk-20200921601449979.png)<br>
+- 执行`java -version`查看环境是否配置成功<br>
+![jdk-20200921601449979](../resource/linux/jdk-20200921601449979.png)
 
 
 
