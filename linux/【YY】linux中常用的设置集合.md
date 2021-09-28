@@ -16,3 +16,6 @@ yum find -name 软件名称
 # 查询文件
 whereis 文件名称
 ```
+
+#### 在指定的包路径下查找文件
+* find . -name 文件名称
