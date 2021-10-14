@@ -42,15 +42,15 @@
     --nodeps　　 不验证套件档的相互关联性
     ```
 
-- 再次检测jdk的安装包，检查是否删除完即可：`java -version`
-![jdk-20200909160143898](../resource/linux/jdk-20200909160143898.png)<br>
+- 再次检测jdk的安装包，检查是否删除完即可：`java -version`<br>
+![jdk-20200909160143898](../resource/linux/jdk-20200909160143898.png)
 
 ### ORACLE官网下载需要的JDK环境包：
 **下载地址：**
 ```shell 
 https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
 ```
-![jdk-202009300012252603](../resource/linux/jdk-202009300012252603.gif)<br>
+![jdk-202009300012252603](../resource/linux/jdk-202009300012252603.gif)
 
 ### 终端进入解压：
 - 进入/usr路径下创建java文件【用于存储JDK包】：`mkdir java`<br>
@@ -75,10 +75,10 @@ https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
     命令介绍：
     tar　　　　　　备份文件
     -zxvf　　　　　
-    -z　　　　　　 　　　　　　　　    通过gzip指令处理备份文件
-    -x　　　　　　　　　　　　　　     从备份文件中还原文件
-    -v　　　　　　　　　　　　　　     显示指令执行过程
-    -f　　　　　　 　　　　　　　　    指定备份文件
+    -z　　　　　　 通过gzip指令处理备份文件
+    -x　　　　　　 从备份文件中还原文件
+    -v　　　　　　 显示指令执行过程
+    -f　　　　　　 指定备份文件
     jdk-8u144-linux-x64.tar.gz　　  文件名
     ```
 
