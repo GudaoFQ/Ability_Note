@@ -1,4 +1,5 @@
 ## ES核心概念及原理
+![核心概念总结](../resource/elasticsearch/es-核心概念总结.png)
 
 ### 关系型数据库进行模糊搜索
 * 通过like语句执行模糊匹配
@@ -13,10 +14,11 @@
   * 结果不准确（相关度低）
 
 ### 倒排索引（Elasticsearch技术）
+> 由要搜索的关键词反推查询Key的过程，又叫反向索引。倒排索引适用于对文档进行全文检索，倒排索引包含了目标文档所有的不重复的分词
 ![倒排索引结构模拟（非真实）](../resource/elasticsearch/es-倒排索引结构模拟（非真实）.png)
 * 数据结构：
   * 包含这个关键词的document list（如图）
-  * TF（term frequency）：关键词在每个document中出现的次数
+  * TF（term frequency）：关键词在每个document中出现的次数（TF越高，则匹配相关度越高）
   * IDF（inverse document frequency）：关键词在整个索引中出现的次数（该值越大，说明相关度越低：某个关键词和索引文件中的每个词都匹配，说明这个词的相关度就越低（相当于手机在brandName的每条信息中都出现过，所以这个词对于查询出来的结果相关度很低））
   * 关键词在当前document中出现的次数
   * 每个document的长度越长，相关度越低
@@ -58,9 +60,9 @@
 ### Elasticsearch核心概念
 > 名词对比：document = row | type = table | index = db
 * Cluster（集群）：每个集群至少包含两个节点
-* Node：集群中的每个节点（一台服务器可以创建多个节点）
-* Field：一个数据字段，与index和type一起，可以定位一个document
-* Document：（Elasticsearch最小的数据单元），json格式（可以理解为行）
+* Node（节点）：集群中的每个节点（一台服务器可以创建多个节点）
+* Field（数据字段）：一个数据字段，与index和type一起，可以定位一个document
+* Document（文档）：（Elasticsearch最小的数据单元），json格式（可以理解为行）
   ```json
   {
     "id": "1",
@@ -71,9 +73,9 @@
     } 
   }
   ``` 
-* Type：逻辑上的数据分类（Elasticsearch7.x中删除了type概念）
-* Index：一类相同或者类似的document，比如一个员工索引、一个商品索引
-* Shard：（分片）
+* Type（类型）：逻辑上的数据分类（Elasticsearch7.x中删除了type概念）
+* Index（索引）：一类相同或者类似的document，比如一个员工索引、一个商品索引
+* Shard（分片）：
   ![shard图解](../resource/elasticsearch/es-shard图解.png)
   * 一个Index包含多个Shard，默认5P（Primary Shard），默认每个P分配一个R（Replica Shard），p的数量在创建索引的时候设置，如果想修改，需要重创索引（但如果想修改R，就不需要重新创建索引）
   * 每个Shard都是一个Lucene实例，有完整的创建索引的处理请求能力

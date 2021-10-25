@@ -2,7 +2,7 @@
 
 ### 安装环境
 * CentOS 8
-* JDK 11
+* JDK 8
 * Elasticsearch 7.15.1
 
 ### 下载安装包
