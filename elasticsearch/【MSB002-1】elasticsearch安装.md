@@ -1,4 +1,4 @@
-## Elasticsearch 安装
+## Elasticsearch 安装（单机）
 
 ### 安装环境
 * CentOS 8
