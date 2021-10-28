@@ -111,7 +111,7 @@ future versions of Elasticsearch will require Java 11; your Java version from [/
 ![后台启动](../resource/elasticsearch/es-后台启动.png)
 
 ### 访问
-![浏览器访问正常](../resource/elasticsearch/es-浏览器访问正常.png.png)
+![浏览器访问正常](../resource/elasticsearch/es-浏览器访问正常.png)
 
 ### 问题
 #### root用户不能启动elasticsearch
