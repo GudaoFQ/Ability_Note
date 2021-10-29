@@ -100,5 +100,5 @@ su elasticsearch
 ```
 ![kibana启动](../resource/elasticsearch/es-kibana启动.png)
 
-### 访问（云服务器的需要开发下端口才能访问）
+### 访问（云服务器的需要开放下端口才能访问）
 ![kibana访问](../resource/elasticsearch/es-kibana访问.png)
