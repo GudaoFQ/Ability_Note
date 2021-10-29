@@ -68,7 +68,7 @@ vi elasticsearch.yml
 # 配置当前es节点名称（默认是被注释的，并且默认有一个节点名）
 node.name: node-1 
 # 默认是被注释的，并且默认有一个集群名
-cluster.name: my-application 
+cluster.name: gudao-elasticsearch-I
 # 数据目录位置
 path.data: /usr/elasticsearch-7.15.1/data 
 # 日志目录位置
@@ -407,3 +407,31 @@ ysctl  -p
 ```
 ![修改系统文件](../resource/elasticsearch/es-修改系统文件.png)
 ![sysctl.conf文件修改](../resource/elasticsearch/es-sysctl.conf文件修改.png)
+
+#### 杀死Elasticsearch线程后重启报错
+```shell
+# 问题
+java.lang.IllegalStateException: failed to obtain node locks, tried [[/usr/elasticsearch-7.15.1/data]] with lock id [0]; maybe these locations are not writable or multiple nodes were started without increasing [node.max_local_storage_nodes] (was [1])?
+        at org.elasticsearch.env.NodeEnvironment.<init>(NodeEnvironment.java:292)
+        at org.elasticsearch.node.Node.<init>(Node.java:383)
+        at org.elasticsearch.node.Node.<init>(Node.java:288)
+        at org.elasticsearch.bootstrap.Bootstrap$5.<init>(Bootstrap.java:219)
+        at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:219)
+        at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:399)
+        at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:167)
+        at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:158)
+        at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:75)
+        at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:114)
+        at org.elasticsearch.cli.Command.main(Command.java:79)
+        at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:123)
+        at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:81)
+For complete error details, refer to the log at /usr/elasticsearch-7.15.1/logs/gudao-elasticsearch-I.log
+
+# 解决
+#查看elastic的进程号 并杀死
+ps aux | grep elasticsearch
+# 杀进程
+kill -9 进程号
+#重启 -d 后台运行
+./bin/elasticsearch -d
+```
