@@ -36,7 +36,81 @@ data ：     ES 启动的时候，会有该目录，用来存储文档数据。�
 ![目录](../resource/elasticsearch/es-目录.png)
 ![内置jdk版本](../resource/elasticsearch/es-内置jdk版本.png)
 
-### 启动（第一次启动肯定会出现问题，按照下面的问题步骤即可解决：配置config/elasticsearch.yml（添加network.host、cluster.initial_master_nodes） -> 修改/ect/sysctl.config（添加vm.max_map_count））
+### 进入conf查看修改的文件`elasticsearch.yml、jvm.options`
+![conf文件修改](../resource/elasticsearch/es-conf文件修改.png)
+
+### elasticsearch基于Lucene的，而Lucene底层是java实现，因此我们需要配置jvm参数（编辑jvm.options）
+```shell
+vi jvm.options
+```
+![修改jvm.options](../resource/elasticsearch/es-修改jvm.options.png)
+
+### 编辑elasticsearch.yml修改数据和日志目录
+| 属性名                             | 说明                                                         |
+| ---------------------------------- | ------------------------------------------------------------ |
+| cluster.name                       | 配置elasticsearch的集群名称，默认是elasticsearch。建议修改成一个有意义的名称。 |
+| node.name                          | 节点名，es会默认随机指定一个名字，建议指定一个有意义的名称，方便管理 |
+| path.conf                          | 设置配置文件的存储路径，tar或zip包安装默认在es根目录下的config文件夹，rpm安装默认在/etc/ elasticsearch |
+| path.data                          | 设置索引数据的存储路径，默认是es根目录下的data文件夹，可以设置多个存储路径，用逗号隔开 |
+| path.logs                          | 设置日志文件的存储路径，默认是es根目录下的logs文件夹         |
+| path.plugins                       | 设置插件的存放路径，默认是es根目录下的plugins文件夹          |
+| bootstrap.memory_lock              | 设置为true可以锁住ES使用的内存，避免内存进行swap             |
+| network.host                       | 设置bind_host和publish_host，设置为0.0.0.0允许外网访问       |
+| http.port                          | 设置对外服务的http端口，默认为9200。                         |
+| transport.tcp.port                 | 集群结点之间通信端口                                         |
+| discovery.zen.ping.timeout         | 设置ES自动发现节点连接超时的时间，默认为3秒，如果网络延迟高可设置大些 |
+| discovery.zen.minimum_master_nodes | 主结点数量的最少值 ,此值的公式为：(master_eligible_nodes / 2) + 1 ，比如：有3个符合要求的主结点，那么这里要设置为2 |
+```shell
+# 编辑elasticscarch.yml命令
+vi elasticsearch.yml
+
+# 配置说明
+# 配置当前es节点名称（默认是被注释的，并且默认有一个节点名）
+node.name: node-1 
+# 默认是被注释的，并且默认有一个集群名
+cluster.name: my-application 
+# 数据目录位置
+path.data: /usr/elasticsearch-7.15.1/data 
+# 日志目录位置
+path.logs: /usr/elasticsearch-7.15.1/logs 
+# 绑定的ip：默认只允许本机访问，修改为0.0.0.0后则可以远程访问
+network.host: 0.0.0.0   
+# 默认是被注释的 设置master节点列表 用逗号分隔 
+cluster.initial_master_nodes: ["node-1", "node-2"] 
+```
+![修改elasticsearch](../resource/elasticsearch/es-修改elasticsearch.yml.png)
+
+### 进入es的根目录，然后创建 logs data 文件夹（本人配置的是es默认会创建路径文件夹，所以不需要创建logs，只要创建data文件夹）
+```shell
+# 进入配置的路径下，执行命令
+mkdir data
+mkdir logs
+```
+![创建data、logs文件夹](../resource/elasticsearch/es-创建data、logs文件夹.png)
+
+### 在/etc/sysctl.conf文件最后添加一行 `vm.max_map_count=262144`：配置最大虚拟内存
+```shell
+# 修改sysctl.conf配置文件（如果，启动报错virtual memory areas vm.max_map_count [xxxxx] is too low...）
+vi /etc/sysctl.conf
+
+# 执行
+sysctl -p
+```
+![修改sysctl.conf](../resource/elasticsearch/es-修改sysctl.conf.png)
+
+### 创建用户，es不能使用root用户启动
+```shell
+## 创建用户：elasticsearch
+adduser elasticsearch
+## 为用户创建密码，需要输入两次
+passwd elasticsearch
+## 将对应的文件夹权限赋给该用户
+chown -R elasticsearch es的安装路径(/usr/elasticsearch-7.15.1)
+## 切换至elasticsearch用户
+su elasticsearch
+```
+
+### 启动
 ```shell
 # 进入安装包下的bin目录，执行启动命令（测试阶段最后不用后台启动，方便看日志；等启动没问题了，再后台启动）
 ./elasticsearch
@@ -113,7 +187,7 @@ future versions of Elasticsearch will require Java 11; your Java version from [/
 ### 访问
 ![浏览器访问正常](../resource/elasticsearch/es-浏览器访问正常.png)
 
-### 问题
+### 问题（解压后直接启动会出现的问题）
 #### root用户不能启动elasticsearch
 ```shell
 # 问题：
@@ -143,7 +217,7 @@ Caused by: java.lang.RuntimeException: can not run elasticsearch as root
         at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:399) ~[elasticsearch-7.15.1.jar:7.15.1]
 
 # 解决：
-> es5之后的都不能使用添加启动参数或者修改配置文件等方法启动了，必须要创建用户
+es5之后的都不能使用添加启动参数或者修改配置文件等方法启动了，必须要创建用户
 
 ## 创建用户：elasticsearch
 adduser elasticsearch
@@ -175,6 +249,7 @@ userdel –r user3
 修改elasticsearch安装包中的`/config/elasticsearch.yml`文件中的配置信息：
 修改network.host: 0.0.0.0 （原先可能是192.168.0.1，直接修改为0.0.0.0）
 修改cluster.initial_master_nodes: ["node-1"]
+其它配置可以不修改
 
 # ======================== Elasticsearch Configuration =========================
 #
@@ -265,7 +340,7 @@ cluster.initial_master_nodes: ["node-1"]
 ##### 注意（属于引伸内容，按照上面的配置就不会出现这个问题）
 > 配置文件中如果只配置network.host，并且host地址乱写就会出现下面的问题
 ```shell
-org.elasticsearch.bootstrap.StartupException: BindTransportException[Failed to bind to [9300-9400]]; nested: BindException[Cannot assign requested addre                 ss];
+org.elasticsearch.bootstrap.StartupException: BindTransportException[Failed to bind to [9300-9400]]; nested: BindException[Cannot assign requested address];
         at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:174) ~[elasticsearch-7.6.2.jar:7.6.2]
         at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:161) ~[elasticsearch-7.6.2.jar:7.6.2]
         at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:86) ~[elasticsearch-7.6.2.jar:7.6.2]
