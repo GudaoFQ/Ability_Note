@@ -55,4 +55,41 @@ docker rmi $(docker images -q)
 
 # 删除单个容器镜像
 docker rmi 要删除的镜像名
+
+# 导出镜像（将镜像导出成文件）
+docker save -o 导出名称.tar 镜像名称
+
+# 导入镜像（将文件载入docker镜像）
+docker load --input 导出名称.tar 
+```
+
+### 指定日志查看命令
+`docker logs [OPTIONS] CONTAINER`
+```text
+  Options:
+        --details        显示更多的信息
+    -f, --follow         跟踪实时日志
+        --since string   显示自某个timestamp之后的日志，或相对时间，如42m（即42分钟）
+        --tail string    从日志末尾显示多少行日志， 默认是all
+    -t, --timestamps     显示时间戳
+        --until string   显示自某个timestamp之前的日志，或相对时间，如42m（即42分钟）
+```
+```shell
+# 查看最近30分钟的日志
+docker logs --since 30m 容器名
+
+# 查看某时间之后的日志
+docker logs -t --since="2021-10-28T17:10:37" 容器名
+
+# 查看指定时间后的日志最后100行
+docker logs -t --since="2021-10-28" --tail=100 容器名
+# 查看指定时间后的日志，只显示最后100行
+docker logs -f -t --since="2021-10-28" --tail=100 容器名
+
+# 查看某时间段日志（日期不对，啥都不显示）
+docker logs -t --since="2021-10-28T17:10:37" --until="2021-10-28T17:13:37" 容器名
+
+# 将查看的日志输出到指定的文件中去
+日志查看命令 > log4.txt 2>&1
+docker logs -t --since="2021-10-28T17:10:37" --until="2021-10-28T17:13:37" 容器名 > log4.txt 2>&1
 ```
