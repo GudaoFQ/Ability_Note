@@ -13,7 +13,7 @@ cd ~/.ssh/
 # 如果没有对应的文件夹，则执行【最好创建在C盘】 
 mkdir ../.ssh
 ```
-![命令cd](../resource/git/git-命令cd.png)
+![命令cd](../resource/git/git-命令cd.png) <br>
 ![命令mkdir](../resource/git/git-命令mkdir.png)
 
 
