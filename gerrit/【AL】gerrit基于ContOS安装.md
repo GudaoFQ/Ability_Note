@@ -34,7 +34,7 @@
         Complete!
         ```
 
-4. JDK安装[具体看java环境配置.md]
+4. JDK安装，具体看【【YC】java环境配置.md】
 
 5. 下载Gerrit安装包
     * 下载Gerrit的war包，通常包名为gerrit-xxx.war，xxx为版本号
