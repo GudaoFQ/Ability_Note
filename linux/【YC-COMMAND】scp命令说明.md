@@ -1,0 +1,7 @@
+## scp命令说明
+> 加密的方式在本地主机和远程主机之间复制文件
+
+### 命令格式
+```shell
+docker-compose [-f <arg>...] [options] [COMMAND] [ARGS...]
+```
