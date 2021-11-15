@@ -187,7 +187,7 @@ future versions of Elasticsearch will require Java 11; your Java version from [/
 ### 访问
 ![浏览器访问正常](../resource/elasticsearch/es-浏览器访问正常.png)
 
-### 问题（解压后直接启动会出现的问题）
+### Linux问题（解压后直接启动会出现的问题）
 #### root用户不能启动elasticsearch
 ```shell
 # 问题：
@@ -434,4 +434,19 @@ ps aux | grep elasticsearch
 kill -9 进程号
 #重启 -d 后台运行
 ./bin/elasticsearch -d
+```
+
+### Windows问题
+#### Elasticsearch与Java版本问题（个人只使用过windows的es7.8）
+* es是使用 java 开发的，且 7.8 版本的 ES 需要 JDK 版本 1.8 以上（7.15.1需要JDK11），默认安装包带有 jdk 环境，如果系统配置 JAVA_HOME，那么使用系统默认的 JDK，如果没有配置使用自带的 JDK，一般建议使用系统配置的 JDK。
+
+#### 双击启动窗口闪退，通过路径访问追踪错误，如果是“空间不足”，请修改
+config/jvm.options 配置文件
+```shell
+# 设置 JVM 初始内存为 1G。此值可以设置与-Xmx 相同，以避免每次垃圾回收完成后 JVM 重新分配内存
+# Xms represents the initial size of total heap space
+# 设置 JVM 最大可用内存为 1G
+# Xmx represents the maximum size of total heap space
+-Xms1g
+-Xmx1g
 ```
