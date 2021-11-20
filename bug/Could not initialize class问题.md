@@ -1,6 +1,6 @@
 ## Exception in thread "AWT-EventQueue-0" java.lang.NoClassDefFoundError: Could not initialize class org.gudao.ResourceMgr
 
-## 问题描述
+#### 问题描述
 > 项目无法启动，并抛出如下异常
 
 ```text
@@ -34,7 +34,7 @@ Exception in thread "AWT-EventQueue-0" java.lang.NoClassDefFoundError: Could not
 	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
 ```
 
-## 错误原因
+#### 错误原因
 > idea与eclipse不同，静态资源文件需要放在resource目录下，修改目录结构为
 
 在这里插入图片描述
