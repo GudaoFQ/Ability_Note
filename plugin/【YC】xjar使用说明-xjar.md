@@ -4,7 +4,7 @@
 [GitHub地址](https://github.com/core-lib/xjar)
 
 ### 使用版本说明
-* JDK8
+* JDK 8（一定要配置）
 * xjar 4.0.2
 * 加密jar包是SpringBoot项目的启动jar
 * GO 1.16.6

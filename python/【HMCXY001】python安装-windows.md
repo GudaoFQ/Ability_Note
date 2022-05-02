@@ -1,4 +1,4 @@
-## Python安装教程
+## Python安装教程-Windows
 
 ### 说明
 * 安装版本：3.7.2

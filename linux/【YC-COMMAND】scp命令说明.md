@@ -3,5 +3,5 @@
 
 ### 命令格式
 ```shell
-docker-compose [-f <arg>...] [options] [COMMAND] [ARGS...]
+
 ```
