@@ -26,6 +26,8 @@ ssh-keygen -t rsa -C "gudao@gmail.com"
 
 ### 添加私密钥
 ```shell
+# 解决cygwin下的“Could not open a connection to your authentication agent.”
+ssh-agent bash --login -i
 # 添加 私密钥 到ssh
 ssh-add id_rsa
 # 需要之前输入密码（如果有）
