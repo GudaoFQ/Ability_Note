@@ -31,11 +31,18 @@ sudo firewall-cmd --permanent --zone=public --add-service=https
 sudo firewall-cmd --reload
 ```
 
-### Nginx配置文件的结构和最佳做法
+### Nginx配置文件的结构
 > 所有Nginx配置文件都位于/etc/nginx/目录中。主要的Nginx配置文件为/etc/nginx/nginx.conf
 
 ![nginx主要配置文件位置](../resource/nginx/nginx-nginx主要配置文件位置.png)
 
+### 配置使用建议
+* 建议为每个域创建单独的配置文件。Nginx的虚拟主机配置文件必须以.conf结尾，并存储在/etc/nginx/conf.d目录中。您可以根据需要拥有任意数量的虚拟主机配置文件。
+* 遵循标准命名约定是一种好的做法。例如，如果域名为mydomain.com，则配置文件应命名为mydomain.com.conf。
+* 如果您在虚拟主机配置文件中使用可重复的配置片段，则最好将这些片段存放在单独的文件中，然后使用include指令包含它。
+* Nginx日志文件access.log和error.log位于/var/log/nginx/目录中。建议为每个虚拟主机使用不同的access和error日志文件。
+* 您可以将web站点根目录设置为所需的任何位置。Webroot的最常见位置包括：/home/<user_name>/<site_name>，/var/www/<site_name>，
+* /var/www/html/<site_name>，/opt/<site_name>，/usr/share/nginx/html。
 
 ### 配置修改完成后，启动或重新nginx
 ```shell
