@@ -2,8 +2,9 @@
 
 ### 一. JDK下载
 1. JDK官网下载地址：https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html 
-2. 选择：“Accept License Agreement” 
-3. 下载的文件：jdk-12.0.1_windows-x64_bin.exe
+2. 历史版本下载：https://www.oracle.com/java/technologies/downloads/archive/
+3. 选择：“Accept License Agreement” 
+4. 下载的文件：jdk-12.0.1_windows-x64_bin.exe
 ![install-jdk12下载](../resource/jdk/install-jdk12下载.png)
 
 ### 二. JDK安装

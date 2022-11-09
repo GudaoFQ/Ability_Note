@@ -1,4 +1,4 @@
-## Linux中的Nginx安装详情【CentOS 8】
+## Linux中的Nginx安装详情，源码模式部署【CentOS 8】
 ### nginx下载地址
 [Nginx安装包下载地址](http://nginx.org/download/)
 
