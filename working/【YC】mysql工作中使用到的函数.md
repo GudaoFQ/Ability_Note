@@ -32,3 +32,16 @@ mysql -uroot -prootroot -Dgudao < /test/info.sql
 * -u：用户名称
 * -p：密码
 * -D：数据库名称（选填）
+
+### 判断数据库是否存在
+```shell
+if mysql -uroot -p密码 -e "use 数据库名称" 2> /dev/null; then
+  echo "数据库存在"
+else
+  echo "数据库不存在"
+fi;
+```
+* 2> /dev/null的意思就是将标准错误删掉
+* 0：标准输入（stdin）
+* 1：标准输出（stdout）
+* 2：标准错误（stderr）
