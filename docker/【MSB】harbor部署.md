@@ -12,7 +12,7 @@
 ### 安装
 #### docker安装
 ##### 本次使用的是`https://get.docker.com`提供的脚本安装docker，如果想指定docker版本，可以看`【YC】docker安装.md`文档，记得要17以上
-> 下面的脚本是https://github.com/docker/docker-install/blob/master/install.sh中提供的，也可以使用wget下载github中的脚本执行
+> 下面的脚本是https://github.com/docker/docker-install/blob/master/install.sh中提供的
 ```shell
 curl -fsSL https://get.docker.com/ | sh
 ```
