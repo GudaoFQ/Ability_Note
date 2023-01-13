@@ -4,7 +4,8 @@
 [toc]
 
 ### 环境说明
-* 系统：Linux version 3.10.0-1160.80.1.el7.x86_64
+* 系统：CentOS Linux release 7.9.2009 (Core)
+* 内核：Linux version 3.10.0-1160.80.1.el7.x86_64
 * Harbor版本：v2.6.3离线安装版 [Github下载地址](https://github.com/goharbor/harbor/releases)
 * docker版本：20.10.22
 * 硬件：8c 16g SSD50G
@@ -330,7 +331,7 @@ vi docker-compose.yml
 # 删除harbor-db中的volumes挂盘映射，如下图，删除红框中的内容
 
 # 删除后通过docker-compose启动（记住一定要在docker-compose.yml同级目录下执行）,不放心可以先删除原来容器
-    docker-compose down
+docker-compose down
 docker-compose up -d
 ```
 ![harbor修改docker-compose.yml中的db映射关系](../resource/docker/docker-harbor修改docker-compose.yml中的db映射关系.png)
