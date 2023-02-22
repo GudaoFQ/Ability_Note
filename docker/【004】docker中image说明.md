@@ -102,7 +102,7 @@ EXPOSE 3306 33060
 CMD ["mysqld"]
 ```
 
-### Dockerﬁle语法说明
+### Dockerfile语法说明
 #### FROM
 > 指定基础镜像，比如FROM ubuntu:14.04
 ```shell

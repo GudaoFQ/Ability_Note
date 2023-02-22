@@ -6,7 +6,7 @@ docker pull sonatype/nexus3
 ```
 ![docker镜像拉取](../resource/nexus/nexus-docker镜像拉取.png)
 
-### 创建映射文件夹
+### 创建映射文件夹（可以不做）
 ```shell
 mkdir -p /opt/data/apps/nexus/nexus-data && chown -R 200 /opt/data/apps/nexus/nexus-data
 ```
@@ -15,6 +15,9 @@ mkdir -p /opt/data/apps/nexus/nexus-data && chown -R 200 /opt/data/apps/nexus/ne
 > 使用8081端口
 ```shell
 docker run --name nexus3 -h nexus -d -p 8081:8081 -v /opt/data/apps/nexus/nexus-data:/nexus-data -it sonatype/nexus3
+
+# 不做映射
+docker run --name nexus3 -h nexus -d -p 8081:8081 -it sonatype/nexus3
 ```
 #### 启动报错
 ![docker容器启动失败](../resource/nexus/nexus-docker容器启动失败.png)
