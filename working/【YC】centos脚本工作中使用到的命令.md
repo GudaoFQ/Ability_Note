@@ -40,3 +40,11 @@ fi
 * -f：filename为常规文件，则为真
 * -e：filename存在，则为真
 * -s：filename 如果文件长度不为0，则为真
+
+### 获取ssh端口号
+```shell
+# 获取ssh配置信息中关于端口的最后一条
+sshPortLine=`cat /etc/ssh/sshd_config |grep Port | tail -1`
+# 过滤无用信息只留端口号
+sshPort=${sshPortLine/"Port "/""}
+```

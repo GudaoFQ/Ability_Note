@@ -63,3 +63,8 @@ docker rm $(docker ps -aq --filter ancestor=镜像名称)
 docker exec -i
 ```
 * -t：是指分配一个伪终端；如果让脚本在后台运行，就没有可交互的终端
+
+### 使主进程无法结束
+```shell
+docker run -d centos /bin/bash -c "while true;do echo hello docker;sleep 1;done"
+```

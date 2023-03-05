@@ -19,3 +19,12 @@ sed -i 's/\r//' 脚本.sh
 ## 将文本格式设置为utf-8
 :set fileencoding = utf-8
 ```
+
+### docker build构建报错：container_linux.go:290: starting container process caused "process_linux.go:259: applying cgroup configuration for process caused \"Cannot set property TasksAccounting, or unknown property.\""
+```shell
+通过docker build -t 创建docker镜像，然后报错如上
+
+# 解决
+## 升级yum源
+yum update -y
+```
