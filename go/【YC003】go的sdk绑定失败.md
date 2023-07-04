@@ -11,7 +11,7 @@
 ### 问题解决
 * 找到${GOROOT}/src/runtime/internal/sys/zversion.go文件，追加下面配置（你的版本号）
 ```shell
- const TheVersion = `go1.17.2`
+ const TheVersion = `go1.18.5`
 ```
 * 打开Go idea后，配置GOROOT，记得需要刷新下目录
 ![导入sdk](../resource/go/go-导入sdk.png)

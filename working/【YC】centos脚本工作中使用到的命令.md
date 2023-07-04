@@ -48,3 +48,33 @@ sshPortLine=`cat /etc/ssh/sshd_config |grep Port | tail -1`
 # 过滤无用信息只留端口号
 sshPort=${sshPortLine/"Port "/""}
 ```
+
+### 获取时间相关信息
+```shell
+# 20210424152101
+$(date "+%Y%m%d%H%M%S")
+# 2021-04-24 15:24:57
+$(date "+%Y-%m-%d %H:%M:%S")
+#获取昨天的日期
+$(date -d last-day "+%Y-%m-%d")
+#获取明天日期 
+$(date -d next-day "+%Y-%m-%d")
+$(date -d tomorrow +%Y%m%d)
+#获取上个小时的日期
+$(date -d last-hour "+%Y-%m-%d %H")
+#两天前时间
+$(date -d "2 days ago" "+%Y-%m-%d")
+#查明一个特定的日期是星期几
+$(date -d "nov 22")
+#两星期以后的日期
+$(date -d "2 weeks")
+#100天以前的日期
+$(date -d '-100 days') 
+#50天后的日期
+$(date -d '50 days')
+```
+
+### 获取某个字符串中的json数据信息
+```shell
+cat example.txt | sed 's/,/\n/g' | grep "dev_id" | sed 's/:/\n/g' | sed '1d' | sed 's/}//g'
+```
