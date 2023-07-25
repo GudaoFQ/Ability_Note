@@ -11,6 +11,9 @@ docker exec -it sca rm -r data/code/2022-11-14/
 if [[ "$(docker images -q [镜像名]:[镜像tag] 2> /dev/null)" != "" ]]; then
   xxx
 fi
+
+# 判断mysql-test是否存在（如有版本，自行添加）
+if [[ "$(docker images -q mysql-test 2> /dev/null)" == "" ]]; then
 ```
 * /dev/null是一个特殊的设备文件，这个文件接收到任何数据都会被丢弃；因此，null这个设备通常也被称为位桶（bit bucket）或黑洞
 * 2> /dev/null的意思就是将标准错误删掉
@@ -22,6 +25,11 @@ fi
 ```shell
 if [[ "$(docker inspect [容器名] 2> /dev/null | grep '"Name": "/[容器名]"')" != "" ]]; then
   xxx
+fi
+
+# 判断mysql-test是否存在
+if [[ "$(docker inspect mysql-test 2> /dev/null | grep '"Name": "/mysql-test"')" != "" ]]; then
+  
 fi
 ```
 * /dev/null是一个特殊的设备文件，这个文件接收到任何数据都会被丢弃；因此，null这个设备通常也被称为位桶（bit bucket）或黑洞

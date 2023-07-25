@@ -92,3 +92,10 @@ sudo systemctl start docker
 ```shell
 sudo docker run hello-world
 ```
+
+#### 本次使用的是`https://get.docker.com`提供的脚本安装docker
+> 下面的脚本是https://github.com/docker/docker-install/blob/master/install.sh中提供的
+```shell
+curl -fsSL https://get.docker.com/ | sh
+```
+![通过脚本安装docker](../resource/docker/docker-通过脚本安装docker.png)
