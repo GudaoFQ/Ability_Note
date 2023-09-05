@@ -1,4 +1,7 @@
-## Windows开启OpenSSH服务器（Windows会默认开启OpenSSH的客户端）
+## Windows开启OpenSSH服务器（Windows会默认开启OpenSSH的客户端）（scp / ssh等）
+
+### 环境
+Windows 10
 
 ### 通过`win + s`打开设置窗口
 ![打开设置窗口](../resource/windows/windows-打开设置窗口.png)

@@ -75,4 +75,7 @@ docker exec -i
 ### 使主进程无法结束
 ```shell
 docker run -d centos /bin/bash -c "while true;do echo hello docker;sleep 1;done"
+
+# 例子：指定容器名称+指定网络模式
+docker run -d --name test --network=host  centos:centos7.9.2009 /bin/bash -c "while true;do echo hello docker;sleep 1;done"
 ```

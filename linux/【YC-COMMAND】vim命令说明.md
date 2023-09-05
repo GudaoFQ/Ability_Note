@@ -29,8 +29,8 @@
 :set noic
 
 查找到的文本高亮显示或取消
-:set hlsearch
-:set nohlsearch
+:set hls
+:set nohls
 
 #### vim替换
 > `:%s/x/xx/g`中的后的g表示global，其他的标记（flags）包括：

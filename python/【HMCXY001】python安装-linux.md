@@ -1,57 +1,90 @@
 ## Python安装教程-Linux
 
 ### 说明
-* 安装版本：3.7.4
-* CentOS：8
+* 安装版本：3.7.10
+* CentOS：7.9
 
-### 安装环境依赖
+### 安装gcc编译器（有可能已经安装）
+```shell
+# 检查一下原来python的版本和是否有gcc
+[root@loaclhost ~]# python -V
+Python 2.7.5
+[root@loaclhost ~]# gcc -version
+-bash: gcc: 未找到命令
+
+# 安装需要的依赖项
+yum -y install gcc automake autoconf libtool make
+```
+
+### 安装环境依赖，3.7以上版本，安装依赖包:libffi-devel
 ```shell
 yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
 ```
 
-### 安装gcc编译器（有可能已经安装）
-```shell
-yum install gcc -y
-```
-
 ### 安装Python3
+> [Python3 手动下载地址](https://www.python.org/downloads/)
 ```shell
-# 下载Python安装包
-wget https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz
+# 安装wget
+yum install wget -y
 
-# 将安装包移动到`/usr/local`文件夹下
-mv Python-3.7.4.tgz /usr/local/
+# 下载Python安装包
+wget https://www.python.org/ftp/python/3.7.10/Python-3.7.10.tgz
+
+# 解压Python安装包压缩包
+tar -zxvf Python-3.7.10.tgz
+
+# 进入解压后的目录
+cd Python-3.7.10
 
 # 在local目录下创建Python3目录
 mkdir /usr/local/python3
 
-# 进入的Python安装包压缩包所在的目录
-cd /usr/local/
-
-# 解压安装包
-tar -xvf Python-3.7.4.tgz
-
-# 进入解压后的目录
-cd /usr/local/Python-3.7.4/
-
 # 配置安装目录
 ./configure --prefix=/usr/local/python3
+# 指定openssl版本，需要先下载openssl编译后才能这个指定
+# ./configure --prefix=/usr/local/python3 --with-openssl=/usr/local/openssl1.1.1 --with-openssl-rpath=auto
+# --with-openssl=/usr/local/openssl1.1.1是openssl的安装位置
+## 如果执行完成后有提示信息，入下图1；那么执行提示内容即可（python稳定优化提示）
+./configure --enable-optimizations
+## 完成日志如图2
 
 # 编译源码
 make
 
 # 执行源码安装
 make install
+## 完成日志如图3
 
 # 创建软连接
-ln -sf /usr/local/python3/bin/python3  /usr/bin/python3
+ln -s /usr/local/python3/bin/python3.7 /usr/bin/python3
+ln -s /usr/local/python3/bin/pip3.7 /usr/bin/pip3
 
 # 测试：输入python3打印
-Python 3.7.4 (default, Sep  6 2020, 09:22:23) 
-[GCC 4.8.5 20150623 (Red Hat 4.8.5-39)] on linux
+Python 3.7.10 (default, Mar 16 2022, 11:54:28) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-44)] on linux
 Type "help", "copyright", "credits" or "license" for more information.
->>> 
+>>>
+
+# 测试：输入pip3 --version打印
+pip 20.1.1 from /usr/local/lib/python3.7/site-packages/pip (python 3.7)
+
+# 安装测试
+pip3 install pykmip
+## 完成日志如图4
+
+# 如果出现WARNING: You are using pip version 20.1.1; however, version 23.2.1 is available.直接进行更新如图5
+/usr/local/bin/python3.7 -m pip install --upgrade pip 
 ```
+#### 图1
+![稳定优化提示](../resource/python/python-稳定优化提示.png)
+#### 图2
+![配置安装目录完成](../resource/python/python-配置安装目录完成.png)
+#### 图3
+![install完成](../resource/python/python-install完成.png)
+#### 图4
+![安装pykmip](../resource/python/python-安装pykmip.png)
+#### 图5
+![pip更新](../resource/python/python-pip更新.png)
 
 ### 问题
 #### 报错:ModuleNotFoundError: No module named 'skbuild'

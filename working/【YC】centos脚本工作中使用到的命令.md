@@ -78,3 +78,9 @@ $(date -d '50 days')
 ```shell
 cat example.txt | sed 's/,/\n/g' | grep "dev_id" | sed 's/:/\n/g' | sed '1d' | sed 's/}//g'
 ```
+
+### 程序运行日志输出到控制台并将其写入文件中
+```shell
+# 将shell命令的执行日志输出到控制台并将其保存到log.txt文件中去
+shell命令 | tee log.txt
+```
