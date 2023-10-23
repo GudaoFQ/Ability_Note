@@ -79,3 +79,12 @@ docker run -d centos /bin/bash -c "while true;do echo hello docker;sleep 1;done"
 # 例子：指定容器名称+指定网络模式
 docker run -d --name test --network=host  centos:centos7.9.2009 /bin/bash -c "while true;do echo hello docker;sleep 1;done"
 ```
+
+### centos 7容器`docker run -d --privileged ...`报错`Failed to get D-Bus connection: Operation not permitted`
+```shell
+# 启动命令：
+docker run -d centos /bin/bash -c "while true;do echo hello docker;sleep 1;done"
+
+# 将/bin/bash修改为/usr/sbin/init即可解决
+docker run -d centos /usr/sbin/init -c "while true;do echo hello docker;sleep 1;done"
+```
