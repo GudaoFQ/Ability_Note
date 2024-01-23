@@ -125,6 +125,79 @@ make menuconfig
 ![配置自定义源](../resource/opewrt/openwrt-配置自定义源.png)
 
 #### 选择配置
+```shell
+# x86_64 平台；根据自己的CPU自定
+Target System (x86)  --->
+Subtarget (x86_64)  --->
+Target Profile (Generic x86/64)  --->
+
+# 无特殊需求，那么 Target Images 勾选（可以默认，使用StarWind V2V Converter将img.zip中的文件转换）
+[*] squashfs (NEW)
+[*] Build GRUB images (Linux x86 or x86_64 host only) (NEW)
+[*] GZip images (NEW)
+
+# 自定义固件大小（此次配置了 160 和 1024）
+(160) Kernel partition size (in MB) (NEW)
+(1024) Root filesystem partition size (in MB) (NEW)
+
+# 常用插件列表（可以默认）
+## 插件类
+LuCI ---> Applications ---> luci-app-accesscontrol #上网时间控制
+LuCI ---> Applications ---> luci-app-adbyby-plus   #去广告
+LuCI ---> Applications ---> luci-app-arpbind  #IP/MAC绑定
+LuCI ---> Applications ---> luci-app-autoreboot  #高级重启
+LuCI ---> Applications ---> luci-app-aliddns   #阿里DDNS客户端
+LuCI ---> Applications ---> luci-app-ddns   #动态域名 DNS
+LuCI ---> Applications ---> luci-app-filetransfer  #文件传输
+LuCI ---> Applications ---> luci-app-firewall   #添加防火墙
+LuCI ---> Applications ---> luci-app-frpc   #内网穿透 Frp
+LuCI ---> Applications ---> luci-app-mwan3   #MWAN负载均衡
+LuCI ---> Applications ---> luci-app-nlbwmon   #网络带宽监视器
+LuCI ---> Applications ---> luci-app-ramfree  #释放内存
+LuCI ---> Applications ---> luci-app-samba   #网络共享(Samba)
+LuCI ---> Applications ---> luci-app-sqm  #流量智能队列管理(QOS)
+LuCI ---> Applications ---> luci-app-openclash #你懂的那只猫
+LuCI ---> Applications ---> luci-app-dnsfilter #广告过滤
+LuCI ---> Applications ---> luci-app-passwall #不敢解释
+LuCI ---> Applications ---> luci-app-mtwifi #闭源Wi-Fi驱动
+LuCI ---> Applications ---> luci-app-eqos #根据IP控制网速
+LuCI ---> Applications ---> luci-app-syncdial #薛定谔的多拨应用
+LuCI ---> Applications ---> luci-app-zerotier #虚拟局域网
+LuCI ---> Applications ---> luci-app-oaf #应用过滤神器
+LuCI ---> Applications ---> luci-app-watchcat #断网检测功能与定时重启
+LuCI ---> Applications ---> luci-app-wol   #WOL网络唤醒
+LuCI ---> Applications ---> luci-app-wrtbwmon  #实时流量监测
+LuCI ---> Applications ---> luci-app-upnp   #通用即插即用UPnP(端口自动转发)
+LuCI ---> Applications ---> luci-app-argon-config #Argon主题设置
+# 常用主题类
+LuCI ---> Themes ---> luci-theme-argon
+# 网络相关 (普通用户用不上）
+Network ---> IP Addresses and Names ---> ddns-scripts_cloudflare.com-v4
+Network ---> IP Addresses and Names --->  bind-dig
+Network ---> Routing and Rediction ---> ip-full
+Network ---> File Transfer ---> curl
+Network ---> File Transfer ---> wget-ssl
+Network ---> iperf3
+Network ---> ipset
+Network ---> socat #多功能的网络工具
+Base system --> dnsmasq-full #DNS缓存和DHCP服务（dnsmasq-full和dnsmasq二者不可共存）
+# 工具类 (普通用户用不上）
+Utilities --> acpid  #电源管理接口（适用于x86平台）
+Utilities --> Editors --> nano #Nano 编辑器
+Utilities --> Shells --> bash #命令解释程序
+Utilities --> disc --> eject #弹出可移动介质
+Utilities --> disc --> fdisk #MBR分区工具
+Utilities --> disc --> gdisk #GBT分区工具
+Utilities --> disc --> lsblk #列出磁盘设备及分区查看工具
+Utilities --> Filesystem --> resize2fs #调整文件系统大小
+Utilities --> Filesystem --> e2fsprogs #Ext2（及Ext3/4）文件系统工具
+# IPv6（未来运营商可能不再提供 IPv4 公网地址，有远程访问需求的建议加入）
+Extra packages ---> ipv6helper （勾选此项即可，下面几项自动勾选）
+Network ---> odhcp6c
+Network ---> odhcpd-ipv6only
+LuCI ---> Protocols ---> luci-proto-ipv6
+LuCI ---> Protocols ---> luci-proto-ppp
+```
 
 ### 下载 dl 库，编译固件
 > -j 后面是线程数，第一次编译推荐用单线程
