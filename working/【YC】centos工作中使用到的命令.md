@@ -3,6 +3,9 @@
 ### 添加防火墙端口
 ```shell
 firewall-cmd --add-port=18443/tcp --permanent
+
+# 重新加载防火墙规则
+firewall-cmd --reload
 ```
 
 ### 查看开启的防火墙端口列表
