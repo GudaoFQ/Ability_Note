@@ -37,3 +37,9 @@ echo >/root/.bash_history
 ```shell
 ll --full-time
 ```
+
+### ssh工具连接，编译较久，使用守护进程执行
+```shell
+# make V=s -j$(nproc)是所需要执行的命令
+nohup make V=s -j$(nproc) 2>&1 >> log.txt &
+```

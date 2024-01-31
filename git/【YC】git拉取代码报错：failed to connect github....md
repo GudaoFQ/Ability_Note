@@ -11,3 +11,15 @@
 ![clone报错连接超时](../resource/git/git-修改dns解决git连接超时.png)
 
 ### 也可以把8.8.8.8的DNS添加到备用
+
+
+### 通过设置代理的方式解决（需要个人有科学上网工具，开启允许局域网访问）
+```shell
+# 后面的ip端口改成自己工具的
+git config --global http.proxy http://127.0.0.1:1080
+git config --global https.proxy http://127.0.0.1:1080
+
+# 取消代理（用完了可以取消，看个人情况）
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
