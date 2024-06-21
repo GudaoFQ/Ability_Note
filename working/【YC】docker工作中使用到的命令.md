@@ -88,3 +88,9 @@ docker run -d centos /bin/bash -c "while true;do echo hello docker;sleep 1;done"
 # 将/bin/bash修改为/usr/sbin/init即可解决
 docker run -d centos /usr/sbin/init -c "while true;do echo hello docker;sleep 1;done"
 ```
+
+### docker run修改容器内的PATH环境变量
+```shell
+# PATH=$JAVA_HOME/bin:$PATH 添加java环境变量；注意：这样改，以前的镜像配置的环境变量就没有了
+docker run -d -e JAVA_HOME=/usr/local -e PATH=$JAVA_HOME/bin:$PATH test:latest /bin/bash -c "while true;do echo hello docker;sleep 1;done"
+```

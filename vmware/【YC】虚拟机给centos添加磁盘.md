@@ -106,7 +106,7 @@ vgdisplay volume-group-sdb1
 vgremove volume-group-sdb1
 ```
 
-### 创建一个名为'gudao'、大小为500MB的逻辑卷
+### 创建一个名为'gudao'、大小为500MB的逻辑卷；将卷组帮到lv上
 ```shell
 lvcreate -L 500M -n gudao volume-group-sdb1
 # lvcreate -L 分配大小 -n 逻辑卷命名 从哪个卷组分配

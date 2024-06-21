@@ -43,3 +43,21 @@ ll --full-time
 # make V=s -j$(nproc)是所需要执行的命令
 nohup make V=s -j$(nproc) 2>&1 >> log.txt &
 ```
+
+### 查看当前文件夹下每个文件夹的大小
+```shell
+# 通过find命令查询
+find . -maxdepth 1 -type d -exec du -sh {} \;
+
+# 通过du命令直接查询
+du -h --max-depth=1
+```
+
+### 查询当前文件夹下，某个时间段的数量与大小
+```shell
+# 查询当前文件夹下2024-05-22 14:30:00~2024-05-22 20:00:00时间段产生的文件数量
+find . -maxdepth 1 -type d -newermt "2024-05-22 14:30:00" ! -newermt "2024-05-22 20:00:00" | wc -l
+
+# 查询当前文件夹下2024-05-22 14:30:00~2024-05-22 20:00:00时间段产生的文件总大小（以G为单位）
+find . -maxdepth 1 -type d -newermt "2024-05-22 14:30:00" ! -newermt "2024-05-22 20:00:00" -exec du -sb {} + | awk '{total += $1} END {print total/1024/1024/1024}'
+```

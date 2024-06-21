@@ -60,7 +60,7 @@ vgdisplay centos
 ```shell
 # 查询centos卷组的逻辑卷信息，后面进行绑定
 vgdisplay centos -v
-# 100%free是把所有剩余空间分配给/dev/centos/root，/dev/centos/root是通过 vgdisplay centos -v 查看获取的
+# （通过lvscan也可以看到group的分配信息）100%free是把所有剩余空间分配给/dev/centos/root，/dev/centos/root是通过 vgdisplay centos -v 查看获取的
 lvextend -l +100%free /dev/centos/root
 # 扩展：这个是只添加50G空间到cenentos的卷组中
 lvextend -L +50G /dev/centos/root
