@@ -8,7 +8,7 @@
 * docker版本：20.10.22
 * compose版本：1.25.0
 
-### 安装
+### 安装（国内目前无法使用，国内镜像地址get.daocloud.io被封禁）
 #### 下载Compose工具
 > 下面的方法是针对github中的`1.29.2`使用的命令，github上最新的compose已经不能使用下面的命令下载；
 > $(uname -s)是系统名称；

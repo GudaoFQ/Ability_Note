@@ -116,6 +116,10 @@ lvcreate -L 500M -n gudao volume-group-sdb1
 lvcreate -l 100%FREE -n 逻辑卷名称 待分配娟组
 ```
 ![创建一个500m的逻辑卷](../resource/vmware/centos-创建一个500m的逻辑卷.png)
+#### 如果需要删除逻辑卷，将空出来的逻辑卷分配给其它逻辑卷
+````shell
+lvextend -l +100%free 逻辑卷名称
+````
 #### 查看逻辑卷详情
 ```shell
 # 查询系统中所有的逻辑卷
