@@ -21,7 +21,7 @@ sudo systemctl daemon-reload
 ```
 
 ### 重启Docker
-> 如果重新加载配置后，还是无法pull，可以试下重启Docker；如果重启后还是不能pull下来，大概率是网址失效率（使用ping、curl或者直接访问下地址：https://do.nark.eu.org）
+> 如果重新加载配置后，还是无法pull，可以试下重启Docker；如果重启后还是不能pull下来，大概率是网址失效了（使用ping、curl或者直接访问下地址：https://do.nark.eu.org）
 
 ```shell
 sudo systemctl restart docker
