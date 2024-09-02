@@ -5,6 +5,9 @@
 * Centos的yum源存放路径：/etc/yum.repos.d/
 * 阿里yum源文件仓库地址 [阿里yum源](http://mirrors.aliyun.com/repo/)
 
+### 阿里yum源，项目中位置
+[阿里yum源](../linux/阿里yum源/Centos-7.repo)
+
 ### 备份CentOS-Base.repo
 ```shell
 mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
