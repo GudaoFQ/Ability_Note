@@ -1,4 +1,7 @@
+:: 备份脚本，修改完成后请将所有注释删除
 @echo off
+:: chcp 65001 命令将代码页设置为 UTF-8
+chcp 65001 >nul
 
 :: 设置源服务器ip地址（需要备份的主机ip）
 set SourceServers=192.168.5.36
