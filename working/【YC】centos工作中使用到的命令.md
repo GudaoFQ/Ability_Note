@@ -44,13 +44,18 @@ ll --full-time
 nohup make V=s -j$(nproc) 2>&1 >> log.txt &
 ```
 
-### 查看当前文件夹下每个文件夹的大小
+### 查看当前文件夹下**每个文件夹**的大小
 ```shell
 # 通过find命令查询
 find . -maxdepth 1 -type d -exec du -sh {} \;
 
 # 通过du命令直接查询
 du -h --max-depth=1
+```
+
+### 查看当前文件夹下**每个文件**的大小
+```shell
+find . -maxdepth 1 -type f -exec du -sh {} \;
 ```
 
 ### 查询当前文件夹下，某个时间段的数量与大小
