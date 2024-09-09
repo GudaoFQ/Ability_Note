@@ -131,7 +131,7 @@ lvdisplay /dev/volume-group-sdb1/gudao
 ```
 ![查看逻辑卷详情](../resource/vmware/centos-查看逻辑卷详情.png)
 
-### 格式化分区，使用ext4格式化分区
+### 创建文件系统、格式化分区，使用ext4格式化分区
 ```sehll
 mkfs.ext4 /dev/volume-group-sdb1/gudao
 
