@@ -9,6 +9,10 @@
 
 ![官网下载安装包](../resource/docker/docker-win-官网下载安装包.png)
 
+### 在Windows上打开WSL功能
+![开启wsl功能](../resource/docker/docker-开启wsl功能.png)
+
+
 ### 通过CMD命令窗口安装Docker Desktop
 #### 管理员启动cmd
 > 输入`cmd`，右键点击`以管理员身份运行`
