@@ -30,8 +30,6 @@ cd frp_tool
 ### 配置server端；server端必须要有公网ip
 > `vi frps.ini`
 
-![修改frps配置](../resource/frp/frp-修改frps配置.png)
-
 ### 目录介绍
 ```shell
 ├── frpc //客户端
