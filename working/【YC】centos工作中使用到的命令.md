@@ -42,6 +42,10 @@ ll --full-time
 ```shell
 # make V=s -j$(nproc)是所需要执行的命令
 nohup make V=s -j$(nproc) 2>&1 >> log.txt &
+
+# 输入ssh密码模式，需要安装sshpass命令
+yum install sshpass
+nohup sshpass -p "目标服务器用户密码" scp 传输文件名 目标服务器用户名称@目标服务器IP:目标服务器文件保存路径 2>&1 >> log.txt &
 ```
 
 ### 查看当前文件夹下**每个文件夹**的大小
