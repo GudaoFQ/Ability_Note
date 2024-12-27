@@ -70,3 +70,15 @@ find . -maxdepth 1 -type d -newermt "2024-05-22 14:30:00" ! -newermt "2024-05-22
 # 查询当前文件夹下2024-05-22 14:30:00~2024-05-22 20:00:00时间段产生的文件总大小（以G为单位）
 find . -maxdepth 1 -type d -newermt "2024-05-22 14:30:00" ! -newermt "2024-05-22 20:00:00" -exec du -sb {} + | awk '{total += $1} END {print total/1024/1024/1024}'
 ```
+
+### 测试磁盘读写IO
+```shell
+# 测试磁盘写入性能
+dd if=/dev/zero of=/tmp/test bs=1M count=1000 oflag=direct
+# 测试磁盘读取性能
+dd if=/dev/sda of=/dev/null bs=1M count=1000 iflag=direct
+```
+* if=/dev/sda 指定要测试的磁盘
+* of=/dev/null 表示读取的数据直接丢弃
+* iflag=direct 使用直接 I/O,绕过系统缓存
+* bs=1M count=1000 表示读取 1GB 数据

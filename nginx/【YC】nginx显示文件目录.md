@@ -39,7 +39,7 @@ http {
 ```shell
 # 开启访问端口
 firewall-cmd --add-port=8082/tcp --permanent
-sudo firewall-cmd --reload
+firewall-cmd --reload
 
 ## 关闭防火墙，不推荐使用（直接使用上面的即可）
 systemctl stop firewalld

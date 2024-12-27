@@ -194,6 +194,11 @@ setsebool -P tftp_home_dir 1
 ```
 ![开启ftp_home_dir](../resource/linux/ftp-开启ftp_home_dir.png)
 
+#### 500 OOPS: chroot on vsftpd login
+```
+setsebool -P ftpd_full_access on
+```
+
 #### 设置setsebool -P tftp_home_dir 1时候，报错：getsebool: SELinux is disabled
 ```shell
 # 问题
