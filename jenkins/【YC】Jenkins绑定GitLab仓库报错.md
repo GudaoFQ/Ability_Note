@@ -1,7 +1,7 @@
 # Jenkins绑定GitLab仓库报错
 
 ## 说明
-* 服务器版本：统信（Union OS Server 20）
+* 服务器系统版本：统信（Union OS Server 20）
 * Jenkins版本：2.346.3-2-lts
 * GitLab：使用了https协议，并且证书不受信任
 

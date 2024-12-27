@@ -1,7 +1,7 @@
 # Jenkins执行 java -jar 命令提示系统无法分配足够的文件描述符
 
 ## 说明
-* 服务器版本：统信（Union OS Server 20）
+* 服务器系统版本：统信（Union OS Server 20）
 * Jenkins版本：2.346.3-2-lts
 * JDK：1.8.0_301
 
