@@ -7,6 +7,8 @@
 ### 下载Docker Desktop部署包
 [官网地址](https://www.docker.com/products/docker-desktop)
 
+[官方安装文档地址](https://docs.docker.com/desktop/install/windows-install/)
+
 ![官网下载安装包](../resource/docker/docker-win-官网下载安装包.png)
 
 ### 在Windows上打开WSL功能

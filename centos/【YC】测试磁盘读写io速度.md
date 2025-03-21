@@ -16,7 +16,7 @@ hdparm -Tt /dev/sda
 在2秒钟读取了6676MB的缓存，约合3340.18 MB/sec
 在3.11秒中读取了218MB磁盘(物理读)，读取速度约合70.11 MB/sec
 ```
-![fdparm使用](../resource/linux/io-fdparm使用.png)
+![fdparm使用](../resource/centos/io-fdparm使用.png)
 
 ### 使用dd命令
 > /dev/null 伪设备，回收站，写该文件不会产生IO。

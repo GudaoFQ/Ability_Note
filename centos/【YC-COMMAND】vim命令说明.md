@@ -42,7 +42,7 @@
   * :1,$ s/usr/**/gc
   * replace with Teacher (y/n/a/q/l/^E/^Y)?
 
-![vi修改确认提示](../resource/linux/command-vi修改确认提示.png)
+![vi修改确认提示](../resource/centos/command-vi修改确认提示.png)
 ```shell
 # 替换整篇文档的字符串
 :%s/源字符串/替换的字符串/g（如果不加g（global），则只替换每行第一个找到的字符串）

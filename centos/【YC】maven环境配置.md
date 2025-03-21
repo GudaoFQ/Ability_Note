@@ -10,14 +10,14 @@
 ```shell
 wget https://dlcdn.apache.org/maven/maven-3/3.8.2/binaries/apache-maven-3.8.2-bin.tar.gz
 ```
-![下载](../resource/linux/maven-下载.png)
+![下载](../resource/centos/maven-下载.png)
 
 #### 进行解压，本文使用的路径是`/usr/local`
 ```shell
 tar -zxvf apache-maven-3.8.2-bin.tar.gz -C /usr/local/
 ```
-![解压到指定路径下](../resource/linux/maven-解压到指定路径下.png)
-![查看](../resource/linux/maven-查看.png)
+![解压到指定路径下](../resource/centos/maven-解压到指定路径下.png)
+![查看](../resource/centos/maven-查看.png)
 
 #### 环境变量配置
 ```shell
@@ -30,15 +30,15 @@ export PATH=$MAVEN_HOME/bin:$PATH
 # 重新加载配置文件
 source /etc/profile
 ```
-![环境变量配置](../resource/linux/maven-环境变量配置.png)
-![加载配置](../resource/linux/maven-加载配置.png)
+![环境变量配置](../resource/centos/maven-环境变量配置.png)
+![加载配置](../resource/centos/maven-加载配置.png)
 
 #### 测试
 ```shell
 # 执行命令查看mvn版本号
 mvn -v
 ```
-![版本信息查看](../resource/linux/maven-版本信息查看.png)
+![版本信息查看](../resource/centos/maven-版本信息查看.png)
 
 #### 补充（配置maven镜像库）
 ```shell

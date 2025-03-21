@@ -6,7 +6,7 @@
 * 阿里yum源文件仓库地址 [阿里yum源](http://mirrors.aliyun.com/repo/)
 
 ### 阿里yum源，项目中位置
-[阿里yum源](../linux/阿里yum源/Centos-7.repo)
+[阿里yum源](/阿里yum源/Centos-7.repo)
 
 ### 备份CentOS-Base.repo
 ```shell

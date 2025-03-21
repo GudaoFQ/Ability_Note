@@ -23,7 +23,7 @@ cat id_rsa.pub > authorized_keys
 或
 vi authorized_keys
 ```
-![修改公钥](../resource/linux/ssh-修改公钥.png)
+![修改公钥](../resource/centos/ssh-修改公钥.png)
 * 注意：如果有**多台服务器**需要想**一台服务器添加公钥**，需要将**多台服务器的公钥（.pub文件）内容**复制到服务器的`/root/.ssh/authorized_keys`文件，然后重启sshd服务（**一个公钥一行，切记要换行**）
 
 ### 修改远程主机sshd_config配置，重启sshd服务
@@ -39,6 +39,6 @@ systemctl restart sshd
 ```
 #### windows server 2012修改
 配置如图，需要注意：windows的方式，需要通过[【YC】windows-server开启ssh服务器.md](../windows/【YC】windows-server开启ssh服务器.md)中的说明安装OpenSSH
-![centos下配置publickey](../resource/linux/ssh-centos下配置publickey.png)
-![通过安装包配置publickey](../resource/linux/ssh-通过安装包配置publickey.png)
+![centos下配置publickey](../resource/centos/ssh-centos下配置publickey.png)
+![通过安装包配置publickey](../resource/centos/ssh-通过安装包配置publickey.png)
 

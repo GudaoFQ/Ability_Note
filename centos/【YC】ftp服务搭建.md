@@ -10,7 +10,7 @@
 ```shell
 rpm -qa | grep vsftpd
 ```
-![检测是否安装过vsftpd](../resource/linux/ftp-检测是否安装过vsftpd.png)
+![检测是否安装过vsftpd](../resource/centos/ftp-检测是否安装过vsftpd.png)
 
 ### vsftpd卸载
 ```shell
@@ -33,7 +33,7 @@ rm -rf vsftpd
 ```shell
 yum -y install vsftpd
 ```
-![vsftpd安装](../resource/linux/ftp-vsftpd安装.png)
+![vsftpd安装](../resource/centos/ftp-vsftpd安装.png)
 
 ### 修改配置文件
 ```shell
@@ -115,13 +115,13 @@ local_root=/data/ftp/
 ```shell
 touch /etc/vsftpd/chroot_list
 ```
-![创建chroot_list文件](../resource/linux/ftp-创建chroot_list文件.png)
+![创建chroot_list文件](../resource/centos/ftp-创建chroot_list文件.png)
 
 ### 赋权
 ```shell
 chmod 755 chroot_list
 ```
-![为chroot_list文件赋权](../resource/linux/ftp-为chroot_list文件赋权.png)
+![为chroot_list文件赋权](../resource/centos/ftp-为chroot_list文件赋权.png)
 
 ### 重启vsftpd
 ```shell
@@ -133,13 +133,13 @@ systemctl status vsftpd
 # 补充：关闭vsftpd
 systemctl stop vsftpd
 ```
-![重启并查看vsftpd](../resource/linux/ftp-重启并查看vsftpd.png)
+![重启并查看vsftpd](../resource/centos/ftp-重启并查看vsftpd.png)
 
 #### 再次验证是否启动成功：通过netstat -ntlp 查看端口，如果有21号端口占用
 ```shell
 netstat -ntlp
 ```
-![通过netstat命令查看端口](../resource/linux/ftp-通过netstat命令查看端口.png)
+![通过netstat命令查看端口](../resource/centos/ftp-通过netstat命令查看端口.png)
 
 ### 创建ftp账号（useradd命令参数不明白请看【【YC-COMMAND】useradd命令说明.md】）
 ```shell
@@ -155,13 +155,13 @@ passwd gudao
 # 说明
 passwd 需要绑定密码的账号
 ```
-![创建账号](../resource/linux/ftp-创建账号.png)
+![创建账号](../resource/centos/ftp-创建账号.png)
 
 ### 查看FTP用户是否设置不能通过SSH登录，只能使用FTP
 ```shell
 vim /etc/passwd
 ```
-![查看账号是否ssh赋权成功](../resource/linux/ftp-查看账号是否ssh赋权成功.png)
+![查看账号是否ssh赋权成功](../resource/centos/ftp-查看账号是否ssh赋权成功.png)
 
 ### 问题
 #### 530 Login incorrect 的错误
@@ -176,7 +176,7 @@ vim /etc/pam.d/vsftpd
 # 重启vsftpd
 systemctl restart vsftpd
 ```
-![530问题解决](../resource/linux/ftp-530问题解决.png)
+![530问题解决](../resource/centos/ftp-530问题解决.png)
 
 #### 500 OOPS: cannot change directory:/home/xxx 
 ```shell
@@ -192,7 +192,7 @@ getsebool -a | grep ftp
 # 开启tftp_home_dir
 setsebool -P tftp_home_dir 1
 ```
-![开启ftp_home_dir](../resource/linux/ftp-开启ftp_home_dir.png)
+![开启ftp_home_dir](../resource/centos/ftp-开启ftp_home_dir.png)
 
 #### 500 OOPS: chroot on vsftpd login
 ```
@@ -213,7 +213,7 @@ vi /etc/selinux/config
 #宽容模式SELINUX=permissive：表示所有违反安全策略的行为不被禁止，但是会在日志中作记录
 SELINUX=permissive
 ```
-![设置SELINUX](../resource/linux/ftp-设置SELINUX.png)
+![设置SELINUX](../resource/centos/ftp-设置SELINUX.png)
 ###### 如果修改了执行命令，还是显示getsebool: SELinux is disabled（本人没有遇到）
 * 修改config文件后，需要重启实例，但直接重启实例将会出现系统无法启动的错误。因此在重启之前需要在根目录下新建autorelabel文件
 * 创建文件命令`touch /.autorelabel`
@@ -240,8 +240,8 @@ pasv_max_port=7000
 # 如果云服务器，需要开下安全组/防火墙的6000-7000端口
 ```
 ##### 启用pasv
-![添加pasv](../resource/linux/ftp-添加pasv.png)
+![添加pasv](../resource/centos/ftp-添加pasv.png)
 ##### 腾讯云放开6001-7000端口
-![腾讯云放开6001-7000端口](../resource/linux/ftp-腾讯云放开6001-7000端口.png)
+![腾讯云放开6001-7000端口](../resource/centos/ftp-腾讯云放开6001-7000端口.png)
 ##### 连接
-![连接测试](../resource/linux/ftp-连接测试.png)
+![连接测试](../resource/centos/ftp-连接测试.png)

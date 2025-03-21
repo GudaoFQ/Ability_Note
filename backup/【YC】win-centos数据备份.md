@@ -17,11 +17,11 @@
 #### Windows客户解压后添加环境变量
 ![win添加环境变量](../resource/backup/rsync-win添加环境变量.png)
 
-#### 配置win to centos密钥对免密登录：[【YC】ssh通过预置密钥对，开启免密登录.md](../linux/【YC】ssh通过预置密钥对，开启免密登录.md)
+#### 配置win to centos密钥对免密登录：[【YC】ssh通过预置密钥对，开启免密登录.md](../centos/【YC】ssh通过预置密钥对，开启免密登录.md)
 ![测试密码对免密登录](../resource/backup/rsync-测试密码对免密登录.png)
 * 注意：SSH客户端在首次连接到新的服务器时显示的安全提示，**输入 "yes"** 后，SSH 客户端会将此服务器的密钥添加到已知主机列表中（通常在 ~/.ssh/known_hosts 文件中）。
 
-#### Centos安装rsync工具（国内需要配置阿里镜像源：[【YC】修改为阿里yum源.md](../linux/【YC】修改为阿里yum源.md)）
+#### Centos安装rsync工具（国内需要配置阿里镜像源：[【YC】修改为阿里yum源.md](../centos/【YC】修改为阿里yum源.md)）
 ```shell
 # 安装
 yum -y install rsync

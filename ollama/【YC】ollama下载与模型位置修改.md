@@ -69,7 +69,10 @@ OLLAMA_MODELS
 
 ### 拉取模型并运行
 ```shell
-# 拉取官方模型3.1并运行
+# 拉取DeepSeek-R1模型运行
+ollama run deepseek-r1:8b
+
+#（此命令为meta公司开源模型，使用上面的模型，这个就是可选项）拉取官方模型3.1并运行
 ollama run llama3.1
 ```
 ![拉取官方3.1模型并运行](../resource/ollama/ollama-拉取官方3.1模型并运行.png)

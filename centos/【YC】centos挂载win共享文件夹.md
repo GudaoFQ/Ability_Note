@@ -61,7 +61,7 @@ mount -a
 ```shell
 df -h
 ```
-![挂载win共享文件夹查看](../resource/linux/mount-挂载win共享文件夹查看.png)
+![挂载win共享文件夹查看](../resource/centos/mount-挂载win共享文件夹查看.png)
 
 ### 取消挂载
 ```shell

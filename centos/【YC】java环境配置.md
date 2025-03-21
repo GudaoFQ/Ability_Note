@@ -2,10 +2,10 @@
 
 ### 卸载系统自带的OpenJDK以及相关的java文件【可以忽略此操作】：
 - 查看系统中是否有java环境：`java -version`<br>
-![jdk-20200930112855782](../resource/linux/jdk-20200930112855782.png)<br>
+![jdk-20200930112855782](../resource/centos/jdk-20200930112855782.png)<br>
 
 - 检测jdk的安装包，（注意：rpm命令符没有时记得下载一个输入：apt-get install +命令名称）：`rpm -qa | grep java `<br>
-![jdk-20200916014327188](../resource/linux/jdk-20200916014327188.png)<br>
+![jdk-20200916014327188](../resource/centos/jdk-20200916014327188.png)<br>
 
     **以上文件中，下面这几个可以删除**<br>
     ```shell
@@ -43,24 +43,24 @@
     ```
 
 - 再次检测jdk的安装包，检查是否删除完即可：`java -version`<br>
-![jdk-20200909160143898](../resource/linux/jdk-20200909160143898.png)
+![jdk-20200909160143898](../resource/centos/jdk-20200909160143898.png)
 
 ### ORACLE官网下载需要的JDK环境包：
 **下载地址：**
 ```shell 
 https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
 ```
-![jdk-202009300012252603](../resource/linux/jdk-202009300012252603.gif)
+![jdk-202009300012252603](../resource/centos/jdk-202009300012252603.gif)
 
 ### 终端进入解压：
 - 进入/usr路径下创建java文件【用于存储JDK包】：`mkdir java`<br>
-![jdk-20200901601446589](../resource/linux/jdk-20200901601446589.png)
+![jdk-20200901601446589](../resource/centos/jdk-20200901601446589.png)
 
 - 将创建的java文件赋权777：`chmod 777 java`<br>
-![jdk-20200901601447139](../resource/linux/jdk-20200901601447139.png)
+![jdk-20200901601447139](../resource/centos/jdk-20200901601447139.png)
 
 - 将下载的`jdk-8u261-linux-x64.tar.gz`文件传到服务器中：<br>
-    ![jdk-20200901601448500](../resource/linux/jdk-20200901601448500.png)<br>
+    ![jdk-20200901601448500](../resource/centos/jdk-20200901601448500.png)<br>
     **命令**
     ```shell
     #安装命令插件
@@ -70,7 +70,7 @@ https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
     ```
 
 - 将JDK解压到指定文件夹：`tar -zxvf jdk-8u261-linux-x64.tar.gz -C /usr/java`<br>
-    ![jdk-20200901601449214](../resource/linux/jdk-20200901601449214.png)
+    ![jdk-20200901601449214](../resource/centos/jdk-20200901601449214.png)
     ```shell
     命令介绍：
     tar　　　　　　备份文件
@@ -91,7 +91,7 @@ https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
 
 ### 配置环境：
 - 修改全局变量：`vim /etc/profile`<br>
-![jdk-20200901601449728](../resource/linux/jdk-20200901601449728.png)
+![jdk-20200901601449728](../resource/centos/jdk-20200901601449728.png)
 
 - 在文本的最后一行粘贴如下：
     **/usr/java/jdk1.8.0_261改为自己的文件路径**
@@ -101,12 +101,12 @@ https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
     export CLASSPATH=.:${JAVA_HOME}/jre/lib/rt.jar:${JAVA_HOME}/lib/dt.jar:${JAVA_HOME}/lib/tools.jar
     export PATH=$PATH:${JAVA_HOME}/bin
     ```
-    ![jdk-20200901601449801](../resource/linux/jdk-20200901601449801.png)<br>
+    ![jdk-20200901601449801](../resource/centos/jdk-20200901601449801.png)<br>
 
 - 重新加载配置文件：`source /etc/profile`
 
 - 执行`java -version`查看环境是否配置成功<br>
-![jdk-20200921601449979](../resource/linux/jdk-20200921601449979.png)
+![jdk-20200921601449979](../resource/centos/jdk-20200921601449979.png)
 
 
 
