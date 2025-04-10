@@ -28,3 +28,7 @@ ERROR 1366 (HY000) at line 5724: Incorrect string value: '\xF0\x9F\x98\x80",...'
 mysql -h数据库ip -uroot -p --default-character-set=utf8mb4 -D数据库名称 < 20250407144625.sql
 ```
 
+### 问题的根本原因
+你的列或表（或数据库）可能使用的是：
+* utf8（注意不是 utf8mb4）字符集，它最多支持 3 字节的字符，不能存储 emoji 或其它 Unicode 扩展字符。 
+* utf8mb4 才支持 emoji 表情等完整 UTF-8 字符
