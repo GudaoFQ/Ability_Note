@@ -39,7 +39,8 @@
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.9.4</version>
+            <!--修复前1.9.4-->
+            <version>1.11.0</version>
         </dependency>
 
     </dependencies>
