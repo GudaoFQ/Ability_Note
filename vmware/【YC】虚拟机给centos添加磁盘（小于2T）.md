@@ -168,6 +168,11 @@ UUID=e23817f7-1d25-4c30-bd6b-135e5811880d swap                    swap    defaul
 ```
 ![永久挂载盘配置](../resource/vmware/centos-永久挂载盘配置.png)
 
+* 验证
+```shell
+mount --fake --all
+```
+
 ### 删除逻辑卷
 ```shell
 # 取消挂载
